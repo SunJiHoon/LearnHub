@@ -19,15 +19,13 @@
 ### MariaDB 설치 (Windows)
 1. [다운로드 페이지](https://mariadb.org/download/?t=mariadb&o=true&p=mariadb&r=10.10.6&os=windows&cpu=x86_64&pkg=msi)에서 MSI를 다운로드합니다.
 2. MSI 파일을 실행하여 MariaDB를 설치합니다.
-3. ![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/f6d070ba-52a9-4378-b3cc-fbaa982995be)
-4. <img src="https://github.com/SunJiHoon/LearnHub/assets/46434398/f6d070ba-52a9-4378-b3cc-fbaa982995be" width="200">
+4. <img src="https://github.com/SunJiHoon/LearnHub/assets/46434398/f6d070ba-52a9-4378-b3cc-fbaa982995be" width="300">
 
 
 
 ### MariaDB 설치 (Ubuntu 22.04)
 1. [설치 가이드 페이지](https://mariadb.org/download/?t=repo-config&d=22.04+%22jammy%22&v=10.11&r_m=blendbyte)를 참조하여 MariaDB를 설치합니다.
-2. ![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/949dfa1e-dd47-44c0-b115-98e93f0f945b)
-3. <img src="https://github.com/SunJiHoon/LearnHub/assets/46434398/949dfa1e-dd47-44c0-b115-98e93f0f945b" width="200">
+3. <img src="https://github.com/SunJiHoon/LearnHub/assets/46434398/949dfa1e-dd47-44c0-b115-98e93f0f945b" width="300">
 
 
 ## 라이선스
