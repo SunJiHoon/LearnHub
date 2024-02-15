@@ -1,7 +1,7 @@
 # LearnHub
 
 ## 개요
-이 프로젝트는 스프링, 스프링 부트, html, css, javascript를 통해 개발 되었습니다.
+이 프로젝트는 스프링, 스프링 부트, html, css, javascript를 통해 개발 되었습니다. application.properties는 보안상 깃으로 관리되지 않습니다. 관리자에게 요청해서 받아주십시오.
 
 ## 개발 환경 설정
 - IntelliJ Ultimate와 MariaDB를 사용하여 개발되었습니다. IntelliJ 내에서 롬복(Lombok)은 필수적으로 허용되어야합니다.
@@ -20,11 +20,14 @@
 1. [다운로드 페이지](https://mariadb.org/download/?t=mariadb&o=true&p=mariadb&r=10.10.6&os=windows&cpu=x86_64&pkg=msi)에서 MSI를 다운로드합니다.
 2. MSI 파일을 실행하여 MariaDB를 설치합니다.
 3. ![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/f6d070ba-52a9-4378-b3cc-fbaa982995be)
+4. <img src="https://github.com/SunJiHoon/LearnHub/assets/46434398/f6d070ba-52a9-4378-b3cc-fbaa982995be" width="200">
+
 
 
 ### MariaDB 설치 (Ubuntu 22.04)
 1. [설치 가이드 페이지](https://mariadb.org/download/?t=repo-config&d=22.04+%22jammy%22&v=10.11&r_m=blendbyte)를 참조하여 MariaDB를 설치합니다.
 2. ![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/949dfa1e-dd47-44c0-b115-98e93f0f945b)
+3. <img src="https://github.com/SunJiHoon/LearnHub/assets/46434398/949dfa1e-dd47-44c0-b115-98e93f0f945b" width="200">
 
 
 ## 라이선스
