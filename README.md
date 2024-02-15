@@ -1,1 +1,34 @@
 # LearnHub
+
+## 개요
+초등학교, 중학교 학생을 대상으로 인공지능과 머신러닝에 대해 학습을 도와주는 웹페이지를 제작합니다. 최급하강법, CNN등의 기초 원리를 생생한 그래픽을 통해 학습할 수 있도록 돕겠습니다.
+
+## 개발 환경 설정
+- 이 프로젝트는 스프링, 스프링 부트, html, css, javascript를 통해 개발 되었습니다. application.properties는 보안상 깃으로 관리되지 않습니다. 관리자에게 요청해서 받아주십시오.
+- IntelliJ Ultimate와 MariaDB를 사용하여 개발되었습니다. IntelliJ 내에서 롬복(Lombok)은 필수적으로 허용되어야합니다.
+- IntelliJ Ultimate: 팀원들은 대학생이기에 학생계정으로 받을 것을 추천합니다. 학생이 아닐경우 IntelliJ Community ver도 괜찮습니다. (OpenJDK 20 필요)
+- MariaDB: [다운로드 및 설치 (Windows)](https://mariadb.org/download/?t=mariadb&o=true&p=mariadb&r=10.10.6&os=windows&cpu=x86_64&pkg=msi) 또는 [설치 가이드 (Ubuntu 22.04)](https://mariadb.org/download/?t=repo-config&d=22.04+%22jammy%22&v=10.11&r_m=blendbyte)
+
+## 롬복(Lombok) 설정
+프로젝트에 롬복을 추가하여 필요한 설정을 수행하세요.
+
+## 설치 가이드
+### IntelliJ Ultimate 설치
+1. IntelliJ Ultimate를 [다운로드 및 설치](https://www.jetbrains.com/idea/download/)하세요.
+2. 빌드시 OpenJDK 20으로 빌드해주세요.
+
+### MariaDB 설치 (Windows)
+1. [다운로드 페이지](https://mariadb.org/download/?t=mariadb&o=true&p=mariadb&r=10.10.6&os=windows&cpu=x86_64&pkg=msi)에서 MSI를 다운로드합니다.
+2. MSI 파일을 실행하여 MariaDB를 설치합니다.
+4. <img src="https://github.com/SunJiHoon/LearnHub/assets/46434398/f6d070ba-52a9-4378-b3cc-fbaa982995be" width="300">
+
+
+
+### MariaDB 설치 (Ubuntu 22.04)
+1. [설치 가이드 페이지](https://mariadb.org/download/?t=repo-config&d=22.04+%22jammy%22&v=10.11&r_m=blendbyte)를 참조하여 MariaDB를 설치합니다.
+3. <img src="https://github.com/SunJiHoon/LearnHub/assets/46434398/949dfa1e-dd47-44c0-b115-98e93f0f945b" width="300">
+
+
+## 라이선스
+이 프로젝트는 [MIT 라이선스](LICENSE) 하에 배포됩니다.
+
