@@ -18,16 +18,37 @@
 1. IntelliJ Ultimate를 [다운로드 및 설치](https://www.jetbrains.com/idea/download/)하세요.
 2. 빌드시 OpenJDK 20으로 빌드해주세요.
 
+
 ### MariaDB 설치 (Windows)
 1. [다운로드 페이지](https://mariadb.org/download/?t=mariadb&o=true&p=mariadb&r=10.10.6&os=windows&cpu=x86_64&pkg=msi)에서 MSI를 다운로드합니다.
 2. MSI 파일을 실행하여 MariaDB를 설치합니다.
-4. <img src="https://github.com/SunJiHoon/LearnHub/assets/46434398/f6d070ba-52a9-4378-b3cc-fbaa982995be" width="300">
-
-
+3. <img src="https://github.com/SunJiHoon/LearnHub/assets/46434398/f6d070ba-52a9-4378-b3cc-fbaa982995be" width="300">
 
 ### MariaDB 설치 (Ubuntu 22.04)
 1. [설치 가이드 페이지](https://mariadb.org/download/?t=repo-config&d=22.04+%22jammy%22&v=10.11&r_m=blendbyte)를 참조하여 MariaDB를 설치합니다.
-3. <img src="https://github.com/SunJiHoon/LearnHub/assets/46434398/949dfa1e-dd47-44c0-b115-98e93f0f945b" width="300">
+2. <img src="https://github.com/SunJiHoon/LearnHub/assets/46434398/949dfa1e-dd47-44c0-b115-98e93f0f945b" width="300">
+
+### application.properties
+1. /LearnHub/src/main/resources/application.properties 에서 관리합니다.
+2. application.properties는 보안 상 깃에 흔적을 남기지 않고 관리됩니다. 필요하다면 관리자에게 요청하십시오.
+3. 관리자에게 요청할 수 없다면, application.properties에 spring.datasource.username=유저이름 spring.datasource.password=유저비밀번호 등의 정보, JPA 정보, 실행 포트 정보 등을 기입하십시오.
+
+### application.properties 예시
+- #포트 정보
+- server.port=포트 정보
+- #db 이름
+- spring.datasource.url=jdbc:mariadb://localhost:3306/db 이름
+- #user이름과 password
+- spring.datasource.username=user이름
+- spring.datasource.password=password
+- #마리아 디비 사용시
+- spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+- #Hibernate 설정 예시
+- #테이블 생성을 jpa(hibernate로 구현)를 통해 그때그때 반영합니다.
+- spring.jpa.hibernate.ddl-auto=update
+- spring.jpa.show-sql=true
+- spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MariaDBDialect
+
 
 
 ## 라이선스
