@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value = "/student")
-public class Student {
+public class StudentController {
     @GetMapping(value = "/register")
     String teacherRegister(){
         return "student/register";
