@@ -14,7 +14,8 @@ label {
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-    width: 100%;
+    /* width에서 padding 너비 제외 */
+    width: calc(100% - 20px);
     padding: 10px;
     font-size: 16px;
     border-radius: 5px;
