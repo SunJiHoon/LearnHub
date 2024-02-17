@@ -1,9 +1,20 @@
 :root {
     box-sizing: border-box;
+    /* 학생 테마 색상 */
+    --main-color: #4f68dc;
+    --main-color-secondary: #6982f3;
+    --background-color: #afc8fc;
+}
+
+.teacher {
+    /* 선생님 테마 색상 */
+    --main-color: #b921c4;
+    --main-color-secondary: #da59e3;
+    --background-color: #f3cbf6;
 }
 
 body {
-    background-color: #afc8fc; /* 파란색 배경 */
+    background-color: var(--background-color);
 
     font-family: Arial, sans-serif;
     margin: 0;
@@ -14,7 +25,7 @@ body {
     margin: 50px auto;
 
     padding: 20px;
-    background-color: #fff;
+    background-color: white;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
@@ -34,7 +45,7 @@ body {
 
     padding: 20px;
     /*background-color: #fff;*/
-    background-color: #4f68dc; /* 파란색 배경 */
+    background-color: var(--main-color);
     color: white; /* 텍스트의 색상을 빨간색으로 변경 */
 
     border-radius: 8px;
@@ -55,8 +66,8 @@ body {
     width: 200px;
     margin: 20px auto;
     padding: 10px 20px;
-    background-color: #6982F3;
-    color: #fff;
+    background-color: var(--main-color-secondary);
+    color: white;
     text-align: center;
     text-decoration: none;
     border-radius: 5px;
