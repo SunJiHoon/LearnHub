@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회원가입</title>
+    <title>로그인</title>
     <link rel="stylesheet" href="/assets/stylesheets/teacher/register.css">
 </head>
 <body>
 <div class="container">
 
-    <h2>회원가입</h2>
-<!--    @RequestParam(name = "login_id") String login_id,-->
-<!--    @RequestParam(name = "login_pwd") String login_pwd,-->
-<!--    @RequestParam(name = "teacher_name") String teacher_name,-->
-<!--    @RequestParam(name = "email") String email,-->
+    <h2>선생님 로그인</h2>
+    <!--    @RequestParam(name = "login_id") String login_id,-->
+    <!--    @RequestParam(name = "login_pwd") String login_pwd,-->
 
-    <form id="registerForm" action="/teacher/register" method="post">
+    <form id="registerForm" action="/teacher/login" method="post">
         <div class="form-group">
             <label for="login_id">아이디:</label>
             <input type="text" id="login_id" name="login_id" required>
@@ -24,16 +22,8 @@
             <label for="login_pwd">비밀번호:</label>
             <input type="password" id="login_pwd" name="login_pwd" required>
         </div>
-        <div class="form-group">
-            <label for="teacher_name">선생님 이름:</label>
-            <input type="text" id="teacher_name" name="teacher_name" required>
-        </div>
-        <div class="form-group">
-            <label for="email">이메일:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
 
-        <button type="submit">가입하기</button>
+        <button type="submit">로그인하기</button>
         <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
             <p th:text="${error_message}"></p>
         </div>

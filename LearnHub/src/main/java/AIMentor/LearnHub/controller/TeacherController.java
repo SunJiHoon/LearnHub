@@ -6,12 +6,16 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/teacher")
@@ -44,13 +48,58 @@ public class TeacherController {
                 newteacherMember.getEmail().isEmpty()
         ){
             model.addAttribute("error_message", "입력값이 비었습니다.");
-            return "/register";
+            return "teacher/register";
         }
-
+        else if(maria_teacherMember.findByLoginId(login_id).isPresent()){
+            model.addAttribute("error_message", "이미 가입 이력이 있는 id입니다.");
+            return "teacher/register";
+        }
+        else if(maria_teacherMember.findByEmail(email).isPresent()){
+            model.addAttribute("error_message", "이미 가입 이력이 있는 email입니다.");
+            return "teacher/register";
+        }
         maria_teacherMember.save(newteacherMember);
         model.addAttribute("register", "선생님 회원가입 완료.");
-        return "index";
+        //return "redirect:/";
+        return "/index";
     }
+
+    @GetMapping(value = "/login")
+    String giveMeLoginPage(){
+        return "teacher/login";
+    }
+
+    @PostMapping(value = "/login")
+    String loginProcess(
+            @RequestParam(name = "login_id") String login_id,
+            @RequestParam(name = "login_pwd") String login_pwd,
+            Model model,
+            HttpServletResponse response
+    ){
+        Optional<TeacherMember> loginTeacherMember = maria_teacherMember.findByLoginId(login_id);
+
+        if(loginTeacherMember.isEmpty()){
+            model.addAttribute("error_message", "일치하는 id가 없습니다.");
+            return "teacher/register";
+        }
+        else{
+            TeacherMember realTeacherMember = loginTeacherMember.get();
+            if(realTeacherMember.getLoginPwd().equals(login_pwd)){
+                model.addAttribute("register",
+                        realTeacherMember.getTeacherName() +"님 안녕하세요. "
+                +"로그인 되었습니다.");
+                Cookie idCookie = new Cookie("memberId",
+                        String.valueOf(realTeacherMember.getId()));
+                response.addCookie(idCookie);
+                return "index";
+            }
+            else{
+                model.addAttribute("error_message", "비밀번호가 틀렸습니다.");
+                return "teacher/register";
+            }
+        }
+    }
+
 
 
 }
