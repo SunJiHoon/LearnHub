@@ -44,13 +44,13 @@ body {
     text-align: center;
     /*margin-top: 50px;*/
 }
-.login_container{
+.login-container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
 }
-.login_button {
+.login-button {
     display: block;
     width: 200px;
     margin: 20px auto;
@@ -62,7 +62,7 @@ body {
     border-radius: 5px;
     transition: background-color 0.3s;
 }
-.text_button{
+.text-button {
     display: inline-flex;
     color: grey; /* 또는 다른 회색 색상 코드 */
     text-decoration: none; /* 밑줄 제거 */
@@ -79,7 +79,7 @@ body {
     padding: 30px;
     align-items: center;
 }
-.left_section {
+.left-section {
     /*text-align: center;*/
 
     /*display: inline-block;*/
