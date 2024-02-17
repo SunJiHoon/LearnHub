@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -88,16 +89,41 @@ public class TeacherController {
                 model.addAttribute("register",
                         realTeacherMember.getTeacherName() +"님 안녕하세요. "
                 +"로그인 되었습니다.");
-                Cookie idCookie = new Cookie("memberId",
+                Cookie idCookie = new Cookie("teacherId",
                         String.valueOf(realTeacherMember.getId()));
                 response.addCookie(idCookie);
-                return "index";
+                return "redirect:/teacher/mypage";
             }
             else{
                 model.addAttribute("error_message", "비밀번호가 틀렸습니다.");
                 return "teacher/register";
             }
         }
+    }
+
+    @GetMapping("/mypage")
+    public String readCookie(HttpServletRequest request) {
+        // HttpServletRequest를 통해 쿠키 배열을 가져옵니다.
+        Cookie[] cookies = request.getCookies();
+
+        Optional<TeacherMember> findTeacherMember = null;
+        if (cookies != null) {
+            // 모든 쿠키를 순회하면서 원하는 쿠키를 찾습니다.
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("teacherId")) {
+                    // 쿠키 값을 가져와서 사용합니다.
+                    String cookieValue = cookie.getValue();
+                    findTeacherMember = maria_teacherMember.findById(Long.valueOf(cookieValue));
+                    break;
+                }
+            }
+        }
+        if(findTeacherMember!=null && findTeacherMember.isPresent()){
+
+        }
+        //클래스(분반) 목록 내려주기.
+        //
+        return "teacher/mypage";
     }
 
 
