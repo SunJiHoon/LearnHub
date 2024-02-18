@@ -3,6 +3,9 @@ package AIMentor.LearnHub.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "virtual_class_room")
 @Data
@@ -24,6 +27,13 @@ public class VirtualClassRoom {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teacher_member_id") // 외래키 칼럼명
     private TeacherMember teacherMember;
+
+    @OneToMany(mappedBy = "virtualClassRoom")
+    private List<VirtualCR_StudentM_mapping> virtualCRStudentMMappingArrayList = new ArrayList<>();
+//    @OneToMany(mappedBy = "parent")
+//    private List<Category> child = new ArrayList<>();
+
+
 
 //    @Column(name = "filename")
 //    private String filename;

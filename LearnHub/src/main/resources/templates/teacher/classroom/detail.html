@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선생님 mypage</title>
+    <link rel="stylesheet" href="/assets/stylesheets/common.css">
+    <link rel="stylesheet" href="/assets/stylesheets/register.css">
+</head>
+<body class="teacher">
+<div class="container">
+    <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
+        <p th:text="${error_message}"></p>
+    </div>
+    <div th:if="${name}" class="alert" role="alert" style="color: black;">
+        <p th:text="${name + ' 선생님이 로그인 되었습니다.'}"></p>
+    </div>
+    <div th:if="${created_class_name}" class="alert" role="alert" style="color: black;">
+        <p th:text="${created_class_name + ' 클래스가 생성되었습니다.'}"></p>
+    </div>
+
+    <h2>선생님 classroom detail </h2>
+
+    <h2>학생 추가</h2>
+    <form id="searchForm">
+        <label for="searchQuery">학생 이름 검색:</label>
+        <input type="text" id="searchQuery" name="query" placeholder="이름을 입력하세요" required>
+        <button type="submit">검색</button>
+    </form>
+    <!-- 학생 검색 결과를 동적으로 표시하는 HTML 코드 -->
+    <ul id="searchResults">
+    </ul>
+
+    <form action="/teacher/classroom/detail" method="post">
+        <label for="dynamicSelect">학생 이름 선택:</label>
+        <input type="hidden" id="VCRoomId" name="VCRoomId" th:value="${VCRoomId}">
+        <select id="dynamicSelect" name="selectedStudent">
+            <!-- 여기에 옵션을 동적으로 추가할 예정 -->
+        </select>
+        <button type="submit">제출</button>
+    </form>
+
+    <ul>
+        <li th:each="studentMember : ${studentMemberArrayList}">
+            <span th:text="${studentMember.studentName}"></span>
+            <span th:text="${studentMember.email}"></span>
+            <!-- 필요한 속성 추가 -->
+        </li>
+    </ul>
+
+
+</div>
+<script>
+    // 검색 폼 이벤트 리스너 등록
+    document.getElementById("searchForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // 폼 기본 동작(페이지 이동) 방지
+        // 검색어 가져오기
+        var query = document.getElementById("searchQuery").value.toString();
+        // GET 요청 보내기
+        fetch("/api/teacher/classroom/detail/student/search?query=" + query,{
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => {
+                addOptionsToSelectBox("dynamicSelect", data);
+            })
+            .catch(error => console.error('Error:', error));
+    });
+</script>
+
+<script>
+    function addOptionsToSelectBox(selectBoxId, optionsData) {
+        var selectBox = document.getElementById(selectBoxId);
+        selectBox.innerHTML = ''; // select 박스 내용 비우기
+        // 옵션 데이터를 반복하여 선택 상자에 옵션 추가
+        optionsData.forEach(function(option) {
+            var optionElement = document.createElement("option");
+            optionElement.value = option.id;
+            optionElement.textContent = option.studentName + option.email;
+            selectBox.appendChild(optionElement);
+        });
+    }
+</script>
+
+<script src="/assets/javascripts/teacher/register.js"></script>
+
+</body>
+</html>

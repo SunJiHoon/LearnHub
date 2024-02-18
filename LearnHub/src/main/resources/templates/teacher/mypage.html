@@ -29,6 +29,7 @@
         <thead>
         <tr>
 <!--            <th>ID</th>-->
+            <th>인덱스</th>
             <th>클래스 이름</th>
             <th>과목</th>
             <th>수강 정원</th>
@@ -37,12 +38,18 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="VCRoom : ${teachersVirtualClassRooms}">
+        <tr th:each="VCRoom, rowStat : ${teachersVirtualClassRooms}">
 <!--            <td th:text="${classRoom.id}"></td>-->
+            <td>
+                <form action="/teacher/classroom/detail" method="get">
+                    <!-- 폼 필드들을 여기에 추가하세요 -->
+                    <input type="hidden" name="VCRoomId" th:value="${VCRoom.id}">
+                    <button type="submit" th:text="${rowStat.index + 1}">row Index</button>
+                </form>
+            </td>
             <td th:text="${VCRoom.className}"></td>
             <td th:text="${VCRoom.subject}"></td>
             <td th:text="${VCRoom.maximumNumber}"></td>
-
             <!-- 이하 필요한 열 추가 -->
         </tr>
         </tbody>
@@ -50,5 +57,6 @@
 
 </div>
 <script src="/assets/javascripts/teacher/register.js"></script>
+
 </body>
 </html>

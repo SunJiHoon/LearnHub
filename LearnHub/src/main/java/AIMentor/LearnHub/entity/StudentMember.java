@@ -1,7 +1,11 @@
 package AIMentor.LearnHub.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "student_member")
@@ -23,5 +27,9 @@ public class StudentMember {
 
     @Column(name = "email")
     private String email;
+
+    @OneToMany(mappedBy = "studentMember")
+    private List<VirtualCR_StudentM_mapping> virtualCRStudentMMappingArrayList = new ArrayList<>();
+
 
 }
