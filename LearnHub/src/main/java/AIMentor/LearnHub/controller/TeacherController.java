@@ -1,7 +1,9 @@
 package AIMentor.LearnHub.controller;
 
 import AIMentor.LearnHub.entity.TeacherMember;
+import AIMentor.LearnHub.entity.VirtualClassRoom;
 import AIMentor.LearnHub.repository.Maria_TeacherMember;
+import AIMentor.LearnHub.repository.Maria_VirtualClassRoom;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,14 +18,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/teacher")
 public class TeacherController {
     Maria_TeacherMember maria_teacherMember;
-    public TeacherController(Maria_TeacherMember maria_teacherMember) {
+    Maria_VirtualClassRoom mariaVirtualClassRoom;
+    public TeacherController(
+            Maria_TeacherMember maria_teacherMember,
+            Maria_VirtualClassRoom mariaVirtualClassRoom
+    ) {
         this.maria_teacherMember = maria_teacherMember;
+        this.mariaVirtualClassRoom = mariaVirtualClassRoom;
     }
 
     @GetMapping(value = "/register")
@@ -102,7 +110,78 @@ public class TeacherController {
     }
 
     @GetMapping("/mypage")
-    public String readCookie(HttpServletRequest request) {
+    public String getMyPage(
+            Model model,
+            HttpServletRequest request
+    ) {
+        // HttpServletRequest를 통해 쿠키 배열을 가져옵니다.
+        TeacherMember teacherMember = getCookieAndReading(request);
+        if (teacherMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", teacherMember.getTeacherName());
+        }
+
+        List<VirtualClassRoom> teachersVirtualClassRoomList = mariaVirtualClassRoom.findByTeacherMember(teacherMember);
+//        List<VirtualClassRoom> teachersVirtualClassRoomList = mariaVirtualClassRoom.findAll();
+        model.addAttribute("teachersVirtualClassRooms", teachersVirtualClassRoomList);
+
+        return "teacher/mypage";
+    }
+
+    @GetMapping("/classroom/make")
+    public String getClassroomMakePage(){
+        return "teacher/classroom/make";
+    }
+
+    @PostMapping("/classroom/make")
+    public String doClassroomMakePage(
+            @RequestParam(name = "class_name") String class_name,
+            @RequestParam(name = "subject") String subject,
+            @RequestParam(name = "maximum_number") int maximum_number,
+            Model model,
+            HttpServletRequest request) {
+        TeacherMember teacherMember = getCookieAndReading(request);
+        if (teacherMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", teacherMember.getTeacherName());
+        }
+
+        if(class_name.isEmpty() || subject.isEmpty()){
+            model.addAttribute("error_message", "class_name과 subject이름에 이상이 있습니다.");
+            return "teacher/classroom/make";
+        }
+
+
+        Optional<VirtualClassRoom> exisitingVirtualClassRoom = mariaVirtualClassRoom.findByClassNameAndTeacherMember(class_name, teacherMember);
+        if(exisitingVirtualClassRoom.isPresent()){
+            model.addAttribute("error_message", "이미 존재하는 className입니다.");
+            return "teacher/classroom/make";
+        }
+        VirtualClassRoom virtualClassRoom = new VirtualClassRoom();
+        virtualClassRoom.setClassName(class_name);
+        virtualClassRoom.setSubject(subject);
+        virtualClassRoom.setMaximumNumber(maximum_number);
+        virtualClassRoom.setTeacherMember(teacherMember);
+        mariaVirtualClassRoom.save(virtualClassRoom);
+        model.addAttribute("created_class_name", teacherMember.getTeacherName());
+
+        List<VirtualClassRoom> teachersVirtualClassRoomList = mariaVirtualClassRoom.findByTeacherMember(teacherMember);
+        model.addAttribute("teachersVirtualClassRooms", teachersVirtualClassRoomList);
+
+        return "teacher/mypage";
+    }
+
+    private TeacherMember getCookieAndReading(HttpServletRequest request) {
         // HttpServletRequest를 통해 쿠키 배열을 가져옵니다.
         Cookie[] cookies = request.getCookies();
 
@@ -119,13 +198,8 @@ public class TeacherController {
             }
         }
         if(findTeacherMember!=null && findTeacherMember.isPresent()){
-
+            return findTeacherMember.get();
         }
-        //클래스(분반) 목록 내려주기.
-        //
-        return "teacher/mypage";
+        return null;
     }
-
-
-
-}
+    }

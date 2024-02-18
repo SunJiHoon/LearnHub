@@ -27,7 +27,6 @@ public class TeacherMember {
     private String email;
 
     //class는 여러개 만들 수 있다고 가정.
-
 /*
     @Column(name = "phone_number")
     private String phoneNumber;

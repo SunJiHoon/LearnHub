@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선생님 mypage</title>
+    <link rel="stylesheet" href="/assets/stylesheets/common.css">
+    <link rel="stylesheet" href="/assets/stylesheets/register.css">
+</head>
+<body class="teacher">
+<div class="container">
+    <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
+        <p th:text="${error_message}"></p>
+    </div>
+    <div th:if="${name}" class="alert" role="alert" style="color: black;">
+        <p th:text="${name + ' 선생님이 로그인 되었습니다.'}"></p>
+    </div>
+    <div th:if="${created_class_name}" class="alert" role="alert" style="color: black;">
+        <p th:text="${created_class_name + ' 클래스가 생성되었습니다.'}"></p>
+    </div>
+
+    <h2>선생님 mypage</h2>
+    <form action="/teacher/classroom/make" method="get">
+        <button type="submit">Go to Classroom Maker</button>
+    </form>
+
+    <h2>선생님 classroom list</h2>
+    <table>
+        <thead>
+        <tr>
+<!--            <th>ID</th>-->
+            <th>클래스 이름</th>
+            <th>과목</th>
+            <th>수강 정원</th>
+
+            <!-- 이하 필요한 열 추가 -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="VCRoom : ${teachersVirtualClassRooms}">
+<!--            <td th:text="${classRoom.id}"></td>-->
+            <td th:text="${VCRoom.className}"></td>
+            <td th:text="${VCRoom.subject}"></td>
+            <td th:text="${VCRoom.maximumNumber}"></td>
+
+            <!-- 이하 필요한 열 추가 -->
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<script src="/assets/javascripts/teacher/register.js"></script>
+</body>
+</html>
