@@ -20,15 +20,13 @@
     </div>
 
     <h2>선생님 mypage</h2>
-    <form action="/teacher/classroom/make" method="get">
-        <button type="submit">Go to Classroom Maker</button>
-    </form>
+    <a class="a-button" href="/teacher/classroom/make">분반 만들기</a>
 
     <h2>선생님 classroom list</h2>
     <table>
         <thead>
         <tr>
-<!--            <th>ID</th>-->
+            <!-- <th>ID</th> -->
             <th>인덱스</th>
             <th>클래스 이름</th>
             <th>과목</th>
@@ -40,12 +38,8 @@
         <tbody>
         <tr th:each="VCRoom, rowStat : ${teachersVirtualClassRooms}">
 <!--            <td th:text="${classRoom.id}"></td>-->
-            <td>
-                <form action="/teacher/classroom/detail" method="get">
-                    <!-- 폼 필드들을 여기에 추가하세요 -->
-                    <input type="hidden" name="VCRoomId" th:value="${VCRoom.id}">
-                    <button type="submit" th:text="${rowStat.index + 1}">row Index</button>
-                </form>
+            <td th:object="${rowStat.index + 1}">
+                <a class="a-button" th:href="@{/teacher/classroom/detail(VCRoomId=${#object})}" th:text="${#object}">row Index</a>
             </td>
             <td th:text="${VCRoom.className}"></td>
             <td th:text="${VCRoom.subject}"></td>

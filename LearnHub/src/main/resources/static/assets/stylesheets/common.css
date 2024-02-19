@@ -83,6 +83,22 @@ body {
     font-size: 14px; /* 글자 크기 조절 */
 
 }
+.a-button {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: var(--main-color-secondary);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration-line: none;
+    cursor: pointer;
+}
+.a-button:hover {
+    background-color: var(--main-color);
+}
 .section {
     /*display: inline-block;*/
     display: flex;
