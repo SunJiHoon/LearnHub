@@ -1,14 +1,10 @@
-h2 {
-    text-align: center;
-}
-
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
 }
 
 label {
     display: block;
-    margin: 5px 0;
+    margin: 0.3125em 0;
 }
 
 input[type="text"],
@@ -17,11 +13,11 @@ input[type="email"],
 input[type="password"],
 select {
     width: 100%;
-    margin: 8px 0;
-    padding: 10px;
-    font-size: 16px;
+    margin: 0.5em 0;
+    padding: 0.625em;
+    font-size: 1em;
     background-color: white;
-    border-radius: 5px;
+    border-radius: 0.3125em;
     border: 1px solid #ccc;
 }
 
@@ -32,15 +28,15 @@ input[type="range"] {
 
 button {
     width: 100%;
-    padding: 10px;
-    font-size: 16px;
+    padding: 0.625rem;
+    font-size: 1em;
     background-color: var(--main-color-secondary);
-    color: #fff;
+    color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.3125em;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
-
 button:hover {
     background-color: var(--main-color);
 }

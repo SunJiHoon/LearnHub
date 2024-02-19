@@ -1,7 +1,7 @@
 table {
 	width: 100%;
 	border-collapse: collapse;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+	box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.05);
 }
 
 thead tr {
@@ -10,7 +10,7 @@ thead tr {
 }
 
 td, th {
-	padding: 4px;
+	padding: 0.25rem;
 }
 tr:nth-child(even) {
 	background-color: #eee;
