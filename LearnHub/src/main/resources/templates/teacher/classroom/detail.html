@@ -75,6 +75,11 @@
         // 옵션 데이터를 반복하여 선택 상자에 옵션 추가
         optionsData.forEach(function(option) {
             var optionElement = document.createElement("option");
+            // console.log(option.id);
+            // console.log(option.studentName);
+            // console.log(option.email);
+
+
             optionElement.value = option.id;
             optionElement.textContent = option.studentName + option.email;
             selectBox.appendChild(optionElement);

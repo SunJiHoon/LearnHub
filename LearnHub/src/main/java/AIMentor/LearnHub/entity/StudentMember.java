@@ -30,6 +30,4 @@ public class StudentMember {
 
     @OneToMany(mappedBy = "studentMember")
     private List<VirtualCR_StudentM_mapping> virtualCRStudentMMappingArrayList = new ArrayList<>();
-
-
 }

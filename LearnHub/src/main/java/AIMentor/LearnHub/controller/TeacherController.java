@@ -197,6 +197,7 @@ public class TeacherController {
             Model model,
             HttpServletRequest request
     ){
+//        Long selectedStudentId = Long.getLong(selectedStudentIdString);
         TeacherMember teacherMember = utility.getCookieAndReading(request, maria_teacherMember);
         if (teacherMember == null){
             //로그인 정보 없음

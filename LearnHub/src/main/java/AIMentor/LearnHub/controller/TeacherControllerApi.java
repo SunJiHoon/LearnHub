@@ -44,6 +44,7 @@ public class TeacherControllerApi {
         List<StudentMemberDTO> studentMemberDTOS = new ArrayList<>();
         for(int i=0;i<studentMembers.size();i++){
             StudentMemberDTO tmpstudentMemberDTO = new StudentMemberDTO();
+            tmpstudentMemberDTO.setId(studentMembers.get(i).getId());
             tmpstudentMemberDTO.setEmail(studentMembers.get(i).getEmail());
             tmpstudentMemberDTO.setStudentName(studentMembers.get(i).getStudentName());
             studentMemberDTOS.add(tmpstudentMemberDTO);
@@ -54,6 +55,7 @@ public class TeacherControllerApi {
 }
 @Data
 class StudentMemberDTO{
+    public Long id;
     public String studentName;
     public String email;
 }
