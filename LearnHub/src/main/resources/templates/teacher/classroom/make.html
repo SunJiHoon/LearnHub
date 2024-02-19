@@ -27,13 +27,46 @@
             <input type="text" id="subject" name="subject" required>
         </div>
         <div class="form-group">
+            <label for="maximumNumber">수강 정원:</label>
+            <input type="range" id="maximumNumberRange" min="1" max="50" list="maximumNumberRangeTick">
+            <datalist id="maximumNumberRangeTick">
+                <option label="10">10</option>
+                <option label="20">20</option>
+                <option label="30">30</option>
+                <option label="40">40</option>
+                <option label="50">50</option>
+            </datalist>
             <input type="number" id="maximumNumber" name="maximum_number" min="1" max="50" required>
         </div>
         <button type="submit">수업 분반 생성하기</button>
-
     </form>
 
 </div>
+
+<script>
+    // DOM 로딩이 완료되면 실행
+    document.addEventListener("DOMContentLoaded", () => {
+        const maximumNumber = document.getElementById("maximumNumber");
+        const maximumNumberRange = document.getElementById("maximumNumberRange");
+
+        // 수강 정원 폼에 이벤트 리스너 등록
+        maximumNumber.addEventListener("input", () => {
+            // 입력이 올바르면
+            if(maximumNumber.validity.valid) {
+                // 슬라이더에 반영
+                maximumNumberRange.value = maximumNumber.valueAsNumber;
+            }
+        });
+        // 수강 정원 슬라이더에 이벤트 리스너 등록
+        maximumNumberRange.addEventListener("input", () => {
+            // 입력이 올바르면
+            if(maximumNumberRange.validity.valid) {
+                // 슬라이더에 반영
+                maximumNumber.value = maximumNumberRange.valueAsNumber;
+            }
+        });
+    });
+</script>
 <script src="/assets/javascripts/teacher/register.js"></script>
 </body>
 </html>
