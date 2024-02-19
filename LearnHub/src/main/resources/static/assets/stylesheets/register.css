@@ -12,6 +12,7 @@ label {
 }
 
 input[type="text"],
+input[type="number"],
 input[type="email"],
 input[type="password"],
 select {
@@ -22,6 +23,11 @@ select {
     background-color: white;
     border-radius: 5px;
     border: 1px solid #ccc;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--main-color-secondary);
 }
 
 button {
