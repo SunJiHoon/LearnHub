@@ -30,7 +30,7 @@
     </form>
 
     <form action="/teacher/classroom/detail" method="post">
-        <label for="dynamicSelect">학생 이름 선택:</label>
+        <label for="dynamicSelect">학생 이름 선택: <span id="searchResultCount"></span></label>
         <input type="hidden" id="VCRoomId" name="VCRoomId" th:value="${VCRoomId}">
         <select id="dynamicSelect" name="selectedStudent" required>
             <option disabled>학생을 먼저 검색해 주세요.</option>
@@ -78,6 +78,7 @@
                 const response = await fetch(`/api/teacher/classroom/detail/student/search?query=${query}`);
                 const resultArray = await response.json();
                 addOptionsToSelectBox(resultArray);
+                searchResultCount.textContent = `(${resultArray.length}건)`;
             } catch(err) {
                 console.error(err);
             }
