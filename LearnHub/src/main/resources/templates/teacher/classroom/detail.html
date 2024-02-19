@@ -32,8 +32,8 @@
     <form action="/teacher/classroom/detail" method="post">
         <label for="dynamicSelect">학생 이름 선택:</label>
         <input type="hidden" id="VCRoomId" name="VCRoomId" th:value="${VCRoomId}">
-        <select id="dynamicSelect" name="selectedStudent">
-            <!-- 학생 옵션이 동적으로 추가되는 곳 -->
+        <select id="dynamicSelect" name="selectedStudent" required>
+            <option disabled>학생을 먼저 검색해 주세요.</option>
         </select>
         <button type="submit">추가</button>
     </form>
@@ -61,39 +61,52 @@
 
 </div>
 <script>
-    // 검색 폼 이벤트 리스너 등록
-    document.getElementById("searchForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // 폼 기본 동작(페이지 이동) 방지
-        // 검색어 가져오기
-        var query = document.getElementById("searchQuery").value.toString();
-        // GET 요청 보내기
-        fetch("/api/teacher/classroom/detail/student/search?query=" + query,{
-            method: 'GET',
-        })
-            .then(response => response.json())
-            .then(data => {
-                addOptionsToSelectBox("dynamicSelect", data);
-            })
-            .catch(error => console.error('Error:', error));
-    });
-</script>
+    // DOM 로딩이 완료되면 실행
+    document.addEventListener("DOMContentLoaded", () => {
+        const searchForm = document.getElementById("searchForm");
+        const searchQuery = document.getElementById("searchQuery");
+        const dynamicSelect = document.getElementById("dynamicSelect");
+        const searchResultCount = document.getElementById("searchResultCount");
 
-<script>
-    function addOptionsToSelectBox(selectBoxId, optionsData) {
-        var selectBox = document.getElementById(selectBoxId);
-        selectBox.innerHTML = ''; // select 박스 내용 비우기
-        // 옵션 데이터를 반복하여 선택 상자에 옵션 추가
-        optionsData.forEach(function(option) {
-            var optionElement = document.createElement("option");
-            // console.log(option.id);
-            // console.log(option.studentName);
-            // console.log(option.email);
+        // 검색 폼에 이벤트 리스너 등록
+        searchForm.addEventListener("submit", async event => {
+            // async 함수지만 await하기 전까지는 preventDefault()를 해도 된다
+            event.preventDefault(); // 페이지 이동 방지
 
-
-            optionElement.value = option.id;
-            optionElement.textContent = option.studentName + option.email;
-            selectBox.appendChild(optionElement);
+            const query = searchQuery.value;
+            try {
+                const response = await fetch(`/api/teacher/classroom/detail/student/search?query=${query}`);
+                const resultArray = await response.json();
+                addOptionsToSelectBox(resultArray);
+            } catch(err) {
+                console.error(err);
+            }
         });
+    });
+
+    function addOptionsToSelectBox(optionsData) {
+        // 여러 element 삽입 최적화
+        const fragment = new DocumentFragment();
+
+        // 옵션 데이터마다 해당 속성을 읽어서...
+        for(const { id, studentName, email } of optionsData) {
+            // 선택 상자에 추가
+            const optionElement = document.createElement("option");
+            optionElement.value = id;
+            optionElement.textContent = `${studentName} (${email})`;
+            fragment.appendChild(optionElement);
+        }
+        // 학생이 없을 경우 처리
+        if(optionsData.length == 0) {
+            const optionElement = document.createElement("option");
+            optionElement.disabled = true;
+            optionElement.textContent = "검색된 학생이 없습니다.";
+            fragment.appendChild(optionElement);
+        }
+
+        // select 박스 내용 비우기
+        dynamicSelect.innerHTML = "";
+        dynamicSelect.appendChild(fragment);
     }
 </script>
 
