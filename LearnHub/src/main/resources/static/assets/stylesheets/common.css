@@ -1,5 +1,8 @@
-:root {
+* {
     box-sizing: border-box;
+}
+
+:root {
     /* 학생 테마 색상 */
     --main-color: #4f68dc;
     --main-color-secondary: #6982f3;
