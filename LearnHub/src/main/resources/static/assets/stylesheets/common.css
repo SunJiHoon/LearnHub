@@ -8,9 +8,13 @@
 
 .teacher {
     /* 선생님 테마 색상 */
-    --main-color: #b921c4;
-    --main-color-secondary: #da59e3;
-    --background-color: #f3cbf6;
+    /*--main-color: #b921c4;*/
+    /*--main-color-secondary: #da59e3;*/
+    /*--background-color: #f3cbf6;*/
+    /*  */
+    --main-color: #7250b2;
+    --main-color-secondary: #a485cf;
+    --background-color: #dcc4ff;
 }
 
 body {
