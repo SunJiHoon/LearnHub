@@ -54,7 +54,7 @@
             <td>
 <!--                <input type="hidden" class="student-id" th:value="${studentMember.id}">-->
 <!--                <a class="delete-button a-button" href="#"> 삭제</a>-->
-                <button class="delete-button a-button" th:value="${studentMember.id}" onclick="clickOnButtonForRemoveStudentFromMapping(value)">ClickOn</button>
+                <button class="delete-button a-button" th:value="${studentMember.id}" onclick="clickOnButtonForRemoveStudentFromMapping(value)">삭제</button>
 <!--                <a class="a-button" th:href="@{'/deleteStudent?id=' + ${studentMember.id}}" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</a>-->
             </td>
         </tr>
@@ -157,6 +157,7 @@
     }
 
     function clickOnButtonForRemoveStudentFromMapping(studentId) {
+        const VCRoomId = document.getElementById("VCRoomId");
         if (confirm('정말로 삭제하시겠습니까?')) {
             console.log("삭제");
 
@@ -166,17 +167,22 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ selectedStudent: studentId })
+                body: JSON.stringify({
+                    selectedStudent: studentId,
+                    VCRoomId: VCRoomId.value
+                })
             })
+                .then(response => response.json())
                 .then(data => {
-                    console.log(data); // 서버 응답 처리
-                    if (data.response === "success"){
+                    console.log(data.result);
+
+                    if (data.result === "success"){
                         alert('삭제 완료.');
+                        location.reload(); // 페이지 새로 고침
                     }
                     else{
                         alert('삭제 실패.');
                     }
-                    // 여기에 필요한 작업을 추가하세요 (예: 페이지 새로고침)
                 })
                 .catch(error => {
                     console.error('Error:', error);

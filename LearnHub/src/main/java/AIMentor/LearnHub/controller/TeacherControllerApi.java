@@ -1,19 +1,24 @@
 package AIMentor.LearnHub.controller;
 
 import AIMentor.LearnHub.dto.StudentMemberDTO;
-import AIMentor.LearnHub.dto.VirtualCR_StudentM_mappingDTO_selectedStudent;
+import AIMentor.LearnHub.dto.VirtualCR_StudentM_mappingDTO;
+import AIMentor.LearnHub.dto.VirtualCR_StudentM_mappingDTO_selectedStudent_return;
 import AIMentor.LearnHub.entity.StudentMember;
+import AIMentor.LearnHub.entity.VirtualCR_StudentM_mapping;
+import AIMentor.LearnHub.entity.VirtualClassRoom;
 import AIMentor.LearnHub.repository.Maria_StudentMember;
 import AIMentor.LearnHub.repository.Maria_TeacherMember;
 import AIMentor.LearnHub.repository.Maria_VirtualCR_StudentM_mapping;
 import AIMentor.LearnHub.repository.Maria_VirtualClassRoom;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -54,14 +59,31 @@ public class TeacherControllerApi {
     }
 
     @PostMapping(value= "/classroom/detail/student/delete")
-    public String doDeleteForRemoveStudentFromMapping(
-            @RequestBody VirtualCR_StudentM_mappingDTO_selectedStudent virtualCRStudentMMappingDTOSelectedStudent,
+    @Transactional
+    public VirtualCR_StudentM_mappingDTO_selectedStudent_return doDeleteForRemoveStudentFromMapping(
+            @RequestBody VirtualCR_StudentM_mappingDTO virtualCRStudentMMappingDTOSelectedStudent,
             Model model,
             HttpServletRequest request
     ){
-        log.info(String.valueOf(virtualCRStudentMMappingDTOSelectedStudent.getSelectedStudent()));
+//        Maria_VirtualClassRoom mariaVirtualClassRoom;
+//        Maria_VirtualCR_StudentM_mapping mariaVirtualCRStudentMMapping;
+//        Maria_StudentMember mariaStudentMember;
 
-        //fail
-        return "success";
+//        deleteByStudentMemberAndVirtualClassRoom(StudentMember studentMember, VirtualClassRoom virtualClassRoom);
+        Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findById(virtualCRStudentMMappingDTOSelectedStudent.getVCRoomId());
+        Optional<StudentMember> studentMember = mariaStudentMember.findById(virtualCRStudentMMappingDTOSelectedStudent.getSelectedStudent());
+
+        if(virtualClassRoom.isEmpty() || studentMember.isEmpty()){
+            VirtualCR_StudentM_mappingDTO_selectedStudent_return virtualCR_studentM_mappingDTO_selectedStudent_return = new VirtualCR_StudentM_mappingDTO_selectedStudent_return();
+            virtualCR_studentM_mappingDTO_selectedStudent_return.setResult("faile");
+            return virtualCR_studentM_mappingDTO_selectedStudent_return;
+        }
+
+        List<VirtualCR_StudentM_mapping> mappingsToDelete = mariaVirtualCRStudentMMapping.deleteByStudentMemberAndVirtualClassRoom(studentMember.get(), virtualClassRoom.get());
+        mariaVirtualCRStudentMMapping.deleteAll(mappingsToDelete);
+
+        VirtualCR_StudentM_mappingDTO_selectedStudent_return virtualCR_studentM_mappingDTO_selectedStudent_return = new VirtualCR_StudentM_mappingDTO_selectedStudent_return();
+        virtualCR_studentM_mappingDTO_selectedStudent_return.setResult("success");
+        return virtualCR_studentM_mappingDTO_selectedStudent_return;
     }
 }
