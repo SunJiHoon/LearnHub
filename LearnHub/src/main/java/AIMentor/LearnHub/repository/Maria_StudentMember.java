@@ -13,4 +13,5 @@ public interface Maria_StudentMember extends JpaRepository<StudentMember, Long> 
     Optional<StudentMember> findByLoginId(String loginid);
     Optional<StudentMember> findByEmail(String email);
     List<StudentMember> findByStudentName(String studentName);
+    List<StudentMember> findByStudentNameContaining(String query); // 추가
 }

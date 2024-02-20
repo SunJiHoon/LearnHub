@@ -29,7 +29,7 @@
         <button type="submit">검색</button>
     </form>
 
-    <form action="/teacher/classroom/detail" method="post">
+    <form id="studentSelectForm" action="/teacher/classroom/detail" method="post">
         <label for="dynamicSelect">학생 이름 선택: <span id="searchResultCount"></span></label>
         <input type="hidden" id="VCRoomId" name="VCRoomId" th:value="${VCRoomId}">
         <select id="dynamicSelect" name="selectedStudent" required>
@@ -52,7 +52,10 @@
             <td th:text="${studentMember.studentName}"></td>
             <td th:text="${studentMember.email}"></td>
             <td>
-                <a class="a-button" href="#">삭제</a>
+<!--                <input type="hidden" class="student-id" th:value="${studentMember.id}">-->
+<!--                <a class="delete-button a-button" href="#"> 삭제</a>-->
+                <button class="delete-button a-button" th:value="${studentMember.id}" onclick="clickOnButtonForRemoveStudentFromMapping(value)">ClickOn</button>
+<!--                <a class="a-button" th:href="@{'/deleteStudent?id=' + ${studentMember.id}}" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</a>-->
             </td>
         </tr>
         </tbody>
@@ -67,6 +70,9 @@
         const searchQuery = document.getElementById("searchQuery");
         const dynamicSelect = document.getElementById("dynamicSelect");
         const searchResultCount = document.getElementById("searchResultCount");
+        const studentSelectForm = document.getElementById("studentSelectForm");
+        const VCRoomId = document.getElementById("VCRoomId");
+        const studentDeleteButton = document.getElementById("studentDeleteButton");
 
         // 검색 폼에 이벤트 리스너 등록
         searchForm.addEventListener("submit", async event => {
@@ -83,7 +89,47 @@
                 console.error(err);
             }
         });
+        studentSelectForm.addEventListener("submit", async event => {
+            event.preventDefault(); // 기본 제출 동작 방지
+
+            // 현재 선택된 학생과 VCRoomId 가져오기
+            const selectedStudentId = dynamicSelect.value;
+            const VCRoomIdValue = VCRoomId.value;
+
+            try {
+                // POST 요청 보내기
+                const response = await fetch("/teacher/classroom/add/student", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        selectedStudent: selectedStudentId,
+                        VCRoomId: VCRoomIdValue
+                    })
+                });
+
+                // 응답 처리
+                if (response.ok) {
+                    // 응답이 성공한 경우, 새 창 열기
+                    const resultData = await response.text();
+                    const newWindow = window.open("", "_blank", "width=400,height=400");
+                    newWindow.document.write(resultData);
+
+                    // 현재 창 새로고침
+                    window.location.reload();
+                } else {
+                    // 응답이 실패한 경우, 오류 처리
+                    console.error("응답 실패:", response.statusText);
+                    alert("학생 추가에 실패했습니다.");
+                }
+            } catch (err) {
+                console.error("오류 발생:", err);
+                alert("학생 추가에 실패했습니다.");
+            }
+        });
     });
+
 
     function addOptionsToSelectBox(optionsData) {
         // 여러 element 삽입 최적화
@@ -109,6 +155,35 @@
         dynamicSelect.innerHTML = "";
         dynamicSelect.appendChild(fragment);
     }
+
+    function clickOnButtonForRemoveStudentFromMapping(studentId) {
+        if (confirm('정말로 삭제하시겠습니까?')) {
+            console.log("삭제");
+
+            // 삭제 요청을 서버로 보냄
+            fetch('/api/teacher/classroom/detail/student/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ selectedStudent: studentId })
+            })
+                .then(data => {
+                    console.log(data); // 서버 응답 처리
+                    if (data.response === "success"){
+                        alert('삭제 완료.');
+                    }
+                    else{
+                        alert('삭제 실패.');
+                    }
+                    // 여기에 필요한 작업을 추가하세요 (예: 페이지 새로고침)
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    }
+
 </script>
 
 <script src="/assets/javascripts/teacher/register.js"></script>

@@ -1,12 +1,13 @@
 package AIMentor.LearnHub.controller;
 
+import AIMentor.LearnHub.dto.StudentMemberDTO;
+import AIMentor.LearnHub.dto.VirtualCR_StudentM_mappingDTO_selectedStudent;
 import AIMentor.LearnHub.entity.StudentMember;
 import AIMentor.LearnHub.repository.Maria_StudentMember;
 import AIMentor.LearnHub.repository.Maria_TeacherMember;
 import AIMentor.LearnHub.repository.Maria_VirtualCR_StudentM_mapping;
 import AIMentor.LearnHub.repository.Maria_VirtualClassRoom;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +41,7 @@ public class TeacherControllerApi {
             Model model,
             HttpServletRequest request
     ){
-        List<StudentMember> studentMembers = mariaStudentMember.findByStudentName(query);
+        List<StudentMember> studentMembers = mariaStudentMember.findByStudentNameContaining(query);
         List<StudentMemberDTO> studentMemberDTOS = new ArrayList<>();
         for(int i=0;i<studentMembers.size();i++){
             StudentMemberDTO tmpstudentMemberDTO = new StudentMemberDTO();
@@ -52,10 +53,15 @@ public class TeacherControllerApi {
         return studentMemberDTOS;
     }
 
-}
-@Data
-class StudentMemberDTO{
-    public Long id;
-    public String studentName;
-    public String email;
+    @PostMapping(value= "/classroom/detail/student/delete")
+    public String doDeleteForRemoveStudentFromMapping(
+            @RequestBody VirtualCR_StudentM_mappingDTO_selectedStudent virtualCRStudentMMappingDTOSelectedStudent,
+            Model model,
+            HttpServletRequest request
+    ){
+        log.info(String.valueOf(virtualCRStudentMMappingDTOSelectedStudent.getSelectedStudent()));
+
+        //fail
+        return "success";
+    }
 }

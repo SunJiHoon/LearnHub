@@ -1,5 +1,6 @@
 package AIMentor.LearnHub.controller;
 
+import AIMentor.LearnHub.dto.VirtualCR_StudentM_mappingDTO;
 import AIMentor.LearnHub.entity.StudentMember;
 import AIMentor.LearnHub.entity.TeacherMember;
 import AIMentor.LearnHub.entity.VirtualCR_StudentM_mapping;
@@ -13,10 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -190,14 +188,18 @@ public class TeacherController {
         return "teacher/mypage";
     }
 
-    @PostMapping("/classroom/detail")
+    @PostMapping("/classroom/add/student")
     public String doAddStudent(
-            @RequestParam(name = "selectedStudent") Long selectedStudentId,
-            @RequestParam(name = "VCRoomId") Long VCRoomId,
+//            @RequestParam("selectedStudent") String selectedStudent,
+//            @RequestParam("VCRoomId") String VCRoomId,
+            @RequestBody VirtualCR_StudentM_mappingDTO virtualCRStudentMMappingDTO,
             Model model,
             HttpServletRequest request
     ){
-//        Long selectedStudentId = Long.getLong(selectedStudentIdString);
+//        Long selectedStudentIdLong = Long.getLong(selectedStudent);
+//        Long VCRoomIdLong = Long.getLong(VCRoomId);
+        Long selectedStudentIdLong = virtualCRStudentMMappingDTO.getSelectedStudent();
+        Long VCRoomIdLong = virtualCRStudentMMappingDTO.getVCRoomId();
         TeacherMember teacherMember = utility.getCookieAndReading(request, maria_teacherMember);
         if (teacherMember == null){
             //로그인 정보 없음
@@ -208,18 +210,29 @@ public class TeacherController {
             //로그인 되어있음.
             model.addAttribute("name", teacherMember.getTeacherName());
         }
-        Optional<StudentMember> studentMember = mariaStudentMember.findById(selectedStudentId);
-        Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findById(VCRoomId);
+        Optional<StudentMember> studentMember = mariaStudentMember.findById(selectedStudentIdLong);
+        Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findById(VCRoomIdLong);
         if (studentMember.isPresent() && virtualClassRoom.isPresent()){
-//            model.addAttribute("VCRoomId", studentMember.get());
-            VirtualCR_StudentM_mapping virtualCRStudentMMapping = new VirtualCR_StudentM_mapping();
-//            virtualCRStudentMMapping.setVirtualClassRoom();
-            virtualCRStudentMMapping.setStudentMember(studentMember.get());
-            virtualCRStudentMMapping.setVirtualClassRoom(virtualClassRoom.get());
-            mariaVirtualCRStudentMMapping.save(virtualCRStudentMMapping);
+            if (mariaVirtualCRStudentMMapping.existsByStudentMemberAndVirtualClassRoom(studentMember.get(), virtualClassRoom.get())){
+                //중복이 존재할 경우
+                model.addAttribute("error_message", "이미 추가 되어있는 학생입니다.");
+                return "teacher/classroom/add/student";
+            }
+            else{
+                //중복이 없는 경우
+                //model.addAttribute("VCRoomId", studentMember.get());
+                VirtualCR_StudentM_mapping virtualCRStudentMMapping = new VirtualCR_StudentM_mapping();
+                //virtualCRStudentMMapping.setVirtualClassRoom();
+                virtualCRStudentMMapping.setStudentMember(studentMember.get());
+                virtualCRStudentMMapping.setVirtualClassRoom(virtualClassRoom.get());
+                mariaVirtualCRStudentMMapping.save(virtualCRStudentMMapping);
+                model.addAttribute("result_message", "추가에 성공했습니다.");
+                model.addAttribute("added_student_name", studentMember.get().getStudentName());
+                return "teacher/classroom/add/student";
+            }
         }
-        return "redirect:/teacher/classroom/detail?VCRoomId=" + VCRoomId.toString();
-    }
+        model.addAttribute("error_message", "추가에 실패했습니다. 웹을 새로 시작해주세요.");
+        return "teacher/classroom/add/student";    }
     @GetMapping("/classroom/detail")
     public String getDeatailPageWithPost(
             @RequestParam(name = "VCRoomId") Long VCRoomId,
