@@ -1,0 +1,17 @@
+table {
+	width: 100%;
+	border-collapse: collapse;
+	box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.05);
+}
+
+thead tr {
+	color: white;
+	background-color: var(--main-color);
+}
+
+td, th {
+	padding: 0.25rem;
+}
+tr:nth-child(even) {
+	background-color: #eee;
+}

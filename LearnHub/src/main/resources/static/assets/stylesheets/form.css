@@ -1,0 +1,42 @@
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+label {
+    display: block;
+    margin: 0.3125em 0;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+select {
+    width: 100%;
+    margin: 0.5em 0;
+    padding: 0.625em;
+    font-size: 1em;
+    background-color: white;
+    border-radius: 0.3125em;
+    border: 1px solid #ccc;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--main-color-secondary);
+}
+
+button {
+    width: 100%;
+    padding: 0.625rem;
+    font-size: 1em;
+    background-color: var(--main-color-secondary);
+    color: white;
+    border: none;
+    border-radius: 0.3125em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+button:hover {
+    background-color: var(--main-color);
+}
