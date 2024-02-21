@@ -5,6 +5,7 @@ import AIMentor.LearnHub.dto.VirtualCR_StudentM_mappingDTO;
 import AIMentor.LearnHub.dto.VirtualCR_StudentM_mappingDTO_selectedStudent_return;
 import AIMentor.LearnHub.entity.StudentMember;
 import AIMentor.LearnHub.entity.VirtualCR_StudentM_mapping;
+import AIMentor.LearnHub.service.TeacherService;
 import AIMentor.LearnHub.entity.VirtualClassRoom;
 import AIMentor.LearnHub.repository.Maria_StudentMember;
 import AIMentor.LearnHub.repository.Maria_TeacherMember;
@@ -28,16 +29,19 @@ public class TeacherControllerApi {
     Maria_VirtualClassRoom mariaVirtualClassRoom;
     Maria_VirtualCR_StudentM_mapping mariaVirtualCRStudentMMapping;
     Maria_StudentMember mariaStudentMember;
+    TeacherService teacherService;
     public TeacherControllerApi(
             Maria_TeacherMember maria_teacherMember,
             Maria_VirtualClassRoom mariaVirtualClassRoom,
             Maria_VirtualCR_StudentM_mapping mariaVirtualCRStudentMMapping,
-            Maria_StudentMember mariaStudentMember
+            Maria_StudentMember mariaStudentMember,
+            TeacherService teacherService
     ) {
         this.maria_teacherMember = maria_teacherMember;
         this.mariaVirtualClassRoom = mariaVirtualClassRoom;
         this.mariaVirtualCRStudentMMapping = mariaVirtualCRStudentMMapping;
         this.mariaStudentMember = mariaStudentMember;
+        this.teacherService = teacherService;
     }
 
     @GetMapping(value = "/classroom/detail/student/search")
@@ -59,7 +63,6 @@ public class TeacherControllerApi {
     }
 
     @PostMapping(value= "/classroom/detail/student/delete")
-    @Transactional
     public VirtualCR_StudentM_mappingDTO_selectedStudent_return doDeleteForRemoveStudentFromMapping(
             @RequestBody VirtualCR_StudentM_mappingDTO virtualCRStudentMMappingDTOSelectedStudent,
             Model model,
@@ -78,10 +81,8 @@ public class TeacherControllerApi {
             virtualCR_studentM_mappingDTO_selectedStudent_return.setResult("faile");
             return virtualCR_studentM_mappingDTO_selectedStudent_return;
         }
-
-        List<VirtualCR_StudentM_mapping> mappingsToDelete = mariaVirtualCRStudentMMapping.deleteByStudentMemberAndVirtualClassRoom(studentMember.get(), virtualClassRoom.get());
-        mariaVirtualCRStudentMMapping.deleteAll(mappingsToDelete);
-
+//        List<VirtualCR_StudentM_mapping> mappingsToDelete = mariaVirtualCRStudentMMapping.deleteByStudentMemberAndVirtualClassRoom(studentMember.get(), virtualClassRoom.get());
+        teacherService.deleteSelectedStudentFromMappingTable(studentMember.get(), virtualClassRoom.get());
         VirtualCR_StudentM_mappingDTO_selectedStudent_return virtualCR_studentM_mappingDTO_selectedStudent_return = new VirtualCR_StudentM_mappingDTO_selectedStudent_return();
         virtualCR_studentM_mappingDTO_selectedStudent_return.setResult("success");
         return virtualCR_studentM_mappingDTO_selectedStudent_return;

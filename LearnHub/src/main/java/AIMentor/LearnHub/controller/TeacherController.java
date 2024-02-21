@@ -5,10 +5,8 @@ import AIMentor.LearnHub.entity.StudentMember;
 import AIMentor.LearnHub.entity.TeacherMember;
 import AIMentor.LearnHub.entity.VirtualCR_StudentM_mapping;
 import AIMentor.LearnHub.entity.VirtualClassRoom;
-import AIMentor.LearnHub.repository.Maria_StudentMember;
-import AIMentor.LearnHub.repository.Maria_TeacherMember;
-import AIMentor.LearnHub.repository.Maria_VirtualCR_StudentM_mapping;
-import AIMentor.LearnHub.repository.Maria_VirtualClassRoom;
+import AIMentor.LearnHub.repository.*;
+import AIMentor.LearnHub.session.SessionManager;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,16 +27,19 @@ public class TeacherController {
     Maria_VirtualClassRoom mariaVirtualClassRoom;
     Maria_StudentMember mariaStudentMember;
     Maria_VirtualCR_StudentM_mapping mariaVirtualCRStudentMMapping;
+    Maria_Session mariaSession;
     public TeacherController(
             Maria_TeacherMember maria_teacherMember,
             Maria_VirtualClassRoom mariaVirtualClassRoom,
             Maria_StudentMember mariaStudentMember,
-            Maria_VirtualCR_StudentM_mapping mariaVirtualCRStudentMMapping
+            Maria_VirtualCR_StudentM_mapping mariaVirtualCRStudentMMapping,
+            Maria_Session mariaSession
     ) {
         this.maria_teacherMember = maria_teacherMember;
         this.mariaVirtualClassRoom = mariaVirtualClassRoom;
         this.mariaStudentMember = mariaStudentMember;
         this.mariaVirtualCRStudentMMapping = mariaVirtualCRStudentMMapping;
+        this.mariaSession = mariaSession;
     }
 
     @GetMapping(value = "/register")
@@ -104,9 +105,16 @@ public class TeacherController {
                 model.addAttribute("register",
                         realTeacherMember.getTeacherName() +"님 안녕하세요. "
                 +"로그인 되었습니다.");
-                Cookie idCookie = new Cookie("teacherId",
-                        String.valueOf(realTeacherMember.getId()));
-                response.addCookie(idCookie);
+
+//                Cookie idCookie = new Cookie("teacherId",
+//                        );
+//                response.addCookie(idCookie);
+                SessionManager sessionManager = new SessionManager(mariaSession, maria_teacherMember, mariaStudentMember);
+//                Maria_Session mariaSession,
+//                Maria_TeacherMember maria_teacherMember,
+//                Maria_StudentMember mariaStudentMember
+
+                sessionManager.createTeacherSession(String.valueOf(realTeacherMember.getId()), response);
                 return "redirect:/teacher/mypage";
             }
             else{
@@ -122,7 +130,8 @@ public class TeacherController {
             HttpServletRequest request
     ) {
         // HttpServletRequest를 통해 쿠키 배열을 가져옵니다.
-        TeacherMember teacherMember = utility.getCookieAndReading(request, maria_teacherMember);
+        SessionManager sessionManager = new SessionManager(mariaSession, maria_teacherMember, mariaStudentMember);
+        TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
         if (teacherMember == null){
             //로그인 정보 없음
             model.addAttribute("error_message", "로그인 되어있지 않습니다.");
@@ -152,7 +161,8 @@ public class TeacherController {
             @RequestParam(name = "maximum_number") int maximum_number,
             Model model,
             HttpServletRequest request) {
-        TeacherMember teacherMember = utility.getCookieAndReading(request, maria_teacherMember);
+        SessionManager sessionManager = new SessionManager(mariaSession, maria_teacherMember, mariaStudentMember);
+        TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
         if (teacherMember == null){
             //로그인 정보 없음
             model.addAttribute("error_message", "로그인 되어있지 않습니다.");
@@ -200,7 +210,9 @@ public class TeacherController {
 //        Long VCRoomIdLong = Long.getLong(VCRoomId);
         Long selectedStudentIdLong = virtualCRStudentMMappingDTO.getSelectedStudent();
         Long VCRoomIdLong = virtualCRStudentMMappingDTO.getVCRoomId();
-        TeacherMember teacherMember = utility.getCookieAndReading(request, maria_teacherMember);
+        SessionManager sessionManager = new SessionManager(mariaSession, maria_teacherMember, mariaStudentMember);
+
+        TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
         if (teacherMember == null){
             //로그인 정보 없음
             model.addAttribute("error_message", "로그인 되어있지 않습니다.");
@@ -239,8 +251,8 @@ public class TeacherController {
             Model model,
             HttpServletRequest request
     ){
-        TeacherMember teacherMember = utility.getCookieAndReading(request, maria_teacherMember);
-        if (teacherMember == null){
+        SessionManager sessionManager = new SessionManager(mariaSession, maria_teacherMember, mariaStudentMember);
+         TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);        if (teacherMember == null){
             //로그인 정보 없음
             model.addAttribute("error_message", "로그인 되어있지 않습니다.");
             return "index";
