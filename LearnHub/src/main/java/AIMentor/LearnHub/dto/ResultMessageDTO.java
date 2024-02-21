@@ -3,6 +3,6 @@ package AIMentor.LearnHub.dto;
 import lombok.Data;
 
 @Data
-public class VirtualCR_StudentM_mappingDTO_selectedStudent_return {
+public class ResultMessageDTO {
     private String result;
 }

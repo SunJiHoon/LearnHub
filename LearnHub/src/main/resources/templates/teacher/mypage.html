@@ -40,7 +40,8 @@
         <tr th:each="VCRoom, rowStat : ${teachersVirtualClassRooms}">
 <!--            <td th:text="${classRoom.id}"></td>-->
             <td th:object="${rowStat.index + 1}">
-                <a class="a-button" th:href="@{/teacher/classroom/detail(VCRoomId=${#object})}" th:text="${#object}">row Index</a>
+<!--                <a class="a-button" th:href="@{/teacher/classroom/detail(VCRoomId=${#object})}" th:text="${#object}">row Index</a>-->
+                <a class="a-button" th:href="@{/teacher/classroom/detail(className=${VCRoom.className})}" th:text="${#object}">row Index</a>
             </td>
             <td th:text="${VCRoom.className}"></td>
             <td th:text="${VCRoom.subject}"></td>

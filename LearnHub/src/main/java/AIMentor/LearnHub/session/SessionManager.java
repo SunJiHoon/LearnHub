@@ -8,11 +8,18 @@ import AIMentor.LearnHub.repository.Maria_TeacherMember;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 
+@Service
+@Transactional
+@Slf4j
 public class SessionManager {
     Maria_Session mariaSession;
     Maria_TeacherMember maria_teacherMember;
@@ -41,7 +48,7 @@ public class SessionManager {
     public TeacherMember getTeacherCookieAndReading(HttpServletRequest request) {
         // HttpServletRequest를 통해 쿠키 배열을 가져옵니다.
         Cookie[] cookies = request.getCookies();
-
+        log.info(Arrays.toString(cookies));
         Optional<TeacherMember> findTeacherMember = null;
         if (cookies != null) {
             // 모든 쿠키를 순회하면서 원하는 쿠키를 찾습니다.

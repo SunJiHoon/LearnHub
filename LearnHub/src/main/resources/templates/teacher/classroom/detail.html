@@ -31,7 +31,7 @@
 
     <form id="studentSelectForm" action="/teacher/classroom/detail" method="post">
         <label for="dynamicSelect">학생 이름 선택: <span id="searchResultCount"></span></label>
-        <input type="hidden" id="VCRoomId" name="VCRoomId" th:value="${VCRoomId}">
+        <input type="hidden" id="className" name="className" th:value="${className}">
         <select id="dynamicSelect" name="selectedStudent" required>
             <option disabled>학생을 먼저 검색해 주세요.</option>
         </select>
@@ -44,7 +44,7 @@
         <tr>
             <th>이름</th>
             <th>이메일</th>
-            <th style="width: 80px;">삭제 (TODO)</th>
+            <th style="width: 80px;">세부정보 (TODO)</th>
         </tr>
         </thead>
         <tbody>
@@ -52,15 +52,26 @@
             <td th:text="${studentMember.studentName}"></td>
             <td th:text="${studentMember.email}"></td>
             <td>
-<!--                <input type="hidden" class="student-id" th:value="${studentMember.id}">-->
+                    <form action="/teacher/classroom/student/detail" method="get">
+                        <input type="hidden" name="className" th:value="${className}">
+                        <input type="hidden" name="selectedStudent" th:value="${studentMember.id}">
+                        <!--<button type="submit" class="delete-button a-button" th:value="${studentMember.id}" onclick="clickOnButtonForRemoveStudentFromMapping(value)">삭제</button>-->
+<!--                        <button type="submit" class="delete-button a-button" th:value="${studentMember.id}">삭제</button>-->
+                        <button type="submit"
+                                th:className="${className}"
+                                th:studentMember.id="${studentMember.id}">세부정보</button>
+<!--                                onclick='clickOnButtonForRemoveStudentFromMapping-->
+<!--                                (this.getAttribute("className"), this.getAttribute("studentMember.id"))'-->
+
+                    </form>
+
+                    <!--                <input type="hidden" class="student-id" th:value="${studentMember.id}">-->
 <!--                <a class="delete-button a-button" href="#"> 삭제</a>-->
-                <button class="delete-button a-button" th:value="${studentMember.id}" onclick="clickOnButtonForRemoveStudentFromMapping(value)">삭제</button>
 <!--                <a class="a-button" th:href="@{'/deleteStudent?id=' + ${studentMember.id}}" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</a>-->
             </td>
         </tr>
         </tbody>
     </table>
-
 
 </div>
 <script>
@@ -71,8 +82,10 @@
         const dynamicSelect = document.getElementById("dynamicSelect");
         const searchResultCount = document.getElementById("searchResultCount");
         const studentSelectForm = document.getElementById("studentSelectForm");
-        const VCRoomId = document.getElementById("VCRoomId");
+        const classNameForm = document.getElementById("className");
         const studentDeleteButton = document.getElementById("studentDeleteButton");
+        const forms = document.querySelectorAll('.delete-form'); // 모든 삭제 폼 가져오기
+
 
         // 검색 폼에 이벤트 리스너 등록
         searchForm.addEventListener("submit", async event => {
@@ -94,18 +107,18 @@
 
             // 현재 선택된 학생과 VCRoomId 가져오기
             const selectedStudentId = dynamicSelect.value;
-            const VCRoomIdValue = VCRoomId.value;
 
+            console.log(classNameForm.value);
             try {
                 // POST 요청 보내기
-                const response = await fetch("/teacher/classroom/add/student", {
+                const response = await fetch("/teacher/classroom/student/add", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
                         selectedStudent: selectedStudentId,
-                        VCRoomId: VCRoomIdValue
+                        className: classNameForm.value
                     })
                 });
 
@@ -156,20 +169,64 @@
         dynamicSelect.appendChild(fragment);
     }
 
-    function clickOnButtonForRemoveStudentFromMapping(studentId) {
-        const VCRoomId = document.getElementById("VCRoomId");
+    // async function clickOnButtonForRemoveStudentFromMapping(className, selectedStudent) {
+    //     // const classNameForm = document.getElementById("className");
+    //     // const studentId = document.getElementById("ㄴㄷ");
+    //     if (confirm('정말로 삭제하시겠습니까?')) {
+    //         console.log("삭제");
+    //
+    //         try {
+    //             // POST 요청 보내기
+    //             const response = fetch("/teacher/classroom/delete/student", {
+    //                 method: "POST",
+    //                 headers: {
+    //                     "Content-Type": "application/json"
+    //                 },
+    //                 body: JSON.stringify({
+    //                     selectedStudent: selectedStudent,
+    //                     className: className
+    //                 })
+    //             });
+    //
+    //             const resultData = await response.text();
+    //             const newWindow = window.open("", "_blank", "width=400,height=400");
+    //             newWindow.document.write(resultData);
+    //
+    //             // 현재 창 새로고침
+    //             window.location.reload();
+    //             //
+    //             // // 응답 처리
+    //             // if (response.ok) {
+    //             //     // 응답이 성공한 경우, 새 창 열기
+    //             //     //                    const resultData = await response.text();
+    //             //
+    //             // } else {
+    //             //     // 응답이 실패한 경우, 오류 처리
+    //             //     console.error("응답 실패:", response.statusText);
+    //             //     alert("학생 삭제에 실패했습니다.");
+    //             // }
+    //         } catch (err) {
+    //             console.error("오류 발생:", err);
+    //             alert("학생 삭제에 실패했습니다.");
+    //         }
+    //     }
+    // }
+
+    function clickOnButtonForRemoveStudentFromMapping_old(studentId) {
+        const classNameForm = document.getElementById("className");
+
         if (confirm('정말로 삭제하시겠습니까?')) {
             console.log("삭제");
 
             // 삭제 요청을 서버로 보냄
-            fetch('/api/teacher/classroom/detail/student/delete', {
+            fetch('/teacher/classroom/detail/student/delete', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     selectedStudent: studentId,
-                    VCRoomId: VCRoomId.value
+                    className: classNameForm.value
                 })
             })
                 .then(response => response.json())
@@ -189,6 +246,7 @@
                 });
         }
     }
+
 
 </script>
 

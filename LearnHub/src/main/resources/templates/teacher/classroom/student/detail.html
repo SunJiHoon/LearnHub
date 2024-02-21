@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선생님 mypage</title>
+    <link rel="stylesheet" href="/assets/stylesheets/common.css">
+    <link rel="stylesheet" href="/assets/stylesheets/table.css">
+    <link rel="stylesheet" href="/assets/stylesheets/form.css">
+</head>
+<body class="teacher">
+<div class="container">
+    <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
+        <p th:text="${error_message}"></p>
+    </div>
+    <div th:if="${name}" class="alert" role="alert" style="color: black;">
+        <p th:text="${name + ' 선생님이 로그인 되었습니다.'}"></p>
+    </div>
+    <div th:if="${className}" class="alert" role="alert" style="color: black;">
+        <p th:text="${'클래스 이름: ' + name }"></p>
+    </div>
+    <div th:if="${StudentName}" class="alert" role="alert" style="color: black;">
+        <p th:text="${'학생 이름: ' + StudentName}"></p>
+    </div>
+    <div th:if="${Email}" class="alert" role="alert" style="color: black;">
+        <p th:text="${'학생 이메일: ' + Email}"></p>
+    </div>
+
+    <form id="studentDeleteForm" action="/teacher/classroom/student/delete" method="post">
+<!--        <label for="dynamicSelect">학생 이름 선택: <span id="searchResultCount"></span></label>-->
+        <input type="hidden" id="className" name="className" th:value="${className}">
+        <input type="hidden" id="selectedStudent" name="selectedStudent" th:value="${selectedStudent}">
+<!--        <select id="dynamicSelect" name="selectedStudent" required>-->
+<!--            <option disabled>학생을 먼저 검색해 주세요.</option>-->
+<!--        </select>-->
+        <button type="submit">삭제</button>
+    </form>
+
+
+</div>
+
+<script src="/assets/javascripts/teacher/register.js"></script>
+
+</body>
+</html>

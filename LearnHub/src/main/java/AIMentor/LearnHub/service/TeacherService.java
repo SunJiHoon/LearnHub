@@ -16,7 +16,6 @@ import java.util.List;
 @Service
 @Transactional
 public class TeacherService {
-    Utility utility = new Utility();
     Maria_TeacherMember maria_teacherMember;
     Maria_VirtualClassRoom mariaVirtualClassRoom;
     Maria_StudentMember mariaStudentMember;
@@ -37,4 +36,12 @@ public class TeacherService {
         List<VirtualCR_StudentM_mapping> mappingsToDelete = mariaVirtualCRStudentMMapping.deleteByStudentMemberAndVirtualClassRoom(studentMember, virtualClassRoom);
         mariaVirtualCRStudentMMapping.deleteAll(mappingsToDelete);
     }
+
+    public void deleteSelectedVClassFromVCTable(VirtualClassRoom virtualClassRoom){
+//        List<VirtualCR_StudentM_mapping> mappingsToDelete = mariaVirtualCRStudentMMapping.deleteByStudentMemberAndVirtualClassRoom(studentMember, virtualClassRoom);
+//        mariaVirtualCRStudentMMapping.deleteAll(mappingsToDelete);
+        mariaVirtualClassRoom.deleteById(virtualClassRoom.getId());
+    }
+
+
 }

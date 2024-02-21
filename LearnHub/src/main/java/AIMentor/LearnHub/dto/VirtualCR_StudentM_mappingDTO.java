@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class VirtualCR_StudentM_mappingDTO {
-    public Long VCRoomId;
+    public String className;
     public Long selectedStudent;
 }
