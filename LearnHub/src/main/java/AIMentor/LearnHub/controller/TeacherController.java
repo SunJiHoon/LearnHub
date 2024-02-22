@@ -9,6 +9,7 @@ import AIMentor.LearnHub.entity.VirtualClassRoom;
 import AIMentor.LearnHub.repository.*;
 import AIMentor.LearnHub.service.TeacherService;
 import AIMentor.LearnHub.session.SessionManager;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -91,8 +92,21 @@ public class TeacherController {
     }
 
     @GetMapping(value = "/login")
-    String giveMeLoginPage(){
-        return "teacher/login";
+    String giveMeLoginPage(
+            Model model,
+            HttpServletRequest request
+    ){
+        TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
+        if (teacherMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "teacher/login";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", teacherMember.getTeacherName());
+            return "redirect:/teacher/mypage";
+        }
     }
 
     @PostMapping(value = "/login")
@@ -133,13 +147,25 @@ public class TeacherController {
         }
     }
 
+    @PostMapping("/logout")
+    public String logout(
+            HttpServletResponse response
+    ) {
+        expireCookie(response, "teacherId");
+        return "redirect:/";
+    }
+    private void expireCookie(HttpServletResponse response, String cookieName) {
+        Cookie cookie = new Cookie(cookieName, null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+    }
+
+
     @GetMapping("/mypage")
     public String getMyPage(
             Model model,
             HttpServletRequest request
     ) {
-        // HttpServletRequest를 통해 쿠키 배열을 가져옵니다.
-//        SessionManager sessionManager = new SessionManager(mariaSession, maria_teacherMember, mariaStudentMember);
         TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
         if (teacherMember == null){
             //로그인 정보 없음

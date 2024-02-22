@@ -19,7 +19,13 @@
     <div th:if="${created_class_name}" class="alert" role="alert" style="color: black;">
         <p th:text="${created_class_name + ' 클래스가 생성되었습니다.'}"></p>
     </div>
-
+    <form action="/teacher/mypage" method="GET">
+        <button type="submit" style="width: 30%;">My Page로 가기</button>
+    </form>
+    <br>
+    <form action="/teacher/logout" method="POST">
+        <button type="submit" style="width: 30%;">선생님 로그아웃</button>
+    </form>
     <h2>선생님 mypage</h2>
     <a class="a-button" href="/teacher/classroom/make">분반 만들기</a>
 

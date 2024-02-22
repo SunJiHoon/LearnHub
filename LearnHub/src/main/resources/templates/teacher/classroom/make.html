@@ -16,6 +16,15 @@
         <p th:text="${name + ' 선생님이 로그인 되었습니다.'}"></p>
     </div>
 
+    <form action="/teacher/mypage" method="GET">
+         <button type="submit" style="width: 30%;">My Page로 가기</button>
+    </form>
+    <br>
+    <form action="/teacher/logout" method="POST">
+        <button type="submit" style="width: 30%;">선생님 로그아웃</button>
+    </form>
+
+
     <h2>선생님 classroom make 페이지</h2>
     <form action="/teacher/classroom/make" method="post">
         <div class="form-group">
