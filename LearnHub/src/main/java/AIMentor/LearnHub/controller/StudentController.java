@@ -2,9 +2,12 @@ package AIMentor.LearnHub.controller;
 
 import AIMentor.LearnHub.entity.StudentMember;
 import AIMentor.LearnHub.entity.TeacherMember;
+import AIMentor.LearnHub.entity.VirtualClassRoom;
 import AIMentor.LearnHub.repository.Maria_StudentMember;
 import AIMentor.LearnHub.repository.Maria_TeacherMember;
+import AIMentor.LearnHub.session.SessionManager;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -20,8 +24,14 @@ import java.util.Optional;
 public class StudentController {
 
     Maria_StudentMember mariaStudentMember;
-    public StudentController(Maria_StudentMember mariaStudentMember) {
+    SessionManager sessionManager;
+
+    public StudentController(
+            Maria_StudentMember mariaStudentMember,
+            SessionManager sessionManager
+) {
         this.mariaStudentMember = mariaStudentMember;
+        this.sessionManager = sessionManager;
     }
 
     @GetMapping(value = "/register")
@@ -65,8 +75,19 @@ public class StudentController {
     }
 
     @GetMapping(value = "/login")
-    String giveMeLoginPage(){
-        return "student/login";
+    String giveMeLoginPage(
+            Model model,
+            HttpServletRequest request
+    ){
+        StudentMember studentMember = sessionManager.getStudentCookieAndReading(request);
+        if (studentMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "student/login";
+        }
+        else{
+            return "redirect:/student/mypage";
+        }
     }
 
     @PostMapping(value = "/login")
@@ -80,7 +101,7 @@ public class StudentController {
 
         if(loginStudentMember.isEmpty()){
             model.addAttribute("error_message", "일치하는 id가 없습니다.");
-            return "student/register";
+            return "student/login";
         }
         else{
             StudentMember realStudentMember = loginStudentMember.get();
@@ -88,16 +109,51 @@ public class StudentController {
                 model.addAttribute("register",
                         realStudentMember.getStudentName() +"님 안녕하세요. "
                                 +"로그인 되었습니다.");
-                Cookie idCookie = new Cookie("studentId",
-                        String.valueOf(realStudentMember.getId()));
-                response.addCookie(idCookie);
+                sessionManager.createStudentSession(String.valueOf(realStudentMember.getId()), response);
                 return "redirect:/student/mypage";
             }
             else{
                 model.addAttribute("error_message", "비밀번호가 틀렸습니다.");
-                return "student/register";
+                return "student/login";
             }
         }
     }
+
+    @PostMapping("/logout")
+    public String logout(
+            HttpServletResponse response
+    ) {
+        expireCookie(response, "studentId");
+        return "redirect:/";
+    }
+    private void expireCookie(HttpServletResponse response, String cookieName) {
+        Cookie cookie = new Cookie(cookieName, null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+    }
+
+
+    @GetMapping("/mypage")
+    public String getMyPageInStudent(
+            Model model,
+            HttpServletRequest request
+    ) {
+        StudentMember studentMember = sessionManager.getStudentCookieAndReading(request);
+        if (studentMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", studentMember.getStudentName());
+        }
+
+//        List<VirtualClassRoom> teachersVirtualClassRoomList = mariaVirtualClassRoom.findByTeacherMember(teacherMember);
+//        model.addAttribute("teachersVirtualClassRooms", teachersVirtualClassRoomList);
+
+        return "student/mypage";
+    }
+
 
 }

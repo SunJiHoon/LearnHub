@@ -120,7 +120,7 @@ public class TeacherController {
 
         if(loginTeacherMember.isEmpty()){
             model.addAttribute("error_message", "일치하는 id가 없습니다.");
-            return "teacher/register";
+            return "teacher/login";
         }
         else{
             TeacherMember realTeacherMember = loginTeacherMember.get();
@@ -142,7 +142,7 @@ public class TeacherController {
             }
             else{
                 model.addAttribute("error_message", "비밀번호가 틀렸습니다.");
-                return "teacher/register";
+                return "teacher/login";
             }
         }
     }

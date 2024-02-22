@@ -1,6 +1,7 @@
 package AIMentor.LearnHub.session;
 
 import AIMentor.LearnHub.entity.Session;
+import AIMentor.LearnHub.entity.StudentMember;
 import AIMentor.LearnHub.entity.TeacherMember;
 import AIMentor.LearnHub.repository.Maria_Session;
 import AIMentor.LearnHub.repository.Maria_StudentMember;
@@ -69,6 +70,45 @@ public class SessionManager {
         }
         if(findTeacherMember!=null && findTeacherMember.isPresent()){
             return findTeacherMember.get();
+        }
+        return null;
+    }
+
+    public void createStudentSession(String value, HttpServletResponse response) {
+        String token = UUID.randomUUID().toString(); //(1)
+        Session session = new Session();
+        //token, value
+        session.setUserId(value);
+        session.setUuid(token);
+        mariaSession.save(session); //(2)
+        Cookie cookie = new Cookie(SessionConst.sessionId_student, token); //(3)
+        response.addCookie(cookie); //(4)
+    }
+
+    public StudentMember getStudentCookieAndReading(HttpServletRequest request) {
+        // HttpServletRequest를 통해 쿠키 배열을 가져옵니다.
+        Cookie[] cookies = request.getCookies();
+        log.info(Arrays.toString(cookies));
+        Optional<StudentMember> findStudentMember = null;
+        if (cookies != null) {
+            // 모든 쿠키를 순회하면서 원하는 쿠키를 찾습니다.
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("studentId")) {
+                    // 쿠키 값을 가져와서 사용합니다.
+                    String cookieValue = cookie.getValue();
+//                    findTeacherMember = maria_teacherMember.findById(Long.valueOf(cookieValue));
+
+                    Optional<Session> sessionOptional = null;
+                    sessionOptional = mariaSession.findByUuid(cookieValue);
+                    if(sessionOptional.isPresent()){
+                        findStudentMember = mariaStudentMember.findById(Long.valueOf(sessionOptional.get().getUserId()));
+                    }
+                    break;
+                }
+            }
+        }
+        if(findStudentMember!=null && findStudentMember.isPresent()){
+            return findStudentMember.get();
         }
         return null;
     }
