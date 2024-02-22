@@ -25,8 +25,10 @@
     <form action="/student/logout" method="POST">
         <button type="submit" style="width: 30%;">학생 로그아웃</button>
     </form>
-    <h2>학생 mypage</h2>
-    <a class="a-button" href="/teacher/classroom/make">내 분반 체크하기</a>
+
+
+<!--    <h2>학생 mypage</h2>-->
+<!--    <a class="a-button" href="/student/classroom/make">내 분반 체크하기</a>-->
 
     <h2>학생 가입된 classroom list</h2>
     <table>
@@ -42,7 +44,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="VCRoom, rowStat : ${teachersVirtualClassRooms}">
+        <tr th:each="VCRoom, rowStat : ${studentsVirtualClassRooms}">
             <!--            <td th:text="${classRoom.id}"></td>-->
             <td th:object="${rowStat.index + 1}">
                 <!--                <a class="a-button" th:href="@{/teacher/classroom/detail(VCRoomId=${#object})}" th:text="${#object}">row Index</a>-->

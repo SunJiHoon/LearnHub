@@ -26,7 +26,6 @@ import AIMentor.LearnHub.utility.Utility;
 @RequestMapping(value = "/teacher")
 @Slf4j
 public class TeacherController {
-    Utility utility = new Utility();
     Maria_TeacherMember maria_teacherMember;
     Maria_VirtualClassRoom mariaVirtualClassRoom;
     Maria_StudentMember mariaStudentMember;

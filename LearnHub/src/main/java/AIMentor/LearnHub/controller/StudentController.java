@@ -5,6 +5,9 @@ import AIMentor.LearnHub.entity.TeacherMember;
 import AIMentor.LearnHub.entity.VirtualClassRoom;
 import AIMentor.LearnHub.repository.Maria_StudentMember;
 import AIMentor.LearnHub.repository.Maria_TeacherMember;
+import AIMentor.LearnHub.repository.Maria_VirtualCR_StudentM_mapping;
+import AIMentor.LearnHub.repository.Maria_VirtualClassRoom;
+import AIMentor.LearnHub.service.StudentService;
 import AIMentor.LearnHub.session.SessionManager;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,13 +28,19 @@ public class StudentController {
 
     Maria_StudentMember mariaStudentMember;
     SessionManager sessionManager;
+    Maria_VirtualCR_StudentM_mapping mariaVirtualCRStudentMMapping;
+    StudentService studentService;
 
     public StudentController(
             Maria_StudentMember mariaStudentMember,
-            SessionManager sessionManager
+            SessionManager sessionManager,
+            Maria_VirtualCR_StudentM_mapping mariaVirtualCRStudentMMapping,
+            StudentService studentService
 ) {
         this.mariaStudentMember = mariaStudentMember;
         this.sessionManager = sessionManager;
+        this.mariaVirtualCRStudentMMapping = mariaVirtualCRStudentMMapping;
+        this.studentService = studentService;
     }
 
     @GetMapping(value = "/register")
@@ -149,8 +158,8 @@ public class StudentController {
             model.addAttribute("name", studentMember.getStudentName());
         }
 
-//        List<VirtualClassRoom> teachersVirtualClassRoomList = mariaVirtualClassRoom.findByTeacherMember(teacherMember);
-//        model.addAttribute("teachersVirtualClassRooms", teachersVirtualClassRoomList);
+        List<VirtualClassRoom> studentsVirtualClassRoomList = studentService.getStudentsClasses(studentMember);
+        model.addAttribute("studentsVirtualClassRooms", studentsVirtualClassRoomList);
 
         return "student/mypage";
     }

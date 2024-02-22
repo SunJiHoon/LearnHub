@@ -14,5 +14,6 @@ public interface Maria_VirtualCR_StudentM_mapping extends JpaRepository<VirtualC
     boolean existsByStudentMemberAndVirtualClassRoom(StudentMember studentMember, VirtualClassRoom virtualClassRoom);
     // VirtualCR_StudentM_mapping에서 studentMember와 virtualClassRoom과 일치하는 항목 삭제
     List<VirtualCR_StudentM_mapping> deleteByStudentMemberAndVirtualClassRoom(StudentMember studentMember, VirtualClassRoom virtualClassRoom);
+    List<VirtualCR_StudentM_mapping> findByStudentMember(StudentMember studentMember);
 
 }
