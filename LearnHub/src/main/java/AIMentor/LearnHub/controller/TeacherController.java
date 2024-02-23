@@ -232,19 +232,43 @@ public class TeacherController {
         return "teacher/mypage";
     }
 
+
+    @GetMapping("/classroom/detail")
+    public String getDeatailPageWithPost(
+//            @RequestParam(name = "VCRoomId") Long vCRoomId,
+            @RequestParam(name = "className") String className,
+            Model model,
+            HttpServletRequest request
+    ){
+         TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
+         if (teacherMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", teacherMember.getTeacherName());
+        }
+        Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findByClassNameAndTeacherMember(className, teacherMember);
+        if(virtualClassRoom.isEmpty()){
+            model.addAttribute("error_message", "해당하는 VCR이 존재하지 않습니다.");
+            return "index";
+        }
+        model.addAttribute("class_name", className);
+        model.addAttribute("the_num_of_students", virtualClassRoom.get().getVirtualCRStudentMMappingArrayList().size());
+        model.addAttribute("students_maximum_number", virtualClassRoom.get().getMaximumNumber());
+        return "teacher/classroom/detail";
+    }
+
     @PostMapping("/classroom/student/add")
     public String doAddStudent(
-//            @RequestParam("selectedStudent") String selectedStudent,
-//            @RequestParam("VCRoomId") String VCRoomId,
             @RequestBody VirtualCR_StudentM_mappingDTO virtualCRStudentMMappingDTO,
             Model model,
             HttpServletRequest request
     ){
-//        Long selectedStudentIdLong = Long.getLong(selectedStudent);
-//        Long VCRoomIdLong = Long.getLong(VCRoomId);
         Long selectedStudentIdLong = virtualCRStudentMMappingDTO.getSelectedStudent();
         String className = virtualCRStudentMMappingDTO.getClassName();
-//        SessionManager sessionManager = new SessionManager(mariaSession, maria_teacherMember, mariaStudentMember);
 
         TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
         if (teacherMember == null){
@@ -281,33 +305,7 @@ public class TeacherController {
         return "/teacher/classroom/student/add";
     }
 
-    @GetMapping("/classroom/detail")
-    public String getDeatailPageWithPost(
-//            @RequestParam(name = "VCRoomId") Long vCRoomId,
-            @RequestParam(name = "className") String className,
-            Model model,
-            HttpServletRequest request
-    ){
-         TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
-         if (teacherMember == null){
-            //로그인 정보 없음
-            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
-            return "index";
-        }
-        else{
-            //로그인 되어있음.
-            model.addAttribute("name", teacherMember.getTeacherName());
-        }
-        Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findByClassNameAndTeacherMember(className, teacherMember);
-        if(virtualClassRoom.isEmpty()){
-            model.addAttribute("error_message", "해당하는 VCR이 존재하지 않습니다.");
-            return "index";
-        }
-        model.addAttribute("class_name", className);
-        model.addAttribute("the_num_of_students", virtualClassRoom.get().getVirtualCRStudentMMappingArrayList().size());
-        model.addAttribute("students_maximum_number", virtualClassRoom.get().getMaximumNumber());
-        return "teacher/classroom/detail";
-    }
+
     @GetMapping("/classroom/student/list")
     public String getStudentListPageWithPost(
 //            @RequestParam(name = "VCRoomId") Long vCRoomId,
@@ -416,6 +414,183 @@ public class TeacherController {
         model.addAttribute("className", className );
 //        return "redirect:/teacher/classroom/detail?className=" + className;
         return "redirect:/teacher/classroom/student/list?className="+className;
+    }
+
+
+    //    assignment
+    @GetMapping("/classroom/assignment/add")
+    public String getAddAssignentPage(
+            @RequestParam(name = "className") String className,
+            Model model,
+            HttpServletRequest request
+    ){
+        TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
+        if (teacherMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", teacherMember.getTeacherName());
+        }
+        model.addAttribute("class_name", className);
+        return "/teacher/classroom/assignment/add";
+    }
+
+    @PostMapping("/classroom/assignment/add")
+    public String doAddAssignent(
+            @RequestBody VirtualCR_StudentM_mappingDTO virtualCRStudentMMappingDTO,
+            Model model,
+            HttpServletRequest request
+    ){
+        Long selectedStudentIdLong = virtualCRStudentMMappingDTO.getSelectedStudent();
+        String className = virtualCRStudentMMappingDTO.getClassName();
+
+        TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
+        if (teacherMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", teacherMember.getTeacherName());
+        }
+        Optional<StudentMember> studentMember = mariaStudentMember.findById(selectedStudentIdLong);
+        Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findByClassNameAndTeacherMember(className, teacherMember);
+        if (studentMember.isPresent() && virtualClassRoom.isPresent()){
+            if (mariaVirtualCRStudentMMapping.existsByStudentMemberAndVirtualClassRoom(studentMember.get(), virtualClassRoom.get())){
+                //중복이 존재할 경우
+                model.addAttribute("error_message", "이미 추가 되어있는 학생입니다.");
+                return "/teacher/classroom/assignment/add";
+            }
+            else{
+                //중복이 없는 경우
+                //model.addAttribute("VCRoomId", studentMember.get());
+                VirtualCR_StudentM_mapping virtualCRStudentMMapping = new VirtualCR_StudentM_mapping();
+                //virtualCRStudentMMapping.setVirtualClassRoom();
+                virtualCRStudentMMapping.setStudentMember(studentMember.get());
+                virtualCRStudentMMapping.setVirtualClassRoom(virtualClassRoom.get());
+                mariaVirtualCRStudentMMapping.save(virtualCRStudentMMapping);
+                model.addAttribute("result_message", "추가에 성공했습니다.");
+                model.addAttribute("added_student_name", studentMember.get().getStudentName());
+                return "/teacher/classroom/assignment/add";
+            }
+        }
+        model.addAttribute("error_message", "추가에 실패했습니다. 웹을 새로 시작해주세요.");
+        return "/teacher/classroom/assignment/add";
+    }
+
+
+    @GetMapping("/classroom/assignment/list")
+    public String getAssignmentListPageWithPost(
+//            @RequestParam(name = "VCRoomId") Long vCRoomId,
+            @RequestParam(name = "className") String className,
+            Model model,
+            HttpServletRequest request
+    ){
+        TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
+        if (teacherMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", teacherMember.getTeacherName());
+        }
+        Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findByClassNameAndTeacherMember(className, teacherMember);
+        if(virtualClassRoom.isEmpty()){
+            model.addAttribute("error_message", "해당하는 VCR이 존재하지 않습니다.");
+            return "index";
+        }
+//        virtualClassRoom.get();
+//        model.addAttribute("VCRoomId", vCRoomId);
+//        Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findById(vCRoomId);
+        List<StudentMember> studentMemberArrayList = new ArrayList<>();
+        if (virtualClassRoom.isPresent()){
+            List<VirtualCR_StudentM_mapping> virtualCRStudentMMapping = mariaVirtualCRStudentMMapping.findByVirtualClassRoom(virtualClassRoom.get());
+            for(int i=0;i<virtualCRStudentMMapping.size();i++){
+                studentMemberArrayList.add(virtualCRStudentMMapping.get(i).getStudentMember());
+            }
+        }
+
+//        model.addAttribute("VCRoomId", vCRoomId);
+        model.addAttribute("studentMemberArrayList",studentMemberArrayList);
+        model.addAttribute("class_name", className);
+        log.info(className);
+        return "teacher/classroom/assignment/list";
+    }
+
+
+    @GetMapping("/classroom/assignment/detail")
+    public String getDetailPageAssignment(
+            @RequestParam(name = "selectedStudent") Long selectedStudent,
+            @RequestParam(name = "className") String className,
+            Model model,
+            HttpServletRequest request
+    ){
+        TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
+        if (teacherMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", teacherMember.getTeacherName());
+        }
+
+        Optional<StudentMember> studentMember = mariaStudentMember.findById(selectedStudent);
+        if (studentMember.isEmpty()){
+            model.addAttribute("error_message", "해당하는 학생 정보가 존재하지 않습니다.");
+        }
+
+        if (studentMember.isPresent()){
+            model.addAttribute("StudentName",studentMember.get().getStudentName());
+            model.addAttribute("Email",studentMember.get().getEmail());
+            model.addAttribute("selectedStudent",studentMember.get().getId());
+        }
+        model.addAttribute("className", className);
+//        log.info(className);
+
+        return "teacher/classroom/assignment/detail";
+    }
+
+    @PostMapping("/classroom/assignment/delete")
+    public String removeAssignmentFromMappingTable(
+            @RequestParam(name = "selectedStudent") Long selectedStudent,
+            @RequestParam(name = "className") String className,
+            Model model,
+            HttpServletRequest request
+    ){
+        TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
+        if (teacherMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", teacherMember.getTeacherName());
+        }
+
+        Optional<StudentMember> studentMember = mariaStudentMember.findById(selectedStudent);
+        Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findByClassNameAndTeacherMember(className, teacherMember);
+
+        if(virtualClassRoom.isEmpty() || studentMember.isEmpty()){
+            ResultMessageDTO virtualCR_studentM_mappingDTO_selectedStudent_return = new ResultMessageDTO();
+            virtualCR_studentM_mappingDTO_selectedStudent_return.setResult("faile");
+            model.addAttribute("error_message", "빈 객체 입니다.");
+//            model.addAttribute("className", className);
+//            return "redirect:/teacher/classroom/detail?className=" + className;
+            return "/teacher/classroom/assignment/delete";
+        }
+        teacherService.deleteSelectedStudentFromMappingTable(studentMember.get(), virtualClassRoom.get());
+        model.addAttribute("className", className );
+//        return "redirect:/teacher/classroom/detail?className=" + className;
+        return "redirect:/teacher/classroom/assignment/list?className="+className;
     }
 
 }

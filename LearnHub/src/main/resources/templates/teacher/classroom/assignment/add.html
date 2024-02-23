@@ -13,11 +13,17 @@
     <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
         <p th:text="${error_message}"></p>
     </div>
+
+    <div th:if="${result_message}" class="alert" role="alert" style="color: red;">
+        <p th:text="${result_message}"></p>
+    </div>
+
     <div th:if="${name}" class="alert" role="alert" style="color: black;">
         <p th:text="${name + ' 선생님이 로그인 되었습니다.'}"></p>
     </div>
-    <div th:if="${created_class_name}" class="alert" role="alert" style="color: black;">
-        <p th:text="${created_class_name + ' 클래스가 생성되었습니다.'}"></p>
+
+    <div th:if="${class_name}" class="alert" role="alert" style="color: black;">
+        <p th:text="${class_name + ' 클래스 이름'}"></p>
     </div>
 
     <form action="/teacher/mypage" method="GET">
@@ -27,23 +33,15 @@
     <form action="/teacher/logout" method="POST">
         <button type="submit" style="width: 30%;">선생님 로그아웃</button>
     </form>
+    <br>
+    <form action="/teacher/classroom/assignment/list" method="get">
+        <input type="hidden" name="className" th:value="${class_name}" />
+        <button type="submit" style="width: 30%;">과제 관리 페이지로 가기</button>
+    </form>
 
-    <h2>선생님 classroom detail</h2>
-    <a class="a-button" th:href="@{/teacher/classroom/student/list(className=${class_name})}">
-        <span th:text="${class_name + ' 학생 관리'}">Class Name</span>
-    </a>
-    <p th:text="${'학생수 : ' + the_num_of_students}"></p>
-    <p th:text="${'정원 : ' + students_maximum_number}"></p>
-
-    <a class="a-button" th:href="@{/teacher/classroom/assignment/list(className=${class_name})}">
-        <span th:text="${class_name + ' 과제 관리'}">Class Name</span>
-    </a>
-<!--과제 관리가 추가되어야한다.-->
 
 
 </div>
-
 <script src="/assets/javascripts/teacher/register.js"></script>
-
 </body>
 </html>
