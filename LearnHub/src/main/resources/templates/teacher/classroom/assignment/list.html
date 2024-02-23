@@ -39,32 +39,25 @@
     <table>
         <thead>
         <tr>
-            <th>이름</th>
-            <th>이메일</th>
+            <th>과제 이름</th>
+            <th>과제 생성일</th>
+            <th>과제 마감일</th>
             <th style="width: 80px;">세부정보 (TODO)</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="studentMember : ${studentMemberArrayList}">
-            <td th:text="${studentMember.studentName}"></td>
-            <td th:text="${studentMember.email}"></td>
+        <tr th:each="student_assignment : ${student_assignment_list}">
+            <td th:text="${student_assignment.sectionName}"></td>
+            <td th:text="${student_assignment.assignmentCreationDate}"></td>
+            <td th:text="${student_assignment.assignmentDueDate}"></td>
             <td>
                 <form action="/teacher/classroom/student/detail" method="get">
-                    <input type="hidden" name="className" th:value="${className}">
-                    <input type="hidden" name="selectedStudent" th:value="${studentMember.id}">
-                    <!--<button type="submit" class="delete-button a-button" th:value="${studentMember.id}" onclick="clickOnButtonForRemoveStudentFromMapping(value)">삭제</button>-->
-                    <!--                        <button type="submit" class="delete-button a-button" th:value="${studentMember.id}">삭제</button>-->
-                    <button type="submit"
-                            th:className="${className}"
-                            th:studentMember.id="${studentMember.id}">세부정보</button>
-                    <!--                                onclick='clickOnButtonForRemoveStudentFromMapping-->
-                    <!--                                (this.getAttribute("className"), this.getAttribute("studentMember.id"))'-->
+<!--                    <input type="hidden" name="className" th:value="${className}">-->
+<!--                    <input type="hidden" name="selectedStudent" th:value="${studentMember.id}">-->
+<!--                    <button type="submit" th:className="${className}" th:studentMember.id="${studentMember.id}">세부정보</button>-->
+                    <button type="submit" >세부정보</button>
 
                 </form>
-
-                <!--                <input type="hidden" class="student-id" th:value="${studentMember.id}">-->
-                <!--                <a class="delete-button a-button" href="#"> 삭제</a>-->
-                <!--                <a class="a-button" th:href="@{'/deleteStudent?id=' + ${studentMember.id}}" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</a>-->
             </td>
         </tr>
         </tbody>

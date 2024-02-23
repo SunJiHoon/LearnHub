@@ -1,6 +1,7 @@
 package AIMentor.LearnHub.controller;
 
 import AIMentor.LearnHub.dto.ResultMessageDTO;
+import AIMentor.LearnHub.dto.StudentMemberDTO;
 import AIMentor.LearnHub.dto.VirtualCR_StudentM_mappingDTO;
 import AIMentor.LearnHub.entity.*;
 import AIMentor.LearnHub.repository.*;
@@ -332,13 +333,17 @@ public class TeacherController {
 //        virtualClassRoom.get();
 //        model.addAttribute("VCRoomId", vCRoomId);
 //        Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findById(vCRoomId);
-        List<StudentMember> studentMemberArrayList = new ArrayList<>();
-        if (virtualClassRoom.isPresent()){
-            List<VirtualCR_StudentM_mapping> virtualCRStudentMMapping = mariaVirtualCRStudentMMapping.findByVirtualClassRoom(virtualClassRoom.get());
-            for(int i=0;i<virtualCRStudentMMapping.size();i++){
-                studentMemberArrayList.add(virtualCRStudentMMapping.get(i).getStudentMember());
-            }
+        List<StudentMemberDTO> studentMemberArrayList = new ArrayList<>();
+
+        List<VirtualCR_StudentM_mapping> virtualCRStudentMMapping = mariaVirtualCRStudentMMapping.findByVirtualClassRoom(virtualClassRoom.get());
+        for (VirtualCR_StudentM_mapping virtualCR_studentM_mapping : virtualCRStudentMMapping) {
+            StudentMemberDTO tempStudentMemberDTO = new StudentMemberDTO();
+            tempStudentMemberDTO.setId(virtualCR_studentM_mapping.getStudentMember().getId());
+            tempStudentMemberDTO.setStudentName(virtualCR_studentM_mapping.getStudentMember().getStudentName());
+            tempStudentMemberDTO.setEmail(virtualCR_studentM_mapping.getStudentMember().getEmail());
+            studentMemberArrayList.add(tempStudentMemberDTO);
         }
+
 
 //        model.addAttribute("VCRoomId", vCRoomId);
         model.addAttribute("studentMemberArrayList",studentMemberArrayList);
@@ -505,16 +510,12 @@ public class TeacherController {
 //        virtualClassRoom.get();
 //        model.addAttribute("VCRoomId", vCRoomId);
 //        Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findById(vCRoomId);
-        List<StudentMember> studentMemberArrayList = new ArrayList<>();
-        if (virtualClassRoom.isPresent()){
-            List<VirtualCR_StudentM_mapping> virtualCRStudentMMapping = mariaVirtualCRStudentMMapping.findByVirtualClassRoom(virtualClassRoom.get());
-            for(int i=0;i<virtualCRStudentMMapping.size();i++){
-                studentMemberArrayList.add(virtualCRStudentMMapping.get(i).getStudentMember());
-            }
-        }
 
+
+//         studentAssignmentList = new ArrayList<>();
+        List<StudentAssignment> studentAssignmentList = mariaStudentAssignment.findByVirtualClassRoom(virtualClassRoom.get());
 //        model.addAttribute("VCRoomId", vCRoomId);
-        model.addAttribute("studentMemberArrayList",studentMemberArrayList);
+        model.addAttribute("student_assignment_list" ,studentAssignmentList);
         model.addAttribute("class_name", className);
         log.info(className);
         return "teacher/classroom/assignment/list";
