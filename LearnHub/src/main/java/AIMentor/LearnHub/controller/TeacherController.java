@@ -304,7 +304,7 @@ public class TeacherController {
             return "index";
         }
         model.addAttribute("class_name", className);
-        model.addAttribute("the_num_of_students", virtualClassRoom.get().getStudentAssignmentList().size());
+        model.addAttribute("the_num_of_students", virtualClassRoom.get().getVirtualCRStudentMMappingArrayList().size());
         model.addAttribute("students_maximum_number", virtualClassRoom.get().getMaximumNumber());
         return "teacher/classroom/detail";
     }

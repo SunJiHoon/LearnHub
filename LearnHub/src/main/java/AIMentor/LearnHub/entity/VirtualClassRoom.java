@@ -31,8 +31,8 @@ public class VirtualClassRoom {
     @OneToMany(mappedBy = "virtualClassRoom")
     private List<VirtualCR_StudentM_mapping> virtualCRStudentMMappingArrayList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "virtualClassRoom")
-    private List<StudentAssignment> studentAssignmentList = new ArrayList<>();
+//    @OneToMany(mappedBy = "virtualClassRoom")
+//    private List<StudentAssignment> studentAssignmentList = new ArrayList<>();
 
     //    @OneToMany(mappedBy = "parent")
 //    private List<Category> child = new ArrayList<>();
