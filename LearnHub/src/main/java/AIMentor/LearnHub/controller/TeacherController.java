@@ -303,7 +303,9 @@ public class TeacherController {
             model.addAttribute("error_message", "해당하는 VCR이 존재하지 않습니다.");
             return "index";
         }
-        model.addAttribute("className", className);
+        model.addAttribute("class_name", className);
+        model.addAttribute("the_num_of_students", virtualClassRoom.get().getStudentAssignmentList().size());
+        model.addAttribute("students_maximum_number", virtualClassRoom.get().getMaximumNumber());
         return "teacher/classroom/detail";
     }
     @GetMapping("/classroom/student/list")
@@ -374,10 +376,10 @@ public class TeacherController {
             model.addAttribute("StudentName",studentMember.get().getStudentName());
             model.addAttribute("Email",studentMember.get().getEmail());
             model.addAttribute("selectedStudent",studentMember.get().getId());
-
         }
         model.addAttribute("className", className);
-        log.info(className);
+//        log.info(className);
+
         return "teacher/classroom/student/detail";
     }
 

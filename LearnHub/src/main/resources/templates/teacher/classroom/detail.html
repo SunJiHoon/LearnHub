@@ -30,8 +30,12 @@
 
     <h2>선생님 classroom detail</h2>
     <a class="a-button" th:href="@{/teacher/classroom/student/list(className=${className})}">
-        <span th:text="${className + ' 학생 관리'}">Class Name</span>
+        <span th:text="${class_name + ' 학생 관리'}">Class Name</span>
     </a>
+    <p th:text="${'학생수 : ' + the_num_of_students}"></p>
+    <p th:text="${'정원 : ' + students_maximum_number}"></p>
+
+<!--과제 관리가 추가되어야한다.-->
 
 
 </div>
