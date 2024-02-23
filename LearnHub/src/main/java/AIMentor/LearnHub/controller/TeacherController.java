@@ -440,13 +440,13 @@ public class TeacherController {
 
     @PostMapping("/classroom/assignment/add")
     public String doAddAssignent(
-            @RequestBody VirtualCR_StudentM_mappingDTO virtualCRStudentMMappingDTO,
+            @RequestParam(name = "className") String className,
+            @RequestParam(name = "assignmentCreationDate") String assignmentCreationDate,
+            @RequestParam(name = "assignmentDueDate") String assignmentDueDate,
+            @RequestParam(name = "sectionName") String sectionName,
             Model model,
             HttpServletRequest request
     ){
-        Long selectedStudentIdLong = virtualCRStudentMMappingDTO.getSelectedStudent();
-        String className = virtualCRStudentMMappingDTO.getClassName();
-
         TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
         if (teacherMember == null){
             //로그인 정보 없음
@@ -457,28 +457,13 @@ public class TeacherController {
             //로그인 되어있음.
             model.addAttribute("name", teacherMember.getTeacherName());
         }
-        Optional<StudentMember> studentMember = mariaStudentMember.findById(selectedStudentIdLong);
+
         Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findByClassNameAndTeacherMember(className, teacherMember);
-        if (studentMember.isPresent() && virtualClassRoom.isPresent()){
-            if (mariaVirtualCRStudentMMapping.existsByStudentMemberAndVirtualClassRoom(studentMember.get(), virtualClassRoom.get())){
-                //중복이 존재할 경우
-                model.addAttribute("error_message", "이미 추가 되어있는 학생입니다.");
-                return "/teacher/classroom/assignment/add";
-            }
-            else{
-                //중복이 없는 경우
-                //model.addAttribute("VCRoomId", studentMember.get());
-                VirtualCR_StudentM_mapping virtualCRStudentMMapping = new VirtualCR_StudentM_mapping();
-                //virtualCRStudentMMapping.setVirtualClassRoom();
-                virtualCRStudentMMapping.setStudentMember(studentMember.get());
-                virtualCRStudentMMapping.setVirtualClassRoom(virtualClassRoom.get());
-                mariaVirtualCRStudentMMapping.save(virtualCRStudentMMapping);
-                model.addAttribute("result_message", "추가에 성공했습니다.");
-                model.addAttribute("added_student_name", studentMember.get().getStudentName());
-                return "/teacher/classroom/assignment/add";
-            }
+        if (virtualClassRoom.isPresent()){
+            //virtualClassRoom에 기존에 있던 과제에서 현재 sectionName과 중복되는게 있는지 검사한다.
+            //검사후 중복되는 게 없다면 새로운 과제로 추가한다.
         }
-        model.addAttribute("error_message", "추가에 실패했습니다. 웹을 새로 시작해주세요.");
+//        model.addAttribute("error_message", "추가에 실패했습니다. 웹을 새로 시작해주세요.");
         return "/teacher/classroom/assignment/add";
     }
 

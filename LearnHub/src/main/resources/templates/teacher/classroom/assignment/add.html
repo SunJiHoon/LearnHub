@@ -34,10 +34,31 @@
         <button type="submit" style="width: 30%;">선생님 로그아웃</button>
     </form>
     <br>
-    <form action="/teacher/classroom/assignment/list" method="get">
+    <form action="/teacher/classroom/assignment/list" method="GET">
         <input type="hidden" name="className" th:value="${class_name}" />
         <button type="submit" style="width: 30%;">과제 관리 페이지로 가기</button>
     </form>
+
+    <h2>과제 등록하기</h2>
+    <form action="/assignment/new" method="post">
+<!--        <label for="className">Virtual Classroom Name:</label><br>-->
+        <input type="hidden" id="className" name="className" th:value="${class_name}" />
+<!--        <input type="text" id="virtualClassRoom" name="virtualClassRoom"><br>-->
+
+        <label for="assignmentCreationDate">Assignment Creation Date:</label><br>
+        <input type="text" id="assignmentCreationDate" name="assignmentCreationDate"><br>
+
+        <label for="assignmentDueDate">Assignment Due Date:</label><br>
+        <input type="text" id="assignmentDueDate" name="assignmentDueDate"><br>
+
+        <label for="sectionName">Section Info:</label><br>
+        <input type="text" id="sectionName" name="sectionName"><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+
+
 
 
 
