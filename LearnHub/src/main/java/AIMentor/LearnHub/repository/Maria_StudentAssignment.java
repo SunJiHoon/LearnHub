@@ -14,4 +14,5 @@ public interface Maria_StudentAssignment extends JpaRepository<StudentAssignment
     Boolean existsBySectionName(String sectionName);
 //    List<StudentAssignment> findByVirtualClassRoomAndSectionName(VirtualClassRoom virtualClassRoom, String SectionName);
     List<StudentAssignment> findByVirtualClassRoom(VirtualClassRoom virtualClassRoom);
+    void deleteById(Long id);
 }

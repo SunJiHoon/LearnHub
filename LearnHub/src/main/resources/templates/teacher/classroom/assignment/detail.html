@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선생님 mypage</title>
+    <link rel="stylesheet" href="/assets/stylesheets/common.css">
+    <link rel="stylesheet" href="/assets/stylesheets/table.css">
+    <link rel="stylesheet" href="/assets/stylesheets/form.css">
+</head>
+<body class="teacher">
+<div class="container">
+    <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
+        <p th:text="${error_message}"></p>
+    </div>
+    <div th:if="${name}" class="alert" role="alert" style="color: black;">
+        <p th:text="${name + ' 선생님이 로그인 되었습니다.'}"></p>
+    </div>
+    <div th:if="${class_name}" class="alert" role="alert" style="color: black;">
+        <p th:text="${'클래스 이름: ' + class_name }"></p>
+    </div>
+    <div th:if="${section_name}" class="alert" role="alert" style="color: black;">
+        <p th:text="${'섹션 이름: ' + section_name }"></p>
+    </div>
+    <div th:if="${assignment_creation_date}" class="alert" role="alert" style="color: black;">
+        <p th:text="${'과제 생성일: ' + assignment_creation_date }"></p>
+    </div>
+    <div th:if="${assignment_due_date}" class="alert" role="alert" style="color: black;">
+        <p th:text="${'과제 마감일: ' + assignment_due_date }"></p>
+    </div>
+<!--    <div th:if="${virtual_class_room}" class="alert" role="alert" style="color: black;">-->
+<!--        <p th:text="${'분반 이름: ' + virtual_class_room }"></p>-->
+<!--    </div>-->
+
+    <form id="studentDeleteForm" action="/teacher/classroom/assignment/delete" method="post">
+        <input type="hidden" id="className" name="className" th:value="${class_name}">
+        <input type="hidden" id="selectedStudent" name="studentAssignmentId" th:value="${assignment_id}">
+        <button type="submit">삭제</button>
+    </form>
+    <br>
+    <a class="a-button" th:href="@{/teacher/classroom/assignment/list(className=${class_name})}">
+        <span th:text="${class_name + ' 과제 관리 페이지로 돌아가기'}">Class Name</span>
+    </a>
+
+
+</div>
+
+<script src="/assets/javascripts/teacher/register.js"></script>
+
+</body>
+</html>

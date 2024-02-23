@@ -51,9 +51,10 @@
             <td th:text="${student_assignment.assignmentCreationDate}"></td>
             <td th:text="${student_assignment.assignmentDueDate}"></td>
             <td>
-                <form action="/teacher/classroom/student/detail" method="get">
-<!--                    <input type="hidden" name="className" th:value="${className}">-->
-<!--                    <input type="hidden" name="selectedStudent" th:value="${studentMember.id}">-->
+                <form action="/teacher/classroom/assignment/detail" method="get">
+                    <input type="hidden" name="className" th:value="${class_name}">
+<!--                    <input type="hidden" name="sectionName" th:value="${student_assignment.sectionName}">-->
+                    <input type="hidden" name="selectedSectionId" th:value="${student_assignment.id}">
 <!--                    <button type="submit" th:className="${className}" th:studentMember.id="${studentMember.id}">세부정보</button>-->
                     <button type="submit" >세부정보</button>
 

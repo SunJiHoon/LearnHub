@@ -5,6 +5,7 @@ import AIMentor.LearnHub.dto.StudentMemberDTO;
 import AIMentor.LearnHub.dto.VirtualCR_StudentM_mappingDTO;
 import AIMentor.LearnHub.entity.*;
 import AIMentor.LearnHub.repository.*;
+import AIMentor.LearnHub.service.StudentAssignmentService;
 import AIMentor.LearnHub.service.TeacherService;
 import AIMentor.LearnHub.session.SessionManager;
 import jakarta.servlet.http.Cookie;
@@ -33,6 +34,7 @@ public class TeacherController {
     SessionManager sessionManager;
     TeacherService teacherService;
     Maria_StudentAssignment mariaStudentAssignment;
+    StudentAssignmentService studentAssignmentService;
     public TeacherController(
             Maria_TeacherMember maria_teacherMember,
             Maria_VirtualClassRoom mariaVirtualClassRoom,
@@ -41,7 +43,8 @@ public class TeacherController {
             Maria_Session mariaSession,
             SessionManager sessionManager,
             TeacherService teacherService,
-            Maria_StudentAssignment mariaStudentAssignment
+            Maria_StudentAssignment mariaStudentAssignment,
+            StudentAssignmentService studentAssignmentService
     ) {
         this.maria_teacherMember = maria_teacherMember;
         this.mariaVirtualClassRoom = mariaVirtualClassRoom;
@@ -51,6 +54,7 @@ public class TeacherController {
         this.sessionManager = sessionManager;
         this.teacherService = teacherService;
         this.mariaStudentAssignment = mariaStudentAssignment;
+        this.studentAssignmentService = studentAssignmentService;
     }
 
     @GetMapping(value = "/register")
@@ -377,11 +381,11 @@ public class TeacherController {
         }
 
         if (studentMember.isPresent()){
-            model.addAttribute("StudentName",studentMember.get().getStudentName());
-            model.addAttribute("Email",studentMember.get().getEmail());
-            model.addAttribute("selectedStudent",studentMember.get().getId());
+            model.addAttribute("student_name",studentMember.get().getStudentName());
+            model.addAttribute("email",studentMember.get().getEmail());
+            model.addAttribute("selected_student",studentMember.get().getId());
         }
-        model.addAttribute("className", className);
+        model.addAttribute("class_name", className);
 //        log.info(className);
 
         return "teacher/classroom/student/detail";
@@ -524,8 +528,10 @@ public class TeacherController {
 
     @GetMapping("/classroom/assignment/detail")
     public String getDetailPageAssignment(
-            @RequestParam(name = "selectedStudent") Long selectedStudent,
+            @RequestParam(name = "selectedSectionId") Long selectedSectionId,
+//            @RequestParam(name = "sectionName") String sectionName,
             @RequestParam(name = "className") String className,
+
             Model model,
             HttpServletRequest request
     ){
@@ -540,17 +546,20 @@ public class TeacherController {
             model.addAttribute("name", teacherMember.getTeacherName());
         }
 
-        Optional<StudentMember> studentMember = mariaStudentMember.findById(selectedStudent);
-        if (studentMember.isEmpty()){
+
+        Optional<StudentAssignment> studentAssignment = mariaStudentAssignment.findById(selectedSectionId);
+        if (studentAssignment.isEmpty()){
             model.addAttribute("error_message", "해당하는 학생 정보가 존재하지 않습니다.");
         }
 
-        if (studentMember.isPresent()){
-            model.addAttribute("StudentName",studentMember.get().getStudentName());
-            model.addAttribute("Email",studentMember.get().getEmail());
-            model.addAttribute("selectedStudent",studentMember.get().getId());
+        if (studentAssignment.isPresent()){
+            model.addAttribute("assignment_id",studentAssignment.get().getId());
+            model.addAttribute("section_name",studentAssignment.get().getSectionName());
+            model.addAttribute("assignment_creation_date",studentAssignment.get().getAssignmentCreationDate());
+            model.addAttribute("assignment_due_date",studentAssignment.get().getAssignmentDueDate());
+//            model.addAttribute("virtual_class_room",studentAssignment.get().getVirtualClassRoom());
         }
-        model.addAttribute("className", className);
+        model.addAttribute("class_name", className);
 //        log.info(className);
 
         return "teacher/classroom/assignment/detail";
@@ -558,7 +567,7 @@ public class TeacherController {
 
     @PostMapping("/classroom/assignment/delete")
     public String removeAssignmentFromMappingTable(
-            @RequestParam(name = "selectedStudent") Long selectedStudent,
+            @RequestParam(name = "studentAssignmentId") Long studentAssignmentId,
             @RequestParam(name = "className") String className,
             Model model,
             HttpServletRequest request
@@ -574,20 +583,12 @@ public class TeacherController {
             model.addAttribute("name", teacherMember.getTeacherName());
         }
 
-        Optional<StudentMember> studentMember = mariaStudentMember.findById(selectedStudent);
-        Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findByClassNameAndTeacherMember(className, teacherMember);
+//        Optional<StudentAssignment> studentAssignment = mariaStudentAssignment.findById(studentAssignmentId);
+        //학생들 과제 수행 관련하여 존재한다면 삭제 하지 않는다.
+        //위 조건을 통과하면 삭제한다.
+        studentAssignmentService.deleteStudentAssignmentById(studentAssignmentId);
 
-        if(virtualClassRoom.isEmpty() || studentMember.isEmpty()){
-            ResultMessageDTO virtualCR_studentM_mappingDTO_selectedStudent_return = new ResultMessageDTO();
-            virtualCR_studentM_mappingDTO_selectedStudent_return.setResult("faile");
-            model.addAttribute("error_message", "빈 객체 입니다.");
-//            model.addAttribute("className", className);
-//            return "redirect:/teacher/classroom/detail?className=" + className;
-            return "/teacher/classroom/assignment/delete";
-        }
-        teacherService.deleteSelectedStudentFromMappingTable(studentMember.get(), virtualClassRoom.get());
         model.addAttribute("className", className );
-//        return "redirect:/teacher/classroom/detail?className=" + className;
         return "redirect:/teacher/classroom/assignment/list?className="+className;
     }
 

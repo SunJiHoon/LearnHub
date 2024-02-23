@@ -16,20 +16,20 @@
     <div th:if="${name}" class="alert" role="alert" style="color: black;">
         <p th:text="${name + ' 선생님이 로그인 되었습니다.'}"></p>
     </div>
-    <div th:if="${className}" class="alert" role="alert" style="color: black;">
-        <p th:text="${'클래스 이름: ' + className }"></p>
+    <div th:if="${class_name}" class="alert" role="alert" style="color: black;">
+        <p th:text="${'클래스 이름: ' + class_name }"></p>
     </div>
-    <div th:if="${StudentName}" class="alert" role="alert" style="color: black;">
-        <p th:text="${'학생 이름: ' + StudentName}"></p>
+    <div th:if="${student_name}" class="alert" role="alert" style="color: black;">
+        <p th:text="${'학생 이름: ' + student_name}"></p>
     </div>
-    <div th:if="${Email}" class="alert" role="alert" style="color: black;">
-        <p th:text="${'학생 이메일: ' + Email}"></p>
+    <div th:if="${email}" class="alert" role="alert" style="color: black;">
+        <p th:text="${'학생 이메일: ' + email}"></p>
     </div>
 
     <form id="studentDeleteForm" action="/teacher/classroom/student/delete" method="post">
 <!--        <label for="dynamicSelect">학생 이름 선택: <span id="searchResultCount"></span></label>-->
-        <input type="hidden" id="className" name="className" th:value="${className}">
-        <input type="hidden" id="selectedStudent" name="selectedStudent" th:value="${selectedStudent}">
+        <input type="hidden" id="className" name="className" th:value="${class_name}">
+        <input type="hidden" id="selectedStudent" name="selectedStudent" th:value="${selected_student}">
 <!--        <select id="dynamicSelect" name="selectedStudent" required>-->
 <!--            <option disabled>학생을 먼저 검색해 주세요.</option>-->
 <!--        </select>-->
