@@ -17,7 +17,7 @@
         <p th:text="${name + ' 선생님이 로그인 되었습니다.'}"></p>
     </div>
     <div th:if="${className}" class="alert" role="alert" style="color: black;">
-        <p th:text="${'클래스 이름: ' + name }"></p>
+        <p th:text="${'클래스 이름: ' + className }"></p>
     </div>
     <div th:if="${StudentName}" class="alert" role="alert" style="color: black;">
         <p th:text="${'학생 이름: ' + StudentName}"></p>
@@ -35,6 +35,10 @@
 <!--        </select>-->
         <button type="submit">삭제</button>
     </form>
+    
+    <a class="a-button" th:href="@{/teacher/classroom/student/list(className=${className})}">
+        <span th:text="${className + ' 학생 관리 페이지로 돌아가기'}">Class Name</span>
+    </a>
 
 
 </div>

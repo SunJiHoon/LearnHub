@@ -280,6 +280,7 @@ public class TeacherController {
         model.addAttribute("error_message", "추가에 실패했습니다. 웹을 새로 시작해주세요.");
         return "/teacher/classroom/student/add";
     }
+
     @GetMapping("/classroom/detail")
     public String getDeatailPageWithPost(
 //            @RequestParam(name = "VCRoomId") Long vCRoomId,
@@ -289,6 +290,31 @@ public class TeacherController {
     ){
          TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
          if (teacherMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", teacherMember.getTeacherName());
+        }
+        Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findByClassNameAndTeacherMember(className, teacherMember);
+        if(virtualClassRoom.isEmpty()){
+            model.addAttribute("error_message", "해당하는 VCR이 존재하지 않습니다.");
+            return "index";
+        }
+        model.addAttribute("className", className);
+        return "teacher/classroom/detail";
+    }
+    @GetMapping("/classroom/student/list")
+    public String getStudentListPageWithPost(
+//            @RequestParam(name = "VCRoomId") Long vCRoomId,
+            @RequestParam(name = "className") String className,
+            Model model,
+            HttpServletRequest request
+    ){
+        TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
+        if (teacherMember == null){
             //로그인 정보 없음
             model.addAttribute("error_message", "로그인 되어있지 않습니다.");
             return "index";
@@ -317,89 +343,8 @@ public class TeacherController {
         model.addAttribute("studentMemberArrayList",studentMemberArrayList);
         model.addAttribute("className", className);
         log.info(className);
-        return "teacher/classroom/detail";
+        return "teacher/classroom/student/list";
     }
-
-
-    //@PostMapping(value= "/classroom/student/delete")
-    public String doDeleteForRemoveStudentFromMapping(
-            @RequestBody VirtualCR_StudentM_mappingDTO virtualCRStudentMMappingDTO,
-//            @RequestParam(name = "className") String className,
-//            @RequestParam(name = "selectedStudent") String selectedStudent,
-            Model model,
-            HttpServletRequest request
-    ){
-        TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
-        if (teacherMember == null){
-            //로그인 정보 없음
-            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
-            return "index";
-        }
-        else{
-            //로그인 되어있음.
-            model.addAttribute("name", teacherMember.getTeacherName());
-        }
-        String className = virtualCRStudentMMappingDTO.getClassName();
-        Optional<StudentMember> studentMember = mariaStudentMember.findById(virtualCRStudentMMappingDTO.getSelectedStudent());
-        Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findByClassNameAndTeacherMember(className, teacherMember);
-
-        if(virtualClassRoom.isEmpty() || studentMember.isEmpty()){
-            ResultMessageDTO virtualCR_studentM_mappingDTO_selectedStudent_return = new ResultMessageDTO();
-            virtualCR_studentM_mappingDTO_selectedStudent_return.setResult("faile");
-            model.addAttribute("error_message", "빈 객체 입니다.");
-//            model.addAttribute("className", className);
-//            return "redirect:/teacher/classroom/detail?className=" + className;
-            return "/teacher/classroom/student/delete";
-
-        }
-        teacherService.deleteSelectedStudentFromMappingTable(studentMember.get(), virtualClassRoom.get());
-        model.addAttribute("className", className );
-//        return "redirect:/teacher/classroom/detail?className=" + className;
-        return "/teacher/classroom/student/delete";
-    }
-
-
-
-//    @PostMapping("/classroom/delete")
-//    public String doDeleteVClass(
-//            @RequestBody VirtualClassRoomIdDTO virtualClassRoomIdDTO,
-//            Model model,
-//            HttpServletRequest request
-//    ){
-//        Long VCRoomId = virtualClassRoomIdDTO.getId();
-//        TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
-//        if (teacherMember == null){
-//            ResultMessageDTO resultMessageDTO = new ResultMessageDTO();
-//            resultMessageDTO.setResult("errorLoginX");
-//            return "redirect:teacher/classroom/detail?VCRoomId=" + virtualClassRoomIdDTO.getId();
-//        }
-//        else{
-//            //로그인 되어있음.
-////            model.addAttribute("name", teacherMember.getTeacherName());
-//        }
-//
-//        model.addAttribute("VCRoomId", VCRoomId);
-//        Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findById(VCRoomId);
-//        List<StudentMember> studentMemberArrayList = new ArrayList<>();
-//        if (virtualClassRoom.isPresent()) {
-//            List<VirtualCR_StudentM_mapping> virtualCRStudentMMapping = mariaVirtualCRStudentMMapping.findByVirtualClassRoom(virtualClassRoom.get());
-//            if(!virtualCRStudentMMapping.isEmpty()){
-//                ResultMessageDTO resultMessageDTO = new ResultMessageDTO();
-//                resultMessageDTO.setResult("errorStudentExist");
-////                model.addAttribute("error_message", "학생이 존재합니다. 학생이 없는 class만 삭제할 수 있습니다.");
-//                return resultMessageDTO;
-//            }
-//            else{
-//                mariaVirtualClassRoom.deleteById(VCRoomId);
-//                ResultMessageDTO resultMessageDTO = new ResultMessageDTO();
-//                resultMessageDTO.setResult("success");
-//                return resultMessageDTO;
-//            }
-//        }
-//        ResultMessageDTO resultMessageDTO = new ResultMessageDTO();
-//        resultMessageDTO.setResult("fail");
-//        return resultMessageDTO;
-//    }
 
 
     @GetMapping("/classroom/student/detail")
@@ -468,7 +413,7 @@ public class TeacherController {
         teacherService.deleteSelectedStudentFromMappingTable(studentMember.get(), virtualClassRoom.get());
         model.addAttribute("className", className );
 //        return "redirect:/teacher/classroom/detail?className=" + className;
-        return "redirect:/teacher/classroom/detail?className="+className;
+        return "redirect:/teacher/classroom/student/list?className="+className;
     }
 
 }
