@@ -1,39 +1,39 @@
-<!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>선생님 mypage</title>
-    <link rel="stylesheet" href="/assets/stylesheets/common.css">
-    <link rel="stylesheet" href="/assets/stylesheets/table.css">
-    <link rel="stylesheet" href="/assets/stylesheets/form.css">
-</head>
-<body class="teacher">
-<div class="container">
-    <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
-        <p th:text="${error_message}"></p>
-    </div>
+<!--<!DOCTYPE html>-->
+<!--<html lang="ko" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>선생님 mypage</title>-->
+<!--    <link rel="stylesheet" href="/assets/stylesheets/common.css">-->
+<!--    <link rel="stylesheet" href="/assets/stylesheets/table.css">-->
+<!--    <link rel="stylesheet" href="/assets/stylesheets/form.css">-->
+<!--</head>-->
+<!--<body class="teacher">-->
+<!--<div class="container">-->
+<!--    <div th:if="${error_message}" class="alert" role="alert" style="color: red;">-->
+<!--        <p th:text="${error_message}"></p>-->
+<!--    </div>-->
 
-    <div th:if="${result_message}" class="alert" role="alert" style="color: red;">
-        <p th:text="${result_message}"></p>
-    </div>
+<!--    <div th:if="${result_message}" class="alert" role="alert" style="color: red;">-->
+<!--        <p th:text="${result_message}"></p>-->
+<!--    </div>-->
 
-    <div th:if="${name}" class="alert" role="alert" style="color: black;">
-        <p th:text="${name + ' 선생님이 로그인 되었습니다.'}"></p>
-    </div>
-    <div th:if="${added_student_name}" class="alert" role="alert" style="color: black;">
-        <p th:text="${added_student_name + ' 학생이 추가 되었습니다.'}"></p>
-    </div>
+<!--    <div th:if="${name}" class="alert" role="alert" style="color: black;">-->
+<!--        <p th:text="${name + ' 선생님이 로그인 되었습니다.'}"></p>-->
+<!--    </div>-->
+<!--    <div th:if="${added_student_name}" class="alert" role="alert" style="color: black;">-->
+<!--        <p th:text="${added_student_name + ' 학생이 추가 되었습니다.'}"></p>-->
+<!--    </div>-->
 
-    <button id="closeButton">현재 페이지 닫기</button>
+<!--    <button id="closeButton">현재 페이지 닫기</button>-->
 
-    <script>
-        document.getElementById("closeButton").addEventListener("click", function() {
-            window.close(); // 현재 페이지 닫기
-        });
-    </script>
+<!--    <script>-->
+<!--        document.getElementById("closeButton").addEventListener("click", function() {-->
+<!--            window.close(); // 현재 페이지 닫기-->
+<!--        });-->
+<!--    </script>-->
 
-</div>
-<script src="/assets/javascripts/teacher/register.js"></script>
-</body>
-</html>
+<!--</div>-->
+<!--<script src="/assets/javascripts/teacher/register.js"></script>-->
+<!--</body>-->
+<!--</html>-->
