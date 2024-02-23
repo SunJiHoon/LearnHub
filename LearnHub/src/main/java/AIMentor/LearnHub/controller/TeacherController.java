@@ -2,10 +2,7 @@ package AIMentor.LearnHub.controller;
 
 import AIMentor.LearnHub.dto.ResultMessageDTO;
 import AIMentor.LearnHub.dto.VirtualCR_StudentM_mappingDTO;
-import AIMentor.LearnHub.entity.StudentMember;
-import AIMentor.LearnHub.entity.TeacherMember;
-import AIMentor.LearnHub.entity.VirtualCR_StudentM_mapping;
-import AIMentor.LearnHub.entity.VirtualClassRoom;
+import AIMentor.LearnHub.entity.*;
 import AIMentor.LearnHub.repository.*;
 import AIMentor.LearnHub.service.TeacherService;
 import AIMentor.LearnHub.session.SessionManager;
@@ -17,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +31,7 @@ public class TeacherController {
     Maria_Session mariaSession;
     SessionManager sessionManager;
     TeacherService teacherService;
+    Maria_StudentAssignment mariaStudentAssignment;
     public TeacherController(
             Maria_TeacherMember maria_teacherMember,
             Maria_VirtualClassRoom mariaVirtualClassRoom,
@@ -40,7 +39,8 @@ public class TeacherController {
             Maria_VirtualCR_StudentM_mapping mariaVirtualCRStudentMMapping,
             Maria_Session mariaSession,
             SessionManager sessionManager,
-            TeacherService teacherService
+            TeacherService teacherService,
+            Maria_StudentAssignment mariaStudentAssignment
     ) {
         this.maria_teacherMember = maria_teacherMember;
         this.mariaVirtualClassRoom = mariaVirtualClassRoom;
@@ -49,6 +49,7 @@ public class TeacherController {
         this.mariaSession = mariaSession;
         this.sessionManager = sessionManager;
         this.teacherService = teacherService;
+        this.mariaStudentAssignment = mariaStudentAssignment;
     }
 
     @GetMapping(value = "/register")
@@ -441,8 +442,8 @@ public class TeacherController {
     @PostMapping("/classroom/assignment/add")
     public String doAddAssignent(
             @RequestParam(name = "className") String className,
-            @RequestParam(name = "assignmentCreationDate") String assignmentCreationDate,
-            @RequestParam(name = "assignmentDueDate") String assignmentDueDate,
+            @RequestParam(name = "assignmentCreationDate") Date assignmentCreationDate,
+            @RequestParam(name = "assignmentDueDate") Date assignmentDueDate,
             @RequestParam(name = "sectionName") String sectionName,
             Model model,
             HttpServletRequest request
@@ -461,10 +462,21 @@ public class TeacherController {
         Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findByClassNameAndTeacherMember(className, teacherMember);
         if (virtualClassRoom.isPresent()){
             //virtualClassRoom에 기존에 있던 과제에서 현재 sectionName과 중복되는게 있는지 검사한다.
+            if (sectionName != null && mariaStudentAssignment.existsBySectionName(sectionName)) {
+                // 중복된 sectionName이 존재하는 경우
+                model.addAttribute("error", "중복되는 sectionName이 이미 존재합니다.");
+                return "/teacher/classroom/assignment/add";
+            }
             //검사후 중복되는 게 없다면 새로운 과제로 추가한다.
+            StudentAssignment studentAssignment = new StudentAssignment();
+            studentAssignment.setVirtualClassRoom(virtualClassRoom.get());
+            studentAssignment.setAssignmentCreationDate(assignmentCreationDate);
+            studentAssignment.setAssignmentDueDate(assignmentDueDate);
+            studentAssignment.setSectionName(sectionName);
+            mariaStudentAssignment.save(studentAssignment);
         }
 //        model.addAttribute("error_message", "추가에 실패했습니다. 웹을 새로 시작해주세요.");
-        return "/teacher/classroom/assignment/add";
+        return "redirect:/teacher/classroom/assignment/list?className=" + className;
     }
 
 
