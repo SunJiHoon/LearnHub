@@ -11,14 +11,21 @@ input[type="text"],
 input[type="number"],
 input[type="email"],
 input[type="password"],
+input[type="date"],
 select {
     width: 100%;
     margin: 0.5em 0;
     padding: 0.625em;
+    font-family: inherit;
     font-size: 1em;
     background-color: white;
     border-radius: 0.3125em;
     border: 1px solid #ccc;
+}
+
+input[type="date"] {
+    /* 고정폭 숫자 */
+    font-variant-numeric: tabular-nums;
 }
 
 input[type="range"] {
