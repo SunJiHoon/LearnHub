@@ -13,9 +13,9 @@
     <div th:replace="~{menu::teacher(~{::crumbs}, ${name})}">
         <th:block th:fragment="crumbs">
             <a href="/teacher/mypage">마이페이지</a>
-            <img src="/assets/images/chevron-right.svg">
+            <img class="icon" src="/assets/images/chevron-right.svg">
             <a th:href="@{/teacher/classroom/detail(className=${class_name})}" th:text="${class_name}">클래스 관리</a>
-            <img src="/assets/images/chevron-right.svg">
+            <img class="icon" src="/assets/images/chevron-right.svg">
             <span>과제 관리</span>
         </th:block>
     </div>
