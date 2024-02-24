@@ -1,0 +1,27 @@
+.details-list {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-items: flex-start;
+	margin: 1rem;
+}
+
+.details-list .details-item {
+	flex: none;
+	margin: 0.5rem;
+	width: 15rem;
+}
+
+.details-list .details-item h5 {
+	margin: 0;
+	font-size: 1rem;
+	font-weight: normal;
+}
+.details-list .details-item span {
+	display: block;
+	border-bottom: 0.2rem solid var(--main-color);
+	font-size: 1.2rem;
+}
+.details-list .details-item span.emphasize {
+	font-size: 1.6rem;
+}
