@@ -9,23 +9,15 @@
 </head>
 <body class="teacher">
 <div class="container">
-    <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
-        <p th:text="${error_message}"></p>
+    <div th:replace="~{menu::teacher(~{::crumbs}, ${name})}">
+        <th:block th:fragment="crumbs">
+            <a href="/teacher/mypage">마이페이지</a>
+            <img src="/assets/images/chevron-right.svg">
+            <span>클래스 만들기</span>
+        </th:block>
     </div>
-    <div th:if="${name}" class="alert" role="alert" style="color: black;">
-        <p th:text="${name + ' 선생님이 로그인 되었습니다.'}"></p>
-    </div>
 
-    <form action="/teacher/mypage" method="GET">
-         <button type="submit" style="width: 30%;">My Page로 가기</button>
-    </form>
-    <br>
-    <form action="/teacher/logout" method="POST">
-        <button type="submit" style="width: 30%;">선생님 로그아웃</button>
-    </form>
-
-
-    <h2>선생님 classroom make 페이지</h2>
+    <h2>클래스 만들기</h2>
     <form action="/teacher/classroom/make" method="post">
         <div class="form-group">
             <label for="className">클래스 이름:</label>

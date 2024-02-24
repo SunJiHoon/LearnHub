@@ -11,37 +11,34 @@
 </head>
 <body class="teacher">
 <div class="container">
+    <div th:replace="~{menu::teacher(~{::crumbs}, ${name})}">
+        <th:block th:fragment="crumbs">
+            <a href="/teacher/mypage">마이페이지</a>
+            <img src="/assets/images/chevron-right.svg">
+            <span th:text="${class_name}">클래스 관리</span>
+        </th:block>
+    </div>
+
     <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
         <p th:text="${error_message}"></p>
-    </div>
-    <div th:if="${name}" class="alert" role="alert" style="color: black;">
-        <p th:text="${name + ' 선생님이 로그인 되었습니다.'}"></p>
     </div>
     <div th:if="${created_class_name}" class="alert" role="alert" style="color: black;">
         <p th:text="${created_class_name + ' 클래스가 생성되었습니다.'}"></p>
     </div>
 
-    <form action="/teacher/mypage" method="GET">
-        <button type="submit" style="width: 30%;">My Page로 가기</button>
-    </form>
-    <br>
-    <form action="/teacher/logout" method="POST">
-        <button type="submit" style="width: 30%;">선생님 로그아웃</button>
-    </form>
-
-    <h2>선생님 classroom detail</h2>
+    <h2 th:text="${class_name + ' 관리'}">Classroom Detail</h2>
     <div class="card-container">
         <div class="card">
             <img class="icon" src="/assets/images/user-group.svg">
             <a class="a-button" th:href="@{/teacher/classroom/student/list(className=${class_name})}">
-                <span th:text="${class_name + ' 학생 관리'}">Class Name</span>
+                학생 관리
             </a>
             <p th:text="${'학생 ' + the_num_of_students + '명, 정원 ' + students_maximum_number + '명'}"></p>
         </div>
         <div class="card">
             <img class="icon" src="/assets/images/book-open.svg">
             <a class="a-button" th:href="@{/teacher/classroom/assignment/list(className=${class_name})}">
-                <span th:text="${class_name + ' 과제 관리'}">Class Name</span>
+                과제 관리
             </a>
             <p>과제 n개</p>
         </div>

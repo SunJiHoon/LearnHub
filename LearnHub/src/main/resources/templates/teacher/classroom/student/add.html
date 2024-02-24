@@ -14,25 +14,15 @@
         <p th:text="${error_message}"></p>
     </div>
 
-    <div th:if="${result_message}" class="alert" role="alert" style="color: red;">
+    <div th:if="${result_message}" class="alert" role="alert" style="color: blue;">
         <p th:text="${result_message}"></p>
     </div>
 
-    <div th:if="${name}" class="alert" role="alert" style="color: black;">
-        <p th:text="${name + ' 선생님이 로그인 되었습니다.'}"></p>
-    </div>
     <div th:if="${added_student_name}" class="alert" role="alert" style="color: black;">
         <p th:text="${added_student_name + ' 학생이 추가 되었습니다.'}"></p>
     </div>
 
-    <button id="closeButton">현재 페이지 닫기</button>
-
-    <script>
-        document.getElementById("closeButton").addEventListener("click", function() {
-            window.close(); // 현재 페이지 닫기
-        });
-    </script>
-
+    <button id="closeButton" onclick="window.close()">닫기</button>
 </div>
 <script src="/assets/javascripts/teacher/register.js"></script>
 </body>

@@ -10,11 +10,20 @@
 </head>
 <body class="teacher">
 <div class="container">
+    <div th:replace="~{menu::teacher(~{::crumbs}, ${name})}">
+        <th:block th:fragment="crumbs">
+            <a href="/teacher/mypage">마이페이지</a>
+            <img src="/assets/images/chevron-right.svg">
+            <a th:href="@{/teacher/classroom/detail(className=${class_name})}" th:text="${class_name}">클래스 관리</a>
+            <img src="/assets/images/chevron-right.svg">
+            <a th:href="@{/teacher/classroom/assignment/list(className=${class_name})}">과제 관리</a>
+            <img src="/assets/images/chevron-right.svg">
+            <span th:name="${section_name}">과제 세부정보</span>
+        </th:block>
+    </div>
+
     <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
         <p th:text="${error_message}"></p>
-    </div>
-    <div th:if="${name}" class="alert" role="alert" style="color: black;">
-        <p th:text="${name + ' 선생님이 로그인 되었습니다.'}"></p>
     </div>
     <div th:if="${class_name}" class="alert" role="alert" style="color: black;">
         <p th:text="${'클래스 이름: ' + class_name }"></p>
@@ -37,12 +46,6 @@
         <input type="hidden" id="selectedStudent" name="studentAssignmentId" th:value="${assignment_id}">
         <button type="submit">삭제</button>
     </form>
-    <br>
-    <a class="a-button" th:href="@{/teacher/classroom/assignment/list(className=${class_name})}">
-        <span th:text="${class_name + ' 과제 관리 페이지로 돌아가기'}">Class Name</span>
-    </a>
-
-
 </div>
 
 <script src="/assets/javascripts/teacher/register.js"></script>

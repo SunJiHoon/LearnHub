@@ -10,6 +10,18 @@
 </head>
 <body class="teacher">
 <div class="container">
+    <div th:replace="~{menu::teacher(~{::crumbs}, ${name})}">
+        <th:block th:fragment="crumbs">
+            <a href="/teacher/mypage">마이페이지</a>
+            <img src="/assets/images/chevron-right.svg">
+            <a th:href="@{/teacher/classroom/detail(className=${class_name})}" th:text="${class_name}">클래스 관리</a>
+            <img src="/assets/images/chevron-right.svg">
+            <a th:href="@{/teacher/classroom/assignment/list(className=${class_name})}">과제 관리</a>
+            <img src="/assets/images/chevron-right.svg">
+            <span>과제 생성</span>
+        </th:block>
+    </div>
+
     <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
         <p th:text="${error_message}"></p>
     </div>
@@ -18,27 +30,6 @@
         <p th:text="${result_message}"></p>
     </div>
 
-    <div th:if="${name}" class="alert" role="alert" style="color: black;">
-        <p th:text="${name + ' 선생님이 로그인 되었습니다.'}"></p>
-    </div>
-
-    <div th:if="${class_name}" class="alert" role="alert" style="color: black;">
-        <p th:text="${class_name + ' 클래스 이름'}"></p>
-    </div>
-
-    <form action="/teacher/mypage" method="GET">
-        <button type="submit" style="width: 30%;">My Page로 가기</button>
-    </form>
-    <br>
-    <form action="/teacher/logout" method="POST">
-        <button type="submit" style="width: 30%;">선생님 로그아웃</button>
-    </form>
-    <br>
-    <form action="/teacher/classroom/assignment/list" method="GET">
-        <input type="hidden" name="className" th:value="${class_name}" />
-        <button type="submit" style="width: 30%;">과제 관리 페이지로 가기</button>
-    </form>
-
     <h2>과제 등록하기</h2>
     <form action="/teacher/classroom/assignment/add" method="post">
 <!--        <label for="className">Virtual Classroom Name:</label><br>-->
@@ -46,22 +37,16 @@
 <!--        <input type="text" id="virtualClassRoom" name="virtualClassRoom"><br>-->
 
         <label for="assignmentCreationDate">Assignment Creation Date:</label><br>
-        <input type="text" id="assignmentCreationDate" name="assignmentCreationDate"><br>
+        <input type="date" id="assignmentCreationDate" name="assignmentCreationDate"><br>
 
         <label for="assignmentDueDate">Assignment Due Date:</label><br>
-        <input type="text" id="assignmentDueDate" name="assignmentDueDate"><br>
+        <input type="date" id="assignmentDueDate" name="assignmentDueDate"><br>
 
         <label for="sectionName">Section Info:</label><br>
         <input type="text" id="sectionName" name="sectionName"><br>
 
         <input type="submit" value="Submit">
     </form>
-
-
-
-
-
-
 </div>
 <script src="/assets/javascripts/teacher/register.js"></script>
 </body>

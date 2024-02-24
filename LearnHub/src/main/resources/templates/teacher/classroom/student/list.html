@@ -10,25 +10,24 @@
 </head>
 <body class="teacher">
 <div class="container">
+    <div th:replace="~{menu::teacher(~{::crumbs}, ${name})}">
+        <th:block th:fragment="crumbs">
+            <a href="/teacher/mypage">마이페이지</a>
+            <img src="/assets/images/chevron-right.svg">
+            <a th:href="@{/teacher/classroom/detail(className=${className})}" th:text="${className}">클래스 관리</a>
+            <img src="/assets/images/chevron-right.svg">
+            <span>학생 관리</span>
+        </th:block>
+    </div>
+
     <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
         <p th:text="${error_message}"></p>
-    </div>
-    <div th:if="${name}" class="alert" role="alert" style="color: black;">
-        <p th:text="${name + ' 선생님이 로그인 되었습니다.'}"></p>
     </div>
     <div th:if="${created_class_name}" class="alert" role="alert" style="color: black;">
         <p th:text="${created_class_name + ' 클래스가 생성되었습니다.'}"></p>
     </div>
 
-    <form action="/teacher/mypage" method="GET">
-        <button type="submit" style="width: 30%;">My Page로 가기</button>
-    </form>
-    <br>
-    <form action="/teacher/logout" method="POST">
-        <button type="submit" style="width: 30%;">선생님 로그아웃</button>
-    </form>
-
-    <h2>선생님 classroom detail</h2>
+    <h2 th:text="${className + ' 관리'}">Classroom Detail</h2>
 
     <h2>학생 추가</h2>
     <form id="searchForm">
@@ -67,7 +66,7 @@
                     <!--                        <button type="submit" class="delete-button a-button" th:value="${studentMember.id}">삭제</button>-->
                     <button type="submit"
                             th:className="${className}"
-                            th:studentMember.id="${studentMember.id}">세부정보</button>
+                            th:studentMember.id="${studentMember.id}">이동</button>
                     <!--                                onclick='clickOnButtonForRemoveStudentFromMapping-->
                     <!--                                (this.getAttribute("className"), this.getAttribute("studentMember.id"))'-->
 

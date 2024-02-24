@@ -190,7 +190,20 @@ public class TeacherController {
     }
 
     @GetMapping("/classroom/make")
-    public String getClassroomMakePage(){
+    public String getClassroomMakePage(
+            Model model,
+            HttpServletRequest request
+    ){
+        TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
+        if (teacherMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", teacherMember.getTeacherName());
+        }
         return "teacher/classroom/make";
     }
 

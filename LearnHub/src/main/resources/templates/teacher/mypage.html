@@ -10,26 +10,22 @@
 </head>
 <body class="teacher">
 <div class="container">
+    <div th:replace="~{menu::teacher(~{::crumbs}, ${name})}">
+        <th:block th:fragment="crumbs">
+            <span>마이페이지</span>
+        </th:block>
+    </div>
     <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
         <p th:text="${error_message}"></p>
-    </div>
-    <div th:if="${name}" class="alert" role="alert" style="color: black;">
-        <p th:text="${name + ' 선생님이 로그인 되었습니다.'}"></p>
     </div>
     <div th:if="${created_class_name}" class="alert" role="alert" style="color: black;">
         <p th:text="${created_class_name + ' 클래스가 생성되었습니다.'}"></p>
     </div>
-    <form action="/teacher/mypage" method="GET">
-        <button type="submit" style="width: 30%;">My Page로 가기</button>
-    </form>
-    <br>
-    <form action="/teacher/logout" method="POST">
-        <button type="submit" style="width: 30%;">선생님 로그아웃</button>
-    </form>
-    <h2>선생님 mypage</h2>
-    <a class="a-button" href="/teacher/classroom/make">분반 만들기</a>
 
-    <h2>선생님 classroom list</h2>
+    <h2>선생님 마이페이지</h2>
+    <a class="a-button" href="/teacher/classroom/make">클래스 만들기</a>
+
+    <h2>클래스 목록</h2>
     <table>
         <thead>
         <tr>
