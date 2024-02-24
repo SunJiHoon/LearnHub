@@ -1,0 +1,19 @@
+.card-container {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+}
+
+.card {
+	margin: 0.5rem;
+	border: 1px solid #ccc;
+	border-radius: 0.5rem;
+	padding: 0.5rem;
+	text-align: center;
+    box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.1);
+}
+
+.card img.icon {
+	width: 7.5em;
+	height: 7.5em;
+}
