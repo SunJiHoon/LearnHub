@@ -36,16 +36,23 @@
         <input type="hidden" id="className" name="className" th:value="${class_name}" />
 <!--        <input type="text" id="virtualClassRoom" name="virtualClassRoom"><br>-->
 
-        <label for="assignmentCreationDate">Assignment Creation Date:</label><br>
-        <input type="date" id="assignmentCreationDate" name="assignmentCreationDate"><br>
+        <div class="form-group">
+            <label for="assignmentCreationDate">과제 생성일:</label>
+            <input type="date" id="assignmentCreationDate" name="assignmentCreationDate" required>
+        </div>
 
-        <label for="assignmentDueDate">Assignment Due Date:</label><br>
-        <input type="date" id="assignmentDueDate" name="assignmentDueDate"><br>
+        <div class="form-group">
+            <label for="assignmentDueDate">과제 마감일:</label>
+            <input type="date" id="assignmentDueDate" name="assignmentDueDate" required>
+        </div>
 
-        <label for="sectionName">Section Info:</label><br>
-        <input type="text" id="sectionName" name="sectionName"><br>
+        <div class="form-group">
+            <label for="sectionName">섹션 이름:</label>
+            <input type="text" id="sectionName" name="sectionName" required>
+        </div>
 
-        <input type="submit" value="Submit">
+        <button type="submit">과제 등록하기</button>
+
     </form>
 </div>
 <script src="/assets/javascripts/teacher/register.js"></script>
