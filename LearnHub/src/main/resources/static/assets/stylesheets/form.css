@@ -27,8 +27,6 @@ input[type="range"] {
 }
 
 button {
-    width: 100%;
-    padding: 0.625rem;
     font-size: 1em;
     background-color: var(--main-color-secondary);
     color: white;
@@ -36,6 +34,10 @@ button {
     border-radius: 0.3125em;
     cursor: pointer;
     transition: background-color 0.3s;
+}
+button:not(.logout) {
+    width: 100%;
+    padding: 0.625rem;
 }
 button:hover {
     background-color: var(--main-color);

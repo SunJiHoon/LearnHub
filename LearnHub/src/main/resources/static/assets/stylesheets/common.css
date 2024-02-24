@@ -53,3 +53,27 @@ h2 {
 .a-button:hover {
     background-color: var(--main-color);
 }
+
+.menu {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+.menu * {
+    flex: none;
+}
+.menu img {
+    width: 1em;
+    height: 1em;
+}
+.menu nav {
+    flex: auto;
+}
+.menu nav * {
+    vertical-align: middle;
+}
+.menu button.logout {
+    padding: 0.1em 0.3em;
+    margin: -0.1em 0;
+}
