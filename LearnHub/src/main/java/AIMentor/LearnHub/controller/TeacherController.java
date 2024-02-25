@@ -439,7 +439,8 @@ public class TeacherController {
         teacherService.deleteSelectedStudentFromMappingTable(studentMember.get(), virtualClassRoom.get());
         model.addAttribute("className", className );
 //        return "redirect:/teacher/classroom/detail?className=" + className;
-        return "redirect:/teacher/classroom/student/list?className="+className;
+        String encodedString = URLEncoder.encode(className, StandardCharsets.UTF_8);
+        return "redirect:/teacher/classroom/student/list?className="+encodedString;
     }
 
 
