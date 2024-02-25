@@ -93,7 +93,7 @@ public class TeacherController {
         maria_teacherMember.save(newteacherMember);
         model.addAttribute("register", "선생님 회원가입 완료.");
         //return "redirect:/";
-        return "/index";
+        return "index";
     }
 
     @GetMapping(value = "/login")
