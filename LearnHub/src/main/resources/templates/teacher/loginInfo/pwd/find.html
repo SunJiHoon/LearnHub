@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>id 찾기</title>
+    <link rel="stylesheet" href="/assets/stylesheets/common.css">
+    <link rel="stylesheet" href="/assets/stylesheets/form.css">
+</head>
+<body class="teacher">
+<div class="container">
+
+    <h2>비밀번호 재설정하기, 이메일 인증이 필요합니다.</h2>
+    <form id="emailForm" action="/teacher/loginInfo/pwd/find" method="post">
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div th:if="${showVerificationSection}" id="verificationSection">
+        <hr>
+        <h3>인증 코드를 입력하세요</h3>
+        <form id="validationForm" action="/teacher/loginInfo/pwd/change" method="post">
+            <label for="validationCode">Email:</label><br>
+            <input type="text" id="validationCode" name="validationCode" required><br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+</div>
+<script src="/assets/javascripts/teacher/register.js"></script>
+</body>
+</html>
