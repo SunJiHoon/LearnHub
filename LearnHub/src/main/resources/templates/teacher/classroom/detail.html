@@ -33,7 +33,9 @@
             <a class="a-button" th:href="@{/teacher/classroom/student/list(className=${class_name})}">
                 학생 관리
             </a>
-            <p th:text="${'학생 ' + the_num_of_students + '명, 정원 ' + students_maximum_number + '명'}"></p>
+<!--            <p th:text=" ${'학생 ' + the_num_of_students + '명, 정원 ' + students_maximum_number + '명'}"></p>-->
+            <p th:text="'학생 ' + ${the_num_of_students} + '명, 정원 ' + ${students_maximum_number} + '명'"></p>
+
         </div>
         <div class="card">
             <img class="card-icon" src="/assets/images/book-open.svg">
