@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학생 mypage</title>
+    <link rel="stylesheet" href="/assets/stylesheets/common.css">
+    <link rel="stylesheet" href="/assets/stylesheets/table.css">
+    <link rel="stylesheet" href="/assets/stylesheets/form.css">
+</head>
+<div class="container">
+    <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
+        <p th:text="${error_message}"></p>
+    </div>
+    <div th:if="${name}" class="alert" role="alert" style="color: black;">
+        <p th:text="${name + ' 학생이 로그인 되었습니다.'}"></p>
+    </div>
+    <div th:if="${created_class_name}" class="alert" role="alert" style="color: black;">
+        <p th:text="${created_class_name + ' 클래스가 생성되었습니다.'}"></p>
+    </div>
+    <form action="/student/mypage" method="GET">
+        <button type="submit" style="width: 30%;">My Page로 가기</button>
+    </form>
+    <br>
+    <form action="/student/logout" method="POST">
+        <button type="submit" style="width: 30%;">학생 로그아웃</button>
+    </form>
+
+
+<!--    <h2>학생 mypage</h2>-->
+<!--    <a class="a-button" href="/student/classroom/make">내 분반 체크하기</a>-->
+
+    <h2>학생 가입된 classroom list</h2>
+    <table>
+        <thead>
+        <tr>
+            <!-- <th>ID</th> -->
+            <th style="width: 48px;">#</th>
+            <th>클래스 이름</th>
+            <th>과목</th>
+            <th>수강 정원</th>
+
+            <!-- 이하 필요한 열 추가 -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="VCRoom, rowStat : ${studentsVirtualClassRooms}">
+            <!--            <td th:text="${classRoom.id}"></td>-->
+            <td th:object="${rowStat.index + 1}">
+                <!--                <a class="a-button" th:href="@{/teacher/classroom/detail(VCRoomId=${#object})}" th:text="${#object}">row Index</a>-->
+                <a class="a-button" th:href="@{/teacher/classroom/detail(className=${VCRoom.className})}" th:text="${#object}">row Index</a>
+            </td>
+            <td th:text="${VCRoom.className}"></td>
+            <td th:text="${VCRoom.subject}"></td>
+            <td th:text="${VCRoom.maximumNumber}"></td>
+            <!-- 이하 필요한 열 추가 -->
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<script src="/assets/javascripts/teacher/register.js"></script>
+
+</html>

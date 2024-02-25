@@ -1,96 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>WebGL Example</title>
-    <style>
-        body { margin: 0; }
-        canvas { display: block; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ai Learn hub 홈페이지</title>
+    <link rel="stylesheet" href="/assets/stylesheets/common.css">
+    <link rel="stylesheet" href="/assets/stylesheets/index.css">
 </head>
 <body>
-<canvas id="webglCanvas" width="400" height="400"></canvas>
+<div class="container">
+    <div class="intro">
+        <h1>AI LearnHub</h1>
+    </div>
+    <div th:if="${register}" class="alert alert-success" role="alert">
+        <p th:text="${register}"></p>
+    </div>
+    <div class="login-container">
+        <div class="login-section">
+            <h2>선생님</h2>
+            <a href="/teacher/login" class="a-button login-button">로그인하기</a>
+            <a href="/teacher/id" class="small-link">아이디 찾기</a>
+            <div class="mini-vertical-line"></div>
+            <a href="/teacher/pwd" class="small-link">비밀번호 찾기</a>
+            <div class="mini-vertical-line"></div>
+            <a href="/teacher/register" class="small-link">회원가입</a>
+        </div>
+        <div class="vertical-line"></div> <!-- 세로 선 추가 -->
+        <div class="login-section">
+            <h2>학생</h2>
+            <a href="/student/login" class="a-button login-button">로그인하기</a>
+            <a href="/student/id" class="small-link">아이디 찾기</a>
+            <div class="mini-vertical-line"></div>
+            <a href="/student/pwd" class="small-link">비밀번호 찾기</a>
+            <div class="mini-vertical-line"></div>
+            <a href="/student/register" class="small-link">회원가입</a>
+        </div>
+    </div>
+    <div class="content">
+        <p>우리 교육 사이트는 학생과 선생님 모두를 위한 최고의 학습 경험을 제공합니다.</p>
+        <img src="/assets/images/site-edu.png" alt="교육 사이트 이미지">
+    </div>
+</div>
+<!--<div class="horizontal-line"></div> &lt;!&ndash; 가로 선 추가 &ndash;&gt;-->
 
-<script>
-    window.onload = function() {
-        var canvas = document.getElementById('webglCanvas');
-        var gl = canvas.getContext('webgl');
+<!-- 외부 JavaScript 파일 연결 -->
+<script src="/assets/javascripts/index.js"></script>
 
-        if (!gl) {
-            console.error('Unable to initialize WebGL. Your browser may not support it.');
-            return;
-        }
-
-        // 정점 데이터
-        var vertices = [
-            0.0,  1.0,
-            -1.0, -1.0,
-            1.0, -1.0
-        ];
-
-        // 버퍼 생성
-        var vertexBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-
-        // 쉐이더 소스 코드
-        var vertexShaderSource = `
-                attribute vec2 position;
-                uniform float rotation;
-                void main() {
-                    mat2 rotationMatrix = mat2(cos(rotation), -sin(rotation), sin(rotation), cos(rotation));
-                    gl_Position = vec4(rotationMatrix * position, 0.0, 1.0);
-                }
-            `;
-
-        var fragmentShaderSource = `
-                precision mediump float;
-                uniform vec3 color;
-                void main() {
-                    gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0); // 고정된 연두색
-                }
-            `;
-
-        // 쉐이더 생성
-        var vertexShader = gl.createShader(gl.VERTEX_SHADER);
-        gl.shaderSource(vertexShader, vertexShaderSource);
-        gl.compileShader(vertexShader);
-
-        var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
-        gl.shaderSource(fragmentShader, fragmentShaderSource);
-        gl.compileShader(fragmentShader);
-
-        // 프로그램 생성
-        var shaderProgram = gl.createProgram();
-        gl.attachShader(shaderProgram, vertexShader);
-        gl.attachShader(shaderProgram, fragmentShader);
-        gl.linkProgram(shaderProgram);
-        gl.useProgram(shaderProgram);
-
-        // attribute 설정
-        var positionAttribute = gl.getAttribLocation(shaderProgram, 'position');
-        gl.vertexAttribPointer(positionAttribute, 2, gl.FLOAT, false, 0, 0);
-        gl.enableVertexAttribArray(positionAttribute);
-
-        // uniform 설정
-        var rotationUniform = gl.getUniformLocation(shaderProgram, 'rotation');
-
-        // 애니메이션 함수
-        var rotation = 0;
-        function animate() {
-            rotation += 0.01;
-            gl.clearColor(0.0, 0.0, 0.0, 1.0);
-            gl.clear(gl.COLOR_BUFFER_BIT);
-
-            gl.uniform1f(rotationUniform, rotation);
-
-            gl.drawArrays(gl.TRIANGLES, 0, vertices.length / 2);
-
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-    };
-</script>
 </body>
 </html>

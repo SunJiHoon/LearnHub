@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선생님 mypage</title>
+    <link rel="stylesheet" href="/assets/stylesheets/common.css">
+    <link rel="stylesheet" href="/assets/stylesheets/details.css">
+    <link rel="stylesheet" href="/assets/stylesheets/form.css">
+</head>
+<body class="teacher">
+<div class="container">
+    <div th:replace="~{menu::teacher(~{::crumbs}, ${name})}">
+        <th:block th:fragment="crumbs">
+            <a href="/teacher/mypage">마이페이지</a>
+            <img class="icon" src="/assets/images/chevron-right.svg">
+            <a th:href="@{/teacher/classroom/detail(className=${class_name})}" th:text="${class_name}">클래스 관리</a>
+            <img class="icon" src="/assets/images/chevron-right.svg">
+            <a th:href="@{/teacher/classroom/student/list(className=${class_name})}">학생 관리</a>
+            <img class="icon" src="/assets/images/chevron-right.svg">
+            <span th:text="${student_name}">학생 세부정보</span>
+        </th:block>
+    </div>
+
+    <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
+        <p th:text="${error_message}"></p>
+    </div>
+
+    <h2>학생 세부정보</h2>
+
+    <h3>
+        <span th:text="${class_name}"></span>
+        &gt;
+        <span th:text="${student_name}"></span>
+    </h3>
+    <div class="details-list">
+        <div class="details-item">
+            <h5>이메일 주소</h5>
+            <span th:text="${email}"></span>
+        </div>
+    </div>
+
+    <form id="studentDeleteForm" action="/teacher/classroom/student/delete" method="post">
+<!--        <label for="dynamicSelect">학생 이름 선택: <span id="searchResultCount"></span></label>-->
+        <input type="hidden" id="className" name="className" th:value="${class_name}">
+        <input type="hidden" id="selectedStudent" name="selectedStudent" th:value="${selected_student}">
+<!--        <select id="dynamicSelect" name="selectedStudent" required>-->
+<!--            <option disabled>학생을 먼저 검색해 주세요.</option>-->
+<!--        </select>-->
+        <button type="submit">삭제</button>
+    </form>
+
+</div>
+
+<script src="/assets/javascripts/teacher/register.js"></script>
+
+</body>
+</html>

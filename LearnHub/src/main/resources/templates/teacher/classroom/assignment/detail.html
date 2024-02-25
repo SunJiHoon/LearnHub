@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선생님 mypage</title>
+    <link rel="stylesheet" href="/assets/stylesheets/common.css">
+    <link rel="stylesheet" href="/assets/stylesheets/details.css">
+    <link rel="stylesheet" href="/assets/stylesheets/form.css">
+</head>
+<body class="teacher">
+<div class="container">
+    <div th:replace="~{menu::teacher(~{::crumbs}, ${name})}">
+        <th:block th:fragment="crumbs">
+            <a href="/teacher/mypage">마이페이지</a>
+            <img class="icon" src="/assets/images/chevron-right.svg">
+            <a th:href="@{/teacher/classroom/detail(className=${class_name})}" th:text="${class_name}">클래스 관리</a>
+            <img class="icon" src="/assets/images/chevron-right.svg">
+            <a th:href="@{/teacher/classroom/assignment/list(className=${class_name})}">과제 관리</a>
+            <img class="icon" src="/assets/images/chevron-right.svg">
+            <span th:text="${section_name}">과제 세부정보</span>
+        </th:block>
+    </div>
+
+    <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
+        <p th:text="${error_message}"></p>
+    </div>
+
+    <h2>과제 세부정보</h2>
+
+    <h3>
+        <span th:text="${class_name}"></span>
+        &gt;
+        <span th:text="${section_name}"></span>
+    </h3>
+    <div class="details-list">
+        <div class="details-item">
+            <h5>과제 생성일</h5>
+            <span class="emphasize" th:text="${#dates.format(assignment_creation_date, 'yyyy''년'' M''월'' d''일''')}"></span>
+        </div>
+        <div class="details-item">
+            <h5>과제 마감일</h5>
+            <span class="emphasize" th:text="${#dates.format(assignment_due_date, 'yyyy''년'' M''월'' d''일''')}"></span>
+        </div>
+    </div>
+<!--    <div th:if="${virtual_class_room}" class="alert" role="alert" style="color: black;">-->
+<!--        <p th:text="${'분반 이름: ' + virtual_class_room }"></p>-->
+<!--    </div>-->
+
+    <form id="studentDeleteForm" action="/teacher/classroom/assignment/delete" method="post">
+        <input type="hidden" id="className" name="className" th:value="${class_name}">
+        <input type="hidden" id="selectedStudent" name="studentAssignmentId" th:value="${assignment_id}">
+        <button type="submit">삭제</button>
+    </form>
+</div>
+
+<script src="/assets/javascripts/teacher/register.js"></script>
+
+</body>
+</html>

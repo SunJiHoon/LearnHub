@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선생님 mypage</title>
+    <link rel="stylesheet" href="/assets/stylesheets/common.css">
+    <link rel="stylesheet" href="/assets/stylesheets/table.css">
+    <link rel="stylesheet" href="/assets/stylesheets/form.css">
+</head>
+<body class="teacher">
+<div class="container">
+    <div th:replace="~{menu::teacher(~{::crumbs}, ${name})}">
+        <th:block th:fragment="crumbs">
+            <a href="/teacher/mypage">마이페이지</a>
+            <img class="icon" src="/assets/images/chevron-right.svg">
+            <a th:href="@{/teacher/classroom/detail(className=${class_name})}" th:text="${class_name}">클래스 관리</a>
+            <img class="icon" src="/assets/images/chevron-right.svg">
+            <a th:href="@{/teacher/classroom/assignment/list(className=${class_name})}">과제 관리</a>
+            <img class="icon" src="/assets/images/chevron-right.svg">
+            <span>과제 생성</span>
+        </th:block>
+    </div>
+
+    <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
+        <p th:text="${error_message}"></p>
+    </div>
+
+    <div th:if="${result_message}" class="alert" role="alert" style="color: red;">
+        <p th:text="${result_message}"></p>
+    </div>
+
+    <h2>과제 등록하기</h2>
+    <form action="/teacher/classroom/assignment/add" method="post">
+<!--        <label for="className">Virtual Classroom Name:</label><br>-->
+        <input type="hidden" id="className" name="className" th:value="${class_name}" />
+<!--        <input type="text" id="virtualClassRoom" name="virtualClassRoom"><br>-->
+
+        <div class="form-group">
+            <label for="assignmentCreationDate">과제 생성일:</label>
+            <input type="date" id="assignmentCreationDate" name="assignmentCreationDate" required>
+        </div>
+
+        <div class="form-group">
+            <label for="assignmentDueDate">과제 마감일:</label>
+            <input type="date" id="assignmentDueDate" name="assignmentDueDate" required>
+        </div>
+
+        <div class="form-group">
+            <label for="sectionName">섹션 이름:</label>
+            <input type="text" id="sectionName" name="sectionName" required>
+        </div>
+
+        <button type="submit">과제 등록하기</button>
+
+    </form>
+</div>
+<script src="/assets/javascripts/teacher/register.js"></script>
+</body>
+</html>

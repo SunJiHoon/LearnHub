@@ -1,95 +1,59 @@
-body {
-    background-color: #afc8fc; /* 파란색 배경 */
-
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-.container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-    /*display: flex;*/
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    /*height: 100vh;*/
-}
 .intro {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
-    /*background-color: #fff;*/
-    background-color: #4f68dc; /* 파란색 배경 */
-    color: white; /* 텍스트의 색상을 빨간색으로 변경 */
+    max-width: 50rem;
+    /* 위쪽 / 좌우 / 아래 여백 */
+    margin: 0.625rem auto 0;
 
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 1.25rem;
+    background-color: var(--main-color);
+    color: white;
 
-    /*background-color: lightblue; !* 백그라운드 색상 설정 *!*/
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
+
     text-align: center;
-    /*margin-top: 50px;*/
 }
-.login_container{
+
+.login-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
 }
-.login_button {
+.login-section {
+    margin: 2.1875rem;
+    width: 18.75rem;
+    height: 11.25rem;
+    border-radius: 1.25rem;
+    text-align: center;
+    box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
+}
+.login-button {
     display: block;
-    width: 200px;
-    margin: 20px auto;
-    padding: 10px 20px;
-    background-color: #6982F3;
-    color: #fff;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    width: 12.5em;
+    margin: 1.25em auto;
 }
-.text_button{
-    display: inline-flex;
-}
-.section {
-    display: inline-block;
-    margin: 10px;
-    text-align: center;
-    /*margin-bottom: 20px;*/
-}
-
-.left_section {
-    /*display: inline-block;*/
-    /*margin: 10px;*/
-    /*text-align: center;*/
-    /*margin-bottom: 20px;*/
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.horizontal-line {
-    border-top: 1px solid #ccc; /* 가로 선 스타일 지정 */
-    margin: 20px 0; /* 섹션 사이의 간격 조정 */
-    width: 100%; /* 가로 선 너비 설정 */
+.small-link {
+    color: grey;
+    text-decoration: none; /* 밑줄 제거 */
+    font-size: 0.875em; /* 글자 크기 조절 */
 }
 .vertical-line {
     border-left: 1px solid #ccc; /* 세로 선 스타일 지정 */
-    height: 100px; /* 세로 선 높이 설정 */
-    /*margin: 0 auto; !* 가운데 정렬 *!*/
+    height: 6.25rem; /* 세로 선 높이 설정 */
 }
-.content {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
-    /*background-color: #fff;*/
-    color: white;
+.mini-vertical-line {
+    display: inline-block;
+    border-left: 1px solid #ccc; /* 세로 선 스타일 지정 */
+    height: 0.625rem; /* 세로 선 높이 설정 */
+}
 
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.content {
+    max-width: 50rem;
+    margin: 0.625rem auto;
+    padding: 1.25rem;
+    background-color: white;
+
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
 
     text-align: center;
 }

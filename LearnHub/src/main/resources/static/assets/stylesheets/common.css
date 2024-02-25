@@ -1,0 +1,79 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    /* 학생 테마 색상 */
+    --main-color: #4f68dc;
+    --main-color-secondary: #6982f3;
+    --background-color: #afc8fc;
+}
+
+.teacher {
+    /* 선생님 테마 색상 */
+    /*--main-color: #b921c4;*/
+    /*--main-color-secondary: #da59e3;*/
+    /*--background-color: #f3cbf6;*/
+    /*  */
+    --main-color: #7250b2;
+    --main-color-secondary: #a485cf;
+    --background-color: #dcc4ff;
+}
+
+body {
+    background-color: var(--background-color);
+
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+.container {
+    max-width: 50rem;
+    margin: 3.125rem auto;
+
+    padding: 1.25rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
+}
+h2, h3 {
+    text-align: center;
+}
+
+.a-button {
+    display: inline-block;
+    width: 100%;
+    padding: 0.625em;
+    background-color: var(--main-color-secondary);
+    color: white;
+    border-radius: 0.3125em;
+    text-align: center;
+    text-decoration-line: none;
+    transition: background-color 0.3s;
+}
+.a-button:hover {
+    background-color: var(--main-color);
+}
+
+.menu {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+.menu * {
+    flex: none;
+}
+.menu img {
+    width: 1em;
+    height: 1em;
+}
+.menu nav {
+    flex: auto;
+}
+.menu nav * {
+    vertical-align: middle;
+}
+.menu button.logout {
+    padding: 0.1em 0.3em;
+    margin: -0.1em 0;
+}
