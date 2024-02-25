@@ -16,6 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -469,7 +472,7 @@ public class TeacherController {
             @RequestParam(name = "sectionName") String sectionName,
             Model model,
             HttpServletRequest request
-    ){
+    ) throws UnsupportedEncodingException {
         TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
         if (teacherMember == null){
             //로그인 정보 없음
@@ -498,7 +501,10 @@ public class TeacherController {
             mariaStudentAssignment.save(studentAssignment);
         }
 //        model.addAttribute("error_message", "추가에 실패했습니다. 웹을 새로 시작해주세요.");
-        return "redirect:/teacher/classroom/assignment/list?className=" + className;
+//        return "redirect:/teacher/classroom/assignment/list?className=" + className;
+        String encodedString = URLEncoder.encode(className, StandardCharsets.UTF_8);
+        return "redirect:/teacher/classroom/assignment/list?className=" + encodedString;
+//        출처: https://unikys.tistory.com/195 [All-round programmer:티스토리];
     }
 
 
@@ -602,7 +608,9 @@ public class TeacherController {
         studentAssignmentService.deleteStudentAssignmentById(studentAssignmentId);
 
         model.addAttribute("className", className );
-        return "redirect:/teacher/classroom/assignment/list?className="+className;
+        String encodedString = URLEncoder.encode(className, StandardCharsets.UTF_8);
+        return "redirect:/teacher/classroom/assignment/list?className=" + encodedString;
+//        return "redirect:/teacher/classroom/assignment/list?className="+className;
     }
 
 }
