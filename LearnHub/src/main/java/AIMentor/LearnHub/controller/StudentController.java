@@ -80,7 +80,7 @@ public class StudentController {
         mariaStudentMember.save(newStudentMember);
         model.addAttribute("register", "학생 회원가입 완료.");
         //return "redirect:/";
-        return "/index";
+        return "index";
     }
 
     @GetMapping(value = "/login")
