@@ -37,7 +37,8 @@ public class LoginInfoController {
 //        model.addAttribute("error_message","인증번호 불일치");
 //        return "teacher/loginInfo/id/find";
         //인증코드가 일치하면
-        model.addAttribute("userId", "user_id");
+//        model.addAttribute("userId", "user_id");
+        model.addAttribute("userId", 3);
 
         return "teacher/loginInfo/id/detail";
     }

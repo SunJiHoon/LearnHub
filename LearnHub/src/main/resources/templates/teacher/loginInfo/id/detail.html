@@ -10,7 +10,9 @@
 <body class="teacher">
 <div class="container">
 
-    <div th:text="'당신의 ID는 ' + ${userId} + '입니다.'"></div>
+<!--    <p th:text="'당신의 ID는 ' + ${userId} + '입니다.'"></p>-->
+    <p th:text="|당신의 ID는 ${userId} 입니다.|"></p>
+<!--    <p th:text="학생 ${the_num_of_students}명, 정원 ${students_maximum_number}명"></p>-->
 
     <a href="/">
         <button>홈페이지로 이동</button>
