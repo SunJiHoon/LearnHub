@@ -19,7 +19,8 @@ public class LearnHubApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-						.allowedOrigins("http://localhost:50001", "https://mbti.putiez.com",
+						.allowedOrigins("http://localhost:50001", "https://aihub.putiez.com",
+								"https://mbti.putiez.com",
 								"http://m.tongtongtripmap.com:8080", "https://m.tongtongtripmap.com:443"
 								, "http://m.tongtongtripmap.com", "https://m.tongtongtripmap.com")
 						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTION")
