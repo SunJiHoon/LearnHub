@@ -23,18 +23,17 @@
         <p th:text="${error_message}"></p>
     </div>
     <div th:if="${created_class_name}" class="alert" role="alert" style="color: black;">
-        <p th:text="${created_class_name + ' 클래스가 생성되었습니다.'}"></p>
+        <p th:text="${created_class_name} 클래스가 생성되었습니다."></p>
     </div>
 
-    <h2 th:text="${class_name + ' 관리'}">Classroom Detail</h2>
+    <h2 th:text="${class_name} 관리">Classroom Detail</h2>
     <div class="card-container">
         <div class="card">
             <img class="card-icon" src="/assets/images/user-group.svg">
             <a class="a-button" th:href="@{/teacher/classroom/student/list(className=${class_name})}">
                 학생 관리
             </a>
-<!--            <p th:text=" ${'학생 ' + the_num_of_students + '명, 정원 ' + students_maximum_number + '명'}"></p>-->
-            <p th:text="'학생 ' + ${the_num_of_students} + '명, 정원 ' + ${students_maximum_number} + '명'"></p>
+            <p th:text="학생 ${the_num_of_students}명, 정원 ${students_maximum_number}명"></p>
 
         </div>
         <div class="card">

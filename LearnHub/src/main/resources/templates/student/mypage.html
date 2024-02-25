@@ -13,10 +13,10 @@
         <p th:text="${error_message}"></p>
     </div>
     <div th:if="${name}" class="alert" role="alert" style="color: black;">
-        <p th:text="${name + ' 학생이 로그인 되었습니다.'}"></p>
+        <p th:text="${name} 학생이 로그인 되었습니다."></p>
     </div>
     <div th:if="${created_class_name}" class="alert" role="alert" style="color: black;">
-        <p th:text="${created_class_name + ' 클래스가 생성되었습니다.'}"></p>
+        <p th:text="${created_class_name} 클래스가 생성되었습니다."></p>
     </div>
     <form action="/student/mypage" method="GET">
         <button type="submit" style="width: 30%;">My Page로 가기</button>
