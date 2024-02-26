@@ -49,6 +49,17 @@ spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MariaDBDialect
+
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=gmail 계정 이메일
+spring.mail.password=gmail 계정 앱 비밀번호
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+
+
+test.email=본인의 이메일(테스트용)
+
 ```
 
 
