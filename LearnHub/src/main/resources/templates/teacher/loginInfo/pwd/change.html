@@ -12,7 +12,8 @@
 
     <h3>새로 변경할 비밀번호를 입력하세요</h3>
     <form id="validationForm" action="/teacher/loginInfo/pwd/result" method="post">
-        <label for="newPassword">새 비밀번호:</label><br>
+        <label for="newPassword">새 비밀번호:</label>
+        <input type="hidden" name = "email" th:value="${desiredEmail}">
         <input type="text" id="newPassword" name="newPassword" required><br>
         <button type="submit">Submit</button>
     </form>

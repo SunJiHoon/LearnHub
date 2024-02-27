@@ -7,6 +7,7 @@ import AIMentor.LearnHub.repository.Maria_TeacherMember;
 import AIMentor.LearnHub.repository.Maria_TeacherValidationCode;
 import AIMentor.LearnHub.service.MailService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,7 @@ import java.util.Random;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class LoginInfoController {
     private final Maria_TeacherMember mariaTeacherMember;
     private final Maria_TeacherValidationCode mariaTeacherValidationCode;
@@ -128,11 +130,35 @@ public class LoginInfoController {
             Model model
     ){
         //해당 email로 가입된 메일이 존재하는지 확인
+        TeacherMember teacherMember =null;
+        Optional<TeacherMember> teacherMemberOptional = mariaTeacherMember.findByEmail(email);
+        if (teacherMemberOptional.isEmpty()){
+            model.addAttribute("error_message","가입 이력이 없는 이메일입니다.");
+            return "teacher/loginInfo/pwd/find";
+        }
+        else{
+            teacherMember = teacherMemberOptional.get();
+        }
         //해당 email로 인증 코드 생성해서 보내기
+        //테스트 기간동안은 해당 email로 보내지 말고 testEmail로 보내도록하자.
+        String validationCodeStr = generateVerificationCode();
+        MailDTO mailDTO = new MailDTO();
+        mailDTO.setAddress(testEmail);
+        mailDTO.setTitle("[LearnHub] 인증코드 발송");
+        mailDTO.setMessage("인증코드 : " + validationCodeStr);
 
+        TeacherValidationCode validationCode = new TeacherValidationCode();
+        validationCode.setTeacherMember(teacherMember);
+        validationCode.setValidationCode(validationCodeStr);
+        validationCode.setEmail(email);
+        validationCode.setCreationDate(Timestamp.valueOf(LocalDateTime.now()));
+
+        mariaTeacherValidationCode.save(validationCode);
+        mailService.mailSend(mailDTO);
         // verificationSection의 표시 여부를 모델에 추가
         boolean showVerificationSection = true; // true로 설정하거나 다른 조건에 따라 설정
         model.addAttribute("showVerificationSection", showVerificationSection);
+        model.addAttribute("desiredEmail", email);
 
         return "teacher/loginInfo/pwd/find";
     }
@@ -140,24 +166,65 @@ public class LoginInfoController {
     @PostMapping(value = "/teacher/loginInfo/pwd/change")
     String postTeacherLoginInfoPwdChange(
             @RequestParam(name = "validationCode") String validationCode,
+            @RequestParam(name = "email") String email,
             Model model
     ){
-        //인증코드가 불일치하면
-//        model.addAttribute("error_message","인증번호 불일치");
-//        return "teacher/loginInfo/id/find";
-        //인증코드가 일치하면
-        model.addAttribute("userId", "user_id");
+        //email에 해당하는 선생님 계정 찾기
+        TeacherMember teacherMember =null;
+        Optional<TeacherMember> teacherMemberOptional = mariaTeacherMember.findByEmail(email);
+        if (teacherMemberOptional.isEmpty()){
+            model.addAttribute("error_message","해당 이메일에 대해 조회가 되지 않습니다.");
+            return "teacher/loginInfo/pwd/find";
+        }
+        else{
+            teacherMember = teacherMemberOptional.get();
+        }
 
+
+        List<TeacherValidationCode> teacherValidationCodeList = mariaTeacherValidationCode.findByTeacherMemberAndCreationDateBetween(teacherMember,
+                Timestamp.valueOf(LocalDateTime.now().minusMinutes(5)),
+                Timestamp.valueOf(LocalDateTime.now()));
+
+        // 리스트가 비어있지 않은 경우에만 진행
+        if (teacherValidationCodeList.isEmpty()) {
+            model.addAttribute("error_message","해당 이메일에 대해 조회가 되지 않습니다.");
+            return "teacher/loginInfo/pwd/find";
+        }
+        // 리스트를 시간 기준으로 역순으로 정렬 (가장 최신이 맨 앞에 오도록)
+        teacherValidationCodeList.sort(Comparator.comparing(TeacherValidationCode::getCreationDate).reversed());
+        // 가장 최신 요소 가져오기
+        TeacherValidationCode latestValidationCode = teacherValidationCodeList.get(0);
+        //인증코드가 불일치하면
+        if(!latestValidationCode.getValidationCode().equals(validationCode)){
+            model.addAttribute("error_message","인증번호 불일치");
+            return "teacher/loginInfo/pwd/find";
+        }
+
+        //인증번호 일치하면
+        model.addAttribute("userId",teacherMember.getLoginId());
+        model.addAttribute("desiredEmail", teacherMember.getEmail());
         return "teacher/loginInfo/pwd/change";
     }
     @PostMapping(value = "/teacher/loginInfo/pwd/result")
     String postTeacherLoginInfoPwdDetail(
+            @RequestParam(name = "email") String email,
             @RequestParam(name = "newPassword") String newPassword,
             Model model
     ){
-        //비밀번호 변경이 성공하면
+        log.info(email);
+        log.info(newPassword);
+
+        //비밀번호 변경
+        Optional<TeacherMember> teacherMemberOptional = mariaTeacherMember.findByEmail(email);
+        if (teacherMemberOptional.isEmpty()){
+            model.addAttribute("error_message", "조회된 회원이 없습니다.");
+            return "teacher/loginInfo/pwd/find";
+        }
+        TeacherMember teacherMember = teacherMemberOptional.get();
+        teacherMember.setLoginPwd(newPassword);
+        mariaTeacherMember.save(teacherMember);
         //비밀번호 변경이 완료되었습니다 메시지 띄우고 홈페이지 이동 버튼 넣어주기.
-        model.addAttribute("userId", "성공");
+        model.addAttribute("result", "변경 성공");
         return "teacher/loginInfo/pwd/result";
     }
 
