@@ -1,13 +1,24 @@
 package AIMentor.LearnHub.controller;
 
+import AIMentor.LearnHub.dto.MailDTO;
+import AIMentor.LearnHub.service.MailService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Random;
+
 @Controller
+@RequiredArgsConstructor
 public class LoginInfoController {
+    private final MailService mailService;
+
+    @Value("${test.email}")
+    private String testEmail;
     @GetMapping(value = "/teacher/loginInfo/id/find")
     String getTeacherLoginInfoId(){
         return "teacher/loginInfo/id/find";
@@ -20,8 +31,13 @@ public class LoginInfoController {
     ){
         //해당 email로 가입된 메일이 존재하는지 확인
         //해당 email로 인증 코드 생성해서 보내기
-
-        // verificationSection의 표시 여부를 모델에 추가
+        String validationCode = generateVerificationCode();
+        MailDTO mailDTO = new MailDTO();
+        mailDTO.setAddress(testEmail);
+        mailDTO.setTitle("[LearnHub] 인증코드 발송");
+        mailDTO.setMessage("인증코드 : " + validationCode);
+            //mailService.mailSend(mailDTO);
+            // verificationSection의 표시 여부를 모델에 추가
         boolean showVerificationSection = true; // true로 설정하거나 다른 조건에 따라 설정
         model.addAttribute("showVerificationSection", showVerificationSection);
 
@@ -88,7 +104,15 @@ public class LoginInfoController {
         return "teacher/loginInfo/pwd/result";
     }
 
+    private String generateVerificationCode() {
+        // Random 객체 생성
+        Random random = new Random();
+        StringBuilder resultStr = new StringBuilder();
 
-
-
+        for(int i=0;i<5;i++){
+            double randomNumber = random.nextDouble();
+            resultStr.append(String.valueOf((int) (10 * randomNumber)));
+        }
+        return resultStr.toString();
+    }
 }
