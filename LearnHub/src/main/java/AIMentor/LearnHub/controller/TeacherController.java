@@ -25,6 +25,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
 import AIMentor.LearnHub.utility.Utility;
 
 @Controller
@@ -243,6 +245,7 @@ public class TeacherController {
             return "teacher/classroom/make";
         }
         VirtualClassRoom virtualClassRoom = new VirtualClassRoom();
+        virtualClassRoom.setUuid(UUID.randomUUID().toString());
         virtualClassRoom.setClassName(class_name);
         virtualClassRoom.setSubject(subject);
         virtualClassRoom.setMaximumNumber(maximum_number);
