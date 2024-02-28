@@ -233,6 +233,7 @@ public class StudentController {
         }
         model.addAttribute("studentMemberArrayList",studentMemberArrayList);
         model.addAttribute("className", className);
+        model.addAttribute("uuid", uuid);
         log.info(className);
         return "student/classroom/student/list";
     }
@@ -261,6 +262,8 @@ public class StudentController {
         List<StudentAssignment> studentAssignmentList = mariaStudentAssignment.findByVirtualClassRoom(virtualClassRoom.get());
         model.addAttribute("student_assignment_list" ,studentAssignmentList);
         model.addAttribute("class_name", className);
+        model.addAttribute("uuid", uuid);
+
 //        log.info(className);
         return "student/classroom/assignment/list";
     }
@@ -269,7 +272,7 @@ public class StudentController {
     public String getDetailPageAssignment(
             @RequestParam(name = "selectedSectionId") Long selectedSectionId,
             @RequestParam(name = "className") String className,
-//            @RequestParam(name = "uuid") String uuid,
+            @RequestParam(name = "uuid") String uuid,
             Model model,
             HttpServletRequest request
     ){
@@ -296,6 +299,7 @@ public class StudentController {
 //            model.addAttribute("virtual_class_room",studentAssignment.get().getVirtualClassRoom());
         }
         model.addAttribute("class_name", className);
+        model.addAttribute("uuid", uuid);
 
         return "student/classroom/assignment/detail";
     }

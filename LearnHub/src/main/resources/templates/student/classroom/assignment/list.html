@@ -11,9 +11,9 @@
 <div class="container">
     <div th:replace="~{menu::student(~{::crumbs}, ${name})}">
         <th:block th:fragment="crumbs">
-            <a href="/teacher/mypage">마이페이지</a>
+            <a href="/student/mypage">마이페이지</a>
             <img class="icon" src="/assets/images/chevron-right.svg">
-            <a th:href="@{/teacher/classroom/detail(className=${class_name})}" th:text="${class_name}">클래스 관리</a>
+            <a th:href="@{/student/classroom/detail(className=${class_name},uuid=${uuid})}" th:text="${class_name}">클래스 관리</a>
             <img class="icon" src="/assets/images/chevron-right.svg">
             <span>과제 관리</span>
         </th:block>
@@ -49,7 +49,8 @@
                     <input type="hidden" name="className" th:value="${class_name}">
 <!--                    <input type="hidden" name="sectionName" th:value="${student_assignment.sectionName}">-->
                     <input type="hidden" name="selectedSectionId" th:value="${student_assignment.id}">
-<!--                    <button type="submit" th:className="${className}" th:studentMember.id="${studentMember.id}">세부정보</button>-->
+                    <input type="hidden" id="uuid" name="uuid" th:value="${uuid}">
+                    <!--                    <button type="submit" th:className="${className}" th:studentMember.id="${studentMember.id}">세부정보</button>-->
                     <button type="submit" >이동</button>
 
                 </form>

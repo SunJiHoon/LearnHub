@@ -11,9 +11,9 @@
 <div class="container">
     <div th:replace="~{menu::student(~{::crumbs}, ${name})}">
         <th:block th:fragment="crumbs">
-            <a href="/teacher/mypage">마이페이지</a>
+            <a href="/student/mypage">마이페이지</a>
             <img class="icon" src="/assets/images/chevron-right.svg">
-            <a th:href="@{/teacher/classroom/detail(className=${className})}" th:text="${className}">클래스 관리</a>
+            <a th:href="@{/student/classroom/detail(className=${className},uuid=${uuid})}" th:text="${className}">클래스 관리</a>
             <img class="icon" src="/assets/images/chevron-right.svg">
             <span>학생 관리</span>
         </th:block>

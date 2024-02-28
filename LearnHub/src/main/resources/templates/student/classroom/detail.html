@@ -12,7 +12,7 @@
 <div class="container">
     <div th:replace="~{menu::student(~{::crumbs}, ${name})}">
         <th:block th:fragment="crumbs">
-            <a href="/teacher/mypage">마이페이지</a>
+            <a href="/student/mypage">마이페이지</a>
             <img class="icon" src="/assets/images/chevron-right.svg">
             <span th:text="${VCRoom.getClassName()}">클래스 관리</span>
         </th:block>

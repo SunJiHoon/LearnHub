@@ -11,11 +11,11 @@
 <div class="container">
     <div th:replace="~{menu::student(~{::crumbs}, ${name})}">
         <th:block th:fragment="crumbs">
-            <a href="/teacher/mypage">마이페이지</a>
+            <a href="/student/mypage">마이페이지</a>
             <img class="icon" src="/assets/images/chevron-right.svg">
-            <a th:href="@{/teacher/classroom/detail(className=${class_name})}" th:text="${class_name}">클래스 관리</a>
+            <a th:href="@{/student/classroom/detail(className=${class_name},uuid=${uuid})}" th:text="${class_name}">클래스 관리</a>
             <img class="icon" src="/assets/images/chevron-right.svg">
-            <a th:href="@{/teacher/classroom/assignment/list(className=${class_name})}">과제 관리</a>
+            <a th:href="@{/student/classroom/assignment/list(className=${class_name})}">과제 관리</a>
             <img class="icon" src="/assets/images/chevron-right.svg">
             <span th:text="${section_name}">과제 세부정보</span>
         </th:block>
