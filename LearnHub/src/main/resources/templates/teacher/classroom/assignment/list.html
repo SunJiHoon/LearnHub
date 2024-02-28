@@ -27,11 +27,11 @@
         <p th:text="${created_class_name} 클래스가 생성되었습니다."></p>
     </div>
 
-    <h2 th:text="${class_name} 관리">Classroom Detail</h2>
+    <h2 th:text="|${class_name} 관리|">Classroom Detail</h2>
 
     <h2>과제 생성</h2>
     <a class="a-button" th:href="@{/teacher/classroom/assignment/add(className=${class_name})}">
-        <span th:text="${class_name} 과제 생성">Class Name</span>
+        <span th:text="|${class_name} 과제 생성|">Class Name</span>
     </a>
 
     <h2>과제 목록</h2>
