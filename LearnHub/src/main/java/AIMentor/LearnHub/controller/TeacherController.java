@@ -11,6 +11,7 @@ import AIMentor.LearnHub.session.SessionManager;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -287,7 +288,33 @@ public class TeacherController {
         model.addAttribute("students_maximum_number", virtualClassRoom.get().getMaximumNumber());
         return "teacher/classroom/detail";
     }
+    @PostMapping("/classroom/delete")
+    @Transactional//추후 service로 빼내어야함.
+    public String deleteClassRoomWithPost(
+            @RequestParam(name = "className") String className,
+            Model model,
+            HttpServletRequest request
+    ){
+        TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
+        if (teacherMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", teacherMember.getTeacherName());
+        }
+        Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findByClassNameAndTeacherMember(className, teacherMember);
+        if(virtualClassRoom.isEmpty()){
+            model.addAttribute("error_message", "해당하는 VCR이 존재하지 않습니다.");
+            return "index";
+        }
 
+        //삭제 시도
+        mariaVirtualClassRoom.deleteByClassNameAndTeacherMember(className, teacherMember);
+        return "teacher/mypage";
+    }
     @PostMapping("/classroom/student/add")
     public String doAddStudent(
             @RequestBody VirtualCR_StudentM_mappingDTO virtualCRStudentMMappingDTO,

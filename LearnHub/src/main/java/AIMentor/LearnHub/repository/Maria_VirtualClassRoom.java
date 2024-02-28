@@ -13,6 +13,5 @@ public interface Maria_VirtualClassRoom extends JpaRepository<VirtualClassRoom, 
     Optional<VirtualClassRoom> findByClassNameAndTeacherMember(String classname, TeacherMember teacherMember);
     List<VirtualClassRoom> findByTeacherMember(TeacherMember teacherMember);
     void deleteById(Long id);
-
-
+    void deleteByClassNameAndTeacherMember(String className, TeacherMember teacherMember);
 }

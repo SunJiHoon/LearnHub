@@ -44,6 +44,12 @@
             <p>과제 n개</p>
         </div>
     </div>
+
+
+    <form id="studentDeleteForm" action="/teacher/classroom/delete" method="post">
+        <input type="hidden" id="className" name="className" th:value="${class_name}">
+        <button type="submit">현재 분반 삭제</button>
+    </form>
 </div>
 
 <script src="/assets/javascripts/teacher/register.js"></script>
