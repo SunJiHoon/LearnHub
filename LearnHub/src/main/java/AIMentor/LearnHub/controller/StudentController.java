@@ -12,6 +12,8 @@ import AIMentor.LearnHub.session.SessionManager;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping(value = "/student")
 public class StudentController {
 
@@ -30,18 +33,20 @@ public class StudentController {
     SessionManager sessionManager;
     Maria_VirtualCR_StudentM_mapping mariaVirtualCRStudentMMapping;
     StudentService studentService;
+    Maria_VirtualClassRoom mariaVirtualClassRoom;
 
-    public StudentController(
-            Maria_StudentMember mariaStudentMember,
-            SessionManager sessionManager,
-            Maria_VirtualCR_StudentM_mapping mariaVirtualCRStudentMMapping,
-            StudentService studentService
-) {
-        this.mariaStudentMember = mariaStudentMember;
-        this.sessionManager = sessionManager;
-        this.mariaVirtualCRStudentMMapping = mariaVirtualCRStudentMMapping;
-        this.studentService = studentService;
-    }
+    //@AllArgsConstructor 생성자 대체함.
+//    public StudentController(
+//            Maria_StudentMember mariaStudentMember,
+//            SessionManager sessionManager,
+//            Maria_VirtualCR_StudentM_mapping mariaVirtualCRStudentMMapping,
+//            StudentService studentService
+//) {
+//        this.mariaStudentMember = mariaStudentMember;
+//        this.sessionManager = sessionManager;
+//        this.mariaVirtualCRStudentMMapping = mariaVirtualCRStudentMMapping;
+//        this.studentService = studentService;
+//    }
 
     @GetMapping(value = "/register")
     String teacherRegister(){
@@ -162,6 +167,34 @@ public class StudentController {
         model.addAttribute("studentsVirtualClassRooms", studentsVirtualClassRoomList);
 
         return "student/mypage";
+    }
+    @GetMapping("/classroom/detail")
+    public String getDeatailPage(
+            @RequestParam(name = "className") String className,
+            @RequestParam(name = "uuid") String uuid,
+            Model model,
+            HttpServletRequest request
+    ){
+        StudentMember studentMember = sessionManager.getStudentCookieAndReading(request);
+        if (studentMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", studentMember.getStudentName());
+        }
+
+        Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findByUuid(uuid);
+        if(virtualClassRoom.isEmpty()){
+            model.addAttribute("error_message", "해당하는 VCR이 존재하지 않습니다.");
+            return "index";
+        }
+        model.addAttribute("class_name", className);
+        model.addAttribute("the_num_of_students", virtualClassRoom.get().getVirtualCRStudentMMappingArrayList().size());
+        model.addAttribute("students_maximum_number", virtualClassRoom.get().getMaximumNumber());
+        return "student/classroom/detail";
     }
 
 

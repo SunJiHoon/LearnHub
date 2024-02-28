@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/assets/stylesheets/cards.css">
 </head>
 <div class="container">
-    <div th:replace="~{menu::teacher(~{::crumbs}, ${name})}">
+    <div th:replace="~{menu::student(~{::crumbs}, ${name})}">
         <th:block th:fragment="crumbs">
             <a href="/teacher/mypage">마이페이지</a>
             <img class="icon" src="/assets/images/chevron-right.svg">
@@ -30,7 +30,7 @@
         <div class="card">
             <img class="card-icon" src="/assets/images/user-group.svg">
             <a class="a-button" th:href="@{/teacher/classroom/student/list(className=${class_name})}">
-                학생 관리
+                수강생
             </a>
             <p th:text="|학생 ${the_num_of_students}명, 정원 ${students_maximum_number}명|"></p>
 
@@ -38,7 +38,7 @@
         <div class="card">
             <img class="card-icon" src="/assets/images/book-open.svg">
             <a class="a-button" th:href="@{/teacher/classroom/assignment/list(className=${class_name})}">
-                과제 관리
+                과제
             </a>
             <p>과제 n개</p>
         </div>
