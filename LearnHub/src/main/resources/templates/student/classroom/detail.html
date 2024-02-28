@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선생님 mypage</title>
+    <link rel="stylesheet" href="/assets/stylesheets/common.css">
+    <link rel="stylesheet" href="/assets/stylesheets/table.css">
+    <link rel="stylesheet" href="/assets/stylesheets/form.css">
+    <link rel="stylesheet" href="/assets/stylesheets/cards.css">
+</head>
+<div class="container">
+    <div th:replace="~{menu::teacher(~{::crumbs}, ${name})}">
+        <th:block th:fragment="crumbs">
+            <a href="/teacher/mypage">마이페이지</a>
+            <img class="icon" src="/assets/images/chevron-right.svg">
+            <span th:text="${class_name}">클래스 관리</span>
+        </th:block>
+    </div>
+
+    <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
+        <p th:text="${error_message}"></p>
+    </div>
+    <div th:if="${created_class_name}" class="alert" role="alert" style="color: black;">
+        <p th:text="${created_class_name} 클래스가 생성되었습니다."></p>
+    </div>
+
+    <h2 th:text="|${class_name} 관리|">Classroom Detail</h2>
+    <div class="card-container">
+        <div class="card">
+            <img class="card-icon" src="/assets/images/user-group.svg">
+            <a class="a-button" th:href="@{/teacher/classroom/student/list(className=${class_name})}">
+                학생 관리
+            </a>
+            <p th:text="|학생 ${the_num_of_students}명, 정원 ${students_maximum_number}명|"></p>
+
+        </div>
+        <div class="card">
+            <img class="card-icon" src="/assets/images/book-open.svg">
+            <a class="a-button" th:href="@{/teacher/classroom/assignment/list(className=${class_name})}">
+                과제 관리
+            </a>
+            <p>과제 n개</p>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/javascripts/teacher/register.js"></script>
+
+</html>
