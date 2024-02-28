@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>id 찾기</title>
+    <title>비밀번호 재설정</title>
     <link rel="stylesheet" href="/assets/stylesheets/common.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
 </head>
 <body class="teacher">
 <div class="container">
 
-    <div th:text="'변경 결과 ' + ${result} + '입니다.'"></div>
+    <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
+        <p th:text="${error_message}"></p>
+    </div>
 
+    <h2>비밀번호 재설정</h2>
+    <p th:if="${result == '변경 성공'}">
+        비밀번호가 변경되었습니다.
+    </p>
     <a href="/">
-        <button>홈페이지로 이동</button>
+        <button>확인</button>
     </a>
-
 
 </div>
 <script src="/assets/javascripts/teacher/register.js"></script>

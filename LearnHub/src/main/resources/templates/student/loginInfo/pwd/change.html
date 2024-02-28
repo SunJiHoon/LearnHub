@@ -3,21 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>id 찾기</title>
+    <title>비밀번호 재설정</title>
     <link rel="stylesheet" href="/assets/stylesheets/common.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
 </head>
 <body class="teacher">
 <div class="container">
 
-    <h3>새로 변경할 비밀번호를 입력하세요</h3>
+    <h2>비밀번호 재설정</h2>
+    <p>변경할 비밀번호를 입력해 주세요.</p>
     <form id="validationForm" action="/student/loginInfo/pwd/result" method="post">
-        <label for="newPassword">새 비밀번호:</label>
-        <input type="hidden" name = "email" th:value="${desiredEmail}">
-        <input type="text" id="newPassword" name="newPassword" required><br>
-        <button type="submit">Submit</button>
+        <input type="hidden" name="email" th:value="${desiredEmail}">
+        <label for="newPassword">비밀번호:</label>
+        <input type="password" id="newPassword" name="newPassword" required>
+        <label for="newPasswordConfirm">비밀번호 확인:</label>
+        <input type="password" id="newPasswordConfirm" name="newPasswordConfirm" required>
+        <button type="submit">확인</button>
+    </form>
     </form>
 </div>
 <script src="/assets/javascripts/student/register.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const newPassword = document.getElementById("newPassword");
+        const newPasswordConfirm = document.getElementById("newPasswordConfirm");
+
+        function updateValidity() {
+            const match = newPassword.value === newPasswordConfirm.value;
+            // 사용자 검증 로직을 설정하는 메소드, 빈 문자열이어야 통과
+            newPasswordConfirm.setCustomValidity(match
+                ? ''
+                : '비밀번호가 일치하지 않습니다.'
+            );
+        }
+        newPassword.addEventListener('change', updateValidity);
+        newPasswordConfirm.addEventListener('change', updateValidity);
+    });
+</script>
 </body>
 </html>
