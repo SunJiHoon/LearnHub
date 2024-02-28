@@ -1,12 +1,8 @@
 package AIMentor.LearnHub.controller;
 
-import AIMentor.LearnHub.entity.StudentMember;
-import AIMentor.LearnHub.entity.TeacherMember;
-import AIMentor.LearnHub.entity.VirtualClassRoom;
-import AIMentor.LearnHub.repository.Maria_StudentMember;
-import AIMentor.LearnHub.repository.Maria_TeacherMember;
-import AIMentor.LearnHub.repository.Maria_VirtualCR_StudentM_mapping;
-import AIMentor.LearnHub.repository.Maria_VirtualClassRoom;
+import AIMentor.LearnHub.dto.StudentMemberDTO;
+import AIMentor.LearnHub.entity.*;
+import AIMentor.LearnHub.repository.*;
 import AIMentor.LearnHub.service.StudentService;
 import AIMentor.LearnHub.session.SessionManager;
 import jakarta.servlet.http.Cookie;
@@ -14,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,12 +18,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
 @RequestMapping(value = "/student")
+@Slf4j
 public class StudentController {
 
     Maria_StudentMember mariaStudentMember;
@@ -34,6 +33,7 @@ public class StudentController {
     Maria_VirtualCR_StudentM_mapping mariaVirtualCRStudentMMapping;
     StudentService studentService;
     Maria_VirtualClassRoom mariaVirtualClassRoom;
+    Maria_StudentAssignment mariaStudentAssignment;
 
     //@AllArgsConstructor 생성자 대체함.
 //    public StudentController(
@@ -191,11 +191,115 @@ public class StudentController {
             model.addAttribute("error_message", "해당하는 VCR이 존재하지 않습니다.");
             return "index";
         }
+        model.addAttribute("VCRoom", virtualClassRoom.get());
         model.addAttribute("class_name", className);
         model.addAttribute("the_num_of_students", virtualClassRoom.get().getVirtualCRStudentMMappingArrayList().size());
         model.addAttribute("students_maximum_number", virtualClassRoom.get().getMaximumNumber());
         return "student/classroom/detail";
     }
+
+    @GetMapping("/classroom/student/list")
+    public String getStudentListPageWithPost(
+//            @RequestParam(name = "VCRoomId") Long vCRoomId,
+            @RequestParam(name = "className") String className,
+            @RequestParam(name = "uuid") String uuid,
+            Model model,
+            HttpServletRequest request
+    ){
+        StudentMember studentMember = sessionManager.getStudentCookieAndReading(request);
+        if (studentMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", studentMember.getStudentName());
+        }
+        Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findByUuid(uuid);
+        if(virtualClassRoom.isEmpty()){
+            model.addAttribute("error_message", "해당하는 VCR이 존재하지 않습니다.");
+            return "index";
+        }
+        List<StudentMemberDTO> studentMemberArrayList = new ArrayList<>();
+
+        List<VirtualCR_StudentM_mapping> virtualCRStudentMMapping = mariaVirtualCRStudentMMapping.findByVirtualClassRoom(virtualClassRoom.get());
+        for (VirtualCR_StudentM_mapping virtualCR_studentM_mapping : virtualCRStudentMMapping) {
+            StudentMemberDTO tempStudentMemberDTO = new StudentMemberDTO();
+            tempStudentMemberDTO.setId(virtualCR_studentM_mapping.getStudentMember().getId());
+            tempStudentMemberDTO.setStudentName(virtualCR_studentM_mapping.getStudentMember().getStudentName());
+            tempStudentMemberDTO.setEmail(virtualCR_studentM_mapping.getStudentMember().getEmail());
+            studentMemberArrayList.add(tempStudentMemberDTO);
+        }
+        model.addAttribute("studentMemberArrayList",studentMemberArrayList);
+        model.addAttribute("className", className);
+        log.info(className);
+        return "student/classroom/student/list";
+    }
+    @GetMapping("/classroom/assignment/list")
+    public String getAssignmentListPageWithPost(
+            @RequestParam(name = "className") String className,
+            @RequestParam(name = "uuid") String uuid,
+            Model model,
+            HttpServletRequest request
+    ){
+        StudentMember studentMember = sessionManager.getStudentCookieAndReading(request);
+        if (studentMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", studentMember.getStudentName());
+        }
+        Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findByUuid(uuid);
+        if(virtualClassRoom.isEmpty()){
+            model.addAttribute("error_message", "해당하는 VCR이 존재하지 않습니다.");
+            return "index";
+        }
+        List<StudentAssignment> studentAssignmentList = mariaStudentAssignment.findByVirtualClassRoom(virtualClassRoom.get());
+        model.addAttribute("student_assignment_list" ,studentAssignmentList);
+        model.addAttribute("class_name", className);
+//        log.info(className);
+        return "student/classroom/assignment/list";
+    }
+
+    @GetMapping("/classroom/assignment/detail")
+    public String getDetailPageAssignment(
+            @RequestParam(name = "selectedSectionId") Long selectedSectionId,
+            @RequestParam(name = "className") String className,
+//            @RequestParam(name = "uuid") String uuid,
+            Model model,
+            HttpServletRequest request
+    ){
+        StudentMember studentMember = sessionManager.getStudentCookieAndReading(request);
+        if (studentMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", studentMember.getStudentName());
+        }
+        Optional<StudentAssignment> studentAssignment = mariaStudentAssignment.findById(selectedSectionId);
+        if (studentAssignment.isEmpty()){
+            model.addAttribute("error_message", "해당하는 학생 정보가 존재하지 않습니다.");
+        }
+
+        if (studentAssignment.isPresent()){
+            model.addAttribute("assignment_id",studentAssignment.get().getId());
+            model.addAttribute("section_name",studentAssignment.get().getSectionName());
+            model.addAttribute("assignment_creation_date",studentAssignment.get().getAssignmentCreationDate());
+            model.addAttribute("assignment_due_date",studentAssignment.get().getAssignmentDueDate());
+//            model.addAttribute("virtual_class_room",studentAssignment.get().getVirtualClassRoom());
+        }
+        model.addAttribute("class_name", className);
+
+        return "student/classroom/assignment/detail";
+    }
+
 
 
 }

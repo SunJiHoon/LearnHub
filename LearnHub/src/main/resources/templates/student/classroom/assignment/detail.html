@@ -42,17 +42,14 @@
             <span class="emphasize" th:text="${#dates.format(assignment_due_date, 'yyyy''년'' M''월'' d''일''')}"></span>
         </div>
     </div>
-<!--    <div th:if="${virtual_class_room}" class="alert" role="alert" style="color: black;">-->
-<!--        <p th:text="분반 이름: ${virtual_class_room}"></p>-->
-<!--    </div>-->
 
-    <form id="studentDeleteForm" action="/teacher/classroom/assignment/delete" method="post">
+    <form id="studentDeleteForm" action="/student/classroom/assignment/do" method="post">
         <input type="hidden" id="className" name="className" th:value="${class_name}">
         <input type="hidden" id="selectedStudent" name="studentAssignmentId" th:value="${assignment_id}">
-        <button type="submit">삭제</button>
+        <button type="submit">과제 수행하기 -제작중-</button>
     </form>
 </div>
 
-<script src="/assets/javascripts/teacher/register.js"></script>
+<script src="/assets/javascripts/student/register.js"></script>
 
 </html>
