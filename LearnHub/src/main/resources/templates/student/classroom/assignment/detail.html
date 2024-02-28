@@ -15,7 +15,7 @@
             <img class="icon" src="/assets/images/chevron-right.svg">
             <a th:href="@{/student/classroom/detail(className=${class_name},uuid=${uuid})}" th:text="${class_name}">클래스 관리</a>
             <img class="icon" src="/assets/images/chevron-right.svg">
-            <a th:href="@{/student/classroom/assignment/list(className=${class_name})}">과제 관리</a>
+            <a th:href="@{/student/classroom/assignment/list(className=${class_name},uuid=${uuid})}">과제 관리</a>
             <img class="icon" src="/assets/images/chevron-right.svg">
             <span th:text="${section_name}">과제 세부정보</span>
         </th:block>
@@ -46,6 +46,7 @@
     <form id="studentDeleteForm" action="/student/classroom/assignment/do" method="post">
         <input type="hidden" id="className" name="className" th:value="${class_name}">
         <input type="hidden" id="selectedStudent" name="studentAssignmentId" th:value="${assignment_id}">
+        <input type="hidden" id="uuid" name="uuid" th:value="${uuid}">
         <button type="submit">과제 수행하기 -제작중-</button>
     </form>
 </div>
