@@ -6,6 +6,7 @@ import AIMentor.LearnHub.dto.VirtualCR_StudentM_mappingDTO;
 import AIMentor.LearnHub.entity.*;
 import AIMentor.LearnHub.repository.*;
 import AIMentor.LearnHub.service.StudentAssignmentService;
+import AIMentor.LearnHub.service.StudentService;
 import AIMentor.LearnHub.service.TeacherService;
 import AIMentor.LearnHub.session.SessionManager;
 import jakarta.servlet.http.Cookie;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -289,7 +292,6 @@ public class TeacherController {
         return "teacher/classroom/detail";
     }
     @PostMapping("/classroom/delete")
-    @Transactional//추후 service로 빼내어야함.
     public String deleteClassRoomWithPost(
             @RequestParam(name = "className") String className,
             Model model,
@@ -311,9 +313,17 @@ public class TeacherController {
             return "index";
         }
 
-        //삭제 시도
-        mariaVirtualClassRoom.deleteByClassNameAndTeacherMember(className, teacherMember);
-        return "teacher/mypage";
+        try{
+            teacherService.deleteClassroomByClassNameAndTeacherMember(className, teacherMember, model);
+        }
+        catch (DataIntegrityViolationException e){
+            model.addAttribute("error_message", "해당 클래스에 학생 혹은 과제가 존재합니다. 삭제를 취소합니다.");
+        }
+        catch (Exception e1){
+            model.addAttribute("error_message", e1.getMessage());
+        }
+    model.addAttribute("result_message", "성공적으로 삭제 되었습니다.");
+        return "teacher/classroom/delete";
     }
     @PostMapping("/classroom/student/add")
     public String doAddStudent(
