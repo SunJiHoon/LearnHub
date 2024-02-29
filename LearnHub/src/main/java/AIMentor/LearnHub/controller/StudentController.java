@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +35,7 @@ public class StudentController {
     StudentService studentService;
     Maria_VirtualClassRoom mariaVirtualClassRoom;
     Maria_StudentAssignment mariaStudentAssignment;
+    Maria_StudentAssignmentRecord mariaStudentAssignmentRecord;
 
     //@AllArgsConstructor 생성자 대체함.
 //    public StudentController(
@@ -288,22 +290,58 @@ public class StudentController {
         }
         Optional<StudentAssignment> studentAssignment = mariaStudentAssignment.findById(selectedSectionId);
         if (studentAssignment.isEmpty()){
-            model.addAttribute("error_message", "해당하는 학생 정보가 존재하지 않습니다.");
+            model.addAttribute("error_message", "해당하는 과제 정보가 존재하지 않습니다.");
         }
 
-        if (studentAssignment.isPresent()){
-            model.addAttribute("assignment_id",studentAssignment.get().getId());
-            model.addAttribute("section_name",studentAssignment.get().getSectionName());
-            model.addAttribute("assignment_creation_date",studentAssignment.get().getAssignmentCreationDate());
-            model.addAttribute("assignment_due_date",studentAssignment.get().getAssignmentDueDate());
+        model.addAttribute("assignment_id",studentAssignment.get().getId());
+        model.addAttribute("section_name",studentAssignment.get().getSectionName());
+        model.addAttribute("assignment_creation_date",studentAssignment.get().getAssignmentCreationDate());
+        model.addAttribute("assignment_due_date",studentAssignment.get().getAssignmentDueDate());
 //            model.addAttribute("virtual_class_room",studentAssignment.get().getVirtualClassRoom());
-        }
         model.addAttribute("class_name", className);
         model.addAttribute("uuid", uuid);
 
         return "student/classroom/assignment/detail";
     }
+    @PostMapping("/classroom/assignment/do")
+    public String postDoAssignment(
+            @RequestParam(name = "selectedSectionId") Long selectedSectionId,
+            @RequestParam(name = "className") String className,
+            @RequestParam(name = "uuid") String uuid,
+            Model model,
+            HttpServletRequest request
+    ){
+        StudentMember studentMember = sessionManager.getStudentCookieAndReading(request);
+        if (studentMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", studentMember.getStudentName());
+        }
+        Optional<StudentAssignment> studentAssignment = mariaStudentAssignment.findById(selectedSectionId);
+        if (studentAssignment.isEmpty()){
+            model.addAttribute("error_message", "해당하는 과제 정보가 존재하지 않습니다.");
+        }
 
+        //과제를 제출했다.
+        int score = 70;//임시로 70점을 부여함
+        Timestamp assignmentSubmitTime = new Timestamp(System.currentTimeMillis());
+//        assignmentSubmitTime.getTime();
+        //studentMember는 쿠키로 알고 있다.
+        //studentAssignment는 위에서 구했다.
+        StudentAssignmentRecord studentAssignmentRecord = new StudentAssignmentRecord();
+        studentAssignmentRecord.setScore(score);
+        studentAssignmentRecord.setAssignmentSubmitTime(assignmentSubmitTime);
+        studentAssignmentRecord.setStudentMember(studentMember);
+        studentAssignmentRecord.setStudentAssignment(studentAssignment.get());
+        mariaStudentAssignmentRecord.save(studentAssignmentRecord);
 
+        model.addAttribute("class_name", className);
+        model.addAttribute("uuid", uuid);
 
+        return "student/classroom/assignment/do";
+    }
 }

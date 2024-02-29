@@ -25,30 +25,15 @@
         <p th:text="${error_message}"></p>
     </div>
 
-    <h2>과제 세부정보</h2>
+    <h2>제출 결과</h2>
 
     <h3>
         <span th:text="${class_name}"></span>
-        &gt;
         <span th:text="${section_name}"></span>
     </h3>
-    <div class="details-list">
-        <div class="details-item">
-            <h5>과제 생성일</h5>
-            <span class="emphasize" th:text="${#dates.format(assignment_creation_date, 'yyyy''년'' M''월'' d''일''')}"></span>
-        </div>
-        <div class="details-item">
-            <h5>과제 마감일</h5>
-            <span class="emphasize" th:text="${#dates.format(assignment_due_date, 'yyyy''년'' M''월'' d''일''')}"></span>
-        </div>
-    </div>
 
-    <form id="studentDeleteForm" action="/student/classroom/assignment/do" method="post">
-        <input type="hidden" id="className" name="className" th:value="${class_name}">
-        <input type="hidden" id="selectedSectionId" name="selectedSectionId" th:value="${assignment_id}">
-        <input type="hidden" id="uuid" name="uuid" th:value="${uuid}">
-        <button type="submit">과제 수행하기 -제작중-</button>
-    </form>
+    <h2>지난 제출 기록</h2>
+
 </div>
 
 <script src="/assets/javascripts/student/register.js"></script>

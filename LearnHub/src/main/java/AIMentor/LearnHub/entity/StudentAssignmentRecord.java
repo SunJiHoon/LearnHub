@@ -27,5 +27,5 @@ public class StudentAssignmentRecord {
     private Timestamp assignmentSubmitTime;
 
     @Column(name = "score")
-    private String score;
+    private int score;
 }
