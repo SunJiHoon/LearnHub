@@ -318,11 +318,13 @@ public class TeacherController {
         }
         catch (DataIntegrityViolationException e){
             model.addAttribute("error_message", "해당 클래스에 학생 혹은 과제가 존재합니다. 삭제를 취소합니다.");
+            return "teacher/classroom/delete";
         }
         catch (Exception e1){
             model.addAttribute("error_message", e1.getMessage());
+            return "teacher/classroom/delete";
         }
-    model.addAttribute("result_message", "성공적으로 삭제 되었습니다.");
+        model.addAttribute("result_message", "성공적으로 삭제 되었습니다.");
         return "teacher/classroom/delete";
     }
     @PostMapping("/classroom/student/add")
@@ -648,7 +650,17 @@ public class TeacherController {
 //        Optional<StudentAssignment> studentAssignment = mariaStudentAssignment.findById(studentAssignmentId);
         //학생들 과제 수행 관련하여 존재한다면 삭제 하지 않는다.
         //위 조건을 통과하면 삭제한다.
-        studentAssignmentService.deleteStudentAssignmentById(studentAssignmentId);
+        try{
+            studentAssignmentService.deleteStudentAssignmentById(studentAssignmentId);
+        }
+        catch (DataIntegrityViolationException e){
+            model.addAttribute("error_message", "해당 과제에 점수를 제출한 기록이 존재합니다. 삭제를 취소합니다.");
+            return "teacher/classroom/assignment/delete";
+        }
+        catch (Exception e1){
+            model.addAttribute("error_message", e1.getMessage());
+            return "teacher/classroom/assignment/delete";
+        }
 
         model.addAttribute("className", className );
         String encodedString = URLEncoder.encode(className, StandardCharsets.UTF_8);

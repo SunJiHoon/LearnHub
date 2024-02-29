@@ -43,11 +43,30 @@
             <span class="emphasize" th:text="${#dates.format(assignment_due_date, 'yyyy''년'' M''월'' d''일''')}"></span>
         </div>
     </div>
-<!--    <div th:if="${virtual_class_room}" class="alert" role="alert" style="color: black;">-->
-<!--        <p th:text="분반 이름: ${virtual_class_room}"></p>-->
-<!--    </div>-->
 
-    <form id="studentDeleteForm" action="/teacher/classroom/assignment/delete" method="post">
+    <!--    과제 세팅 폼, 작성중-->
+    <form action="/teacher/classroom/assignment/set" method="get">
+        <input type="hidden" name="className" th:value="${class_name}">
+        <input type="hidden" name="studentAssignmentId" th:value="${assignment_id}">
+        <button type="submit">과제 세팅</button>
+    </form>
+
+    <!--    학생별 과제 점수 폼, 작성중-->
+    <form action="/teacher/classroom/assignment/score/list" method="get">
+        <input type="hidden" name="className" th:value="${class_name}">
+        <input type="hidden" name="studentAssignmentId" th:value="${assignment_id}">
+        <button type="submit">과제 세팅</button>
+    </form>
+
+    <!--    학생 과제 제출 기록 폼-->
+    <form action="/teacher/classroom/assignment/score/record" method="get">
+        <input type="hidden" name="className" th:value="${class_name}">
+        <input type="hidden" name="studentAssignmentId" th:value="${assignment_id}">
+        <button type="submit">과제 세팅</button>
+    </form>
+
+    <!--    과제 삭제 폼-->
+    <form id="assignmentDeleteForm" action="/teacher/classroom/assignment/delete" method="post">
         <input type="hidden" id="className" name="className" th:value="${class_name}">
         <input type="hidden" id="selectedStudent" name="studentAssignmentId" th:value="${assignment_id}">
         <button type="submit">삭제</button>
