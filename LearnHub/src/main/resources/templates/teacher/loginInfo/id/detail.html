@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이디 찾기</title>
+    <link rel="stylesheet" href="/assets/stylesheets/common.css">
+    <link rel="stylesheet" href="/assets/stylesheets/form.css">
+</head>
+<body class="teacher">
+<div class="container">
+
+    <h2>아이디 찾기</h2>
+    <p>
+        당신의 아이디는 <b th:text="${userId}"></b>입니다.
+    </p>
+
+    <a href="/">
+        <button>확인</button>
+    </a>
+</div>
+<script src="/assets/javascripts/teacher/register.js"></script>
+</body>
+</html>

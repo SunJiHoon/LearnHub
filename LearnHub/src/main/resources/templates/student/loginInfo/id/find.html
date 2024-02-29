@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이디 찾기</title>
+    <link rel="stylesheet" href="/assets/stylesheets/common.css">
+    <link rel="stylesheet" href="/assets/stylesheets/form.css">
+</head>
+<div class="container">
+
+    <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
+        <p th:text="${error_message}"></p>
+    </div>
+
+    <h2>아이디 찾기</h2>
+    <p>가입 시 사용했던 이메일을 입력해 주세요.</p>
+    <form id="emailForm" action="/student/loginInfo/id/find" method="post">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <button type="submit">인증 코드 전송</button>
+    </form>
+
+    <div th:if="${showVerificationSection}" id="verificationSection">
+        <p th:text="|${desiredEmail}로 인증 코드를 발송했습니다.|"></p>
+        <form id="validationForm" action="/student/loginInfo/id/detail" method="post">
+            <input type="hidden" name = "email" th:value="${desiredEmail}">
+            <label for="validationCode">인증 코드:</label>
+            <input type="text" id="validationCode" name="validationCode" required>
+            <button type="submit">확인</button>
+        </form>
+    </div>
+
+</div>
+<script src="/assets/javascripts/student/register.js"></script>
+</html>

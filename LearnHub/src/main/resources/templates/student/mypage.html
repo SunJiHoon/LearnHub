@@ -13,10 +13,10 @@
         <p th:text="${error_message}"></p>
     </div>
     <div th:if="${name}" class="alert" role="alert" style="color: black;">
-        <p th:text="${name + ' 학생이 로그인 되었습니다.'}"></p>
+        <p th:text="|${name} 학생이 로그인 되었습니다.|"></p>
     </div>
     <div th:if="${created_class_name}" class="alert" role="alert" style="color: black;">
-        <p th:text="${created_class_name + ' 클래스가 생성되었습니다.'}"></p>
+        <p th:text="|${created_class_name} 클래스가 생성되었습니다.|"></p>
     </div>
     <form action="/student/mypage" method="GET">
         <button type="submit" style="width: 30%;">My Page로 가기</button>
@@ -48,7 +48,10 @@
             <!--            <td th:text="${classRoom.id}"></td>-->
             <td th:object="${rowStat.index + 1}">
                 <!--                <a class="a-button" th:href="@{/teacher/classroom/detail(VCRoomId=${#object})}" th:text="${#object}">row Index</a>-->
-                <a class="a-button" th:href="@{/teacher/classroom/detail(className=${VCRoom.className})}" th:text="${#object}">row Index</a>
+<!--                <a class="a-button" th:href="@{/student/classroom/detail(className=${VCRoom.className})}" th:text="${#object}">row Index</a>-->
+                <a class="a-button" th:href="@{/student/classroom/detail(className=${VCRoom.className}, uuid=${VCRoom.getUuid()})}">
+                    <span th:text="${#object}">row Index</span>
+                </a>
             </td>
             <td th:text="${VCRoom.className}"></td>
             <td th:text="${VCRoom.subject}"></td>
@@ -59,6 +62,6 @@
     </table>
 
 </div>
-<script src="/assets/javascripts/teacher/register.js"></script>
+<script src="/assets/javascripts/student/register.js"></script>
 
 </html>

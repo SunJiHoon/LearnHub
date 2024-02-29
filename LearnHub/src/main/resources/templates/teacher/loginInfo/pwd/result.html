@@ -3,26 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>선생님 mypage</title>
+    <title>비밀번호 재설정</title>
     <link rel="stylesheet" href="/assets/stylesheets/common.css">
-    <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
 </head>
 <body class="teacher">
 <div class="container">
+
     <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
         <p th:text="${error_message}"></p>
     </div>
 
-    <div th:if="${result_message}" class="alert" role="alert" style="color: blue;">
-        <p th:text="${result_message}"></p>
-    </div>
+    <h2>비밀번호 재설정</h2>
+    <p th:if="${result == '변경 성공'}">
+        비밀번호가 변경되었습니다.
+    </p>
+    <a href="/">
+        <button>확인</button>
+    </a>
 
-    <div th:if="${added_student_name}" class="alert" role="alert" style="color: black;">
-        <p th:text="|${added_student_name} 학생이 추가되었습니다.|"></p>
-    </div>
-
-    <button id="closeButton" onclick="window.close()">닫기</button>
 </div>
 <script src="/assets/javascripts/teacher/register.js"></script>
 </body>

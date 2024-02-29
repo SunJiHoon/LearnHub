@@ -15,6 +15,9 @@ public class VirtualClassRoom {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "uuid")
+    private String uuid;
+
     @Column(name = "class_name")
     private String className;
 

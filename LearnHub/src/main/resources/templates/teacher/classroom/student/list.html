@@ -24,10 +24,10 @@
         <p th:text="${error_message}"></p>
     </div>
     <div th:if="${created_class_name}" class="alert" role="alert" style="color: black;">
-        <p th:text="${created_class_name + ' 클래스가 생성되었습니다.'}"></p>
+        <p th:text="|${created_class_name} 클래스가 생성되었습니다.|"></p>
     </div>
 
-    <h2 th:text="${className + ' 관리'}">Classroom Detail</h2>
+    <h2 th:text="|${className} 관리|">Classroom Detail</h2>
 
     <h2>학생 추가</h2>
     <form id="searchForm">

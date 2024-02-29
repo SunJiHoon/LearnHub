@@ -3,27 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>선생님 mypage</title>
+    <title>삭제 결과 페이지</title>
     <link rel="stylesheet" href="/assets/stylesheets/common.css">
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
 </head>
 <body class="teacher">
 <div class="container">
+    <div th:replace="~{menu::teacher(~{::crumbs}, ${name})}">
+        <th:block th:fragment="crumbs">
+            <span>마이페이지</span>
+        </th:block>
+    </div>
     <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
         <p th:text="${error_message}"></p>
     </div>
-
-    <div th:if="${result_message}" class="alert" role="alert" style="color: blue;">
-        <p th:text="${result_message}"></p>
+    <div th:if="${result_message}" class="alert" role="alert" style="color: black;">
+        <p th:text="|${result_message}|"></p>
     </div>
 
-    <div th:if="${added_student_name}" class="alert" role="alert" style="color: black;">
-        <p th:text="|${added_student_name} 학생이 추가되었습니다.|"></p>
-    </div>
+    <h2>삭제 결과 페이지</h2>
+    <a class="a-button" href="/teacher/mypage">my page로 돌아가기</a>
 
-    <button id="closeButton" onclick="window.close()">닫기</button>
+
+
 </div>
 <script src="/assets/javascripts/teacher/register.js"></script>
+
 </body>
 </html>

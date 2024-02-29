@@ -6,20 +6,31 @@ import AIMentor.LearnHub.dto.VirtualCR_StudentM_mappingDTO;
 import AIMentor.LearnHub.entity.*;
 import AIMentor.LearnHub.repository.*;
 import AIMentor.LearnHub.service.StudentAssignmentService;
+import AIMentor.LearnHub.service.StudentService;
 import AIMentor.LearnHub.service.TeacherService;
 import AIMentor.LearnHub.session.SessionManager;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Date;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
 import AIMentor.LearnHub.utility.Utility;
 
 @Controller
@@ -238,6 +249,7 @@ public class TeacherController {
             return "teacher/classroom/make";
         }
         VirtualClassRoom virtualClassRoom = new VirtualClassRoom();
+        virtualClassRoom.setUuid(UUID.randomUUID().toString());
         virtualClassRoom.setClassName(class_name);
         virtualClassRoom.setSubject(subject);
         virtualClassRoom.setMaximumNumber(maximum_number);
@@ -279,7 +291,40 @@ public class TeacherController {
         model.addAttribute("students_maximum_number", virtualClassRoom.get().getMaximumNumber());
         return "teacher/classroom/detail";
     }
+    @PostMapping("/classroom/delete")
+    public String deleteClassRoomWithPost(
+            @RequestParam(name = "className") String className,
+            Model model,
+            HttpServletRequest request
+    ){
+        TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
+        if (teacherMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", teacherMember.getTeacherName());
+        }
+        Optional<VirtualClassRoom> virtualClassRoom = mariaVirtualClassRoom.findByClassNameAndTeacherMember(className, teacherMember);
+        if(virtualClassRoom.isEmpty()){
+            model.addAttribute("error_message", "해당하는 VCR이 존재하지 않습니다.");
+            return "index";
+        }
 
+        try{
+            teacherService.deleteClassroomByClassNameAndTeacherMember(className, teacherMember, model);
+        }
+        catch (DataIntegrityViolationException e){
+            model.addAttribute("error_message", "해당 클래스에 학생 혹은 과제가 존재합니다. 삭제를 취소합니다.");
+        }
+        catch (Exception e1){
+            model.addAttribute("error_message", e1.getMessage());
+        }
+    model.addAttribute("result_message", "성공적으로 삭제 되었습니다.");
+        return "teacher/classroom/delete";
+    }
     @PostMapping("/classroom/student/add")
     public String doAddStudent(
             @RequestBody VirtualCR_StudentM_mappingDTO virtualCRStudentMMappingDTO,
@@ -436,7 +481,8 @@ public class TeacherController {
         teacherService.deleteSelectedStudentFromMappingTable(studentMember.get(), virtualClassRoom.get());
         model.addAttribute("className", className );
 //        return "redirect:/teacher/classroom/detail?className=" + className;
-        return "redirect:/teacher/classroom/student/list?className="+className;
+        String encodedString = URLEncoder.encode(className, StandardCharsets.UTF_8);
+        return "redirect:/teacher/classroom/student/list?className="+encodedString;
     }
 
 
@@ -469,7 +515,7 @@ public class TeacherController {
             @RequestParam(name = "sectionName") String sectionName,
             Model model,
             HttpServletRequest request
-    ){
+    ) throws UnsupportedEncodingException {
         TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
         if (teacherMember == null){
             //로그인 정보 없음
@@ -498,7 +544,10 @@ public class TeacherController {
             mariaStudentAssignment.save(studentAssignment);
         }
 //        model.addAttribute("error_message", "추가에 실패했습니다. 웹을 새로 시작해주세요.");
-        return "redirect:/teacher/classroom/assignment/list?className=" + className;
+//        return "redirect:/teacher/classroom/assignment/list?className=" + className;
+        String encodedString = URLEncoder.encode(className, StandardCharsets.UTF_8);
+        return "redirect:/teacher/classroom/assignment/list?className=" + encodedString;
+//        출처: https://unikys.tistory.com/195 [All-round programmer:티스토리];
     }
 
 
@@ -602,7 +651,9 @@ public class TeacherController {
         studentAssignmentService.deleteStudentAssignmentById(studentAssignmentId);
 
         model.addAttribute("className", className );
-        return "redirect:/teacher/classroom/assignment/list?className="+className;
+        String encodedString = URLEncoder.encode(className, StandardCharsets.UTF_8);
+        return "redirect:/teacher/classroom/assignment/list?className=" + encodedString;
+//        return "redirect:/teacher/classroom/assignment/list?className="+className;
     }
 
 }

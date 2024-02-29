@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선생님 mypage</title>
+    <link rel="stylesheet" href="/assets/stylesheets/common.css">
+    <link rel="stylesheet" href="/assets/stylesheets/details.css">
+    <link rel="stylesheet" href="/assets/stylesheets/form.css">
+</head>
+<div class="container">
+    <div th:replace="~{menu::student(~{::crumbs}, ${name})}">
+        <th:block th:fragment="crumbs">
+            <a href="/student/mypage">마이페이지</a>
+            <img class="icon" src="/assets/images/chevron-right.svg">
+            <a th:href="@{/student/classroom/detail(className=${class_name},uuid=${uuid})}" th:text="${class_name}">클래스 관리</a>
+            <img class="icon" src="/assets/images/chevron-right.svg">
+            <a th:href="@{/student/classroom/assignment/list(className=${class_name},uuid=${uuid})}">과제 관리</a>
+            <img class="icon" src="/assets/images/chevron-right.svg">
+            <span th:text="${section_name}">과제 세부정보</span>
+        </th:block>
+    </div>
+
+    <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
+        <p th:text="${error_message}"></p>
+    </div>
+
+    <h2>제출 결과</h2>
+
+    <h3>
+        <span th:text="${class_name}"></span>
+        <span th:text="${section_name}"></span>
+    </h3>
+
+    <h2>지난 제출 기록</h2>
+
+</div>
+
+<script src="/assets/javascripts/student/register.js"></script>
+
+</html>

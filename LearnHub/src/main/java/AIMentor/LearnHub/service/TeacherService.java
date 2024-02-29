@@ -1,6 +1,7 @@
 package AIMentor.LearnHub.service;
 
 import AIMentor.LearnHub.entity.StudentMember;
+import AIMentor.LearnHub.entity.TeacherMember;
 import AIMentor.LearnHub.entity.VirtualCR_StudentM_mapping;
 import AIMentor.LearnHub.entity.VirtualClassRoom;
 import AIMentor.LearnHub.repository.Maria_StudentMember;
@@ -10,6 +11,7 @@ import AIMentor.LearnHub.repository.Maria_VirtualClassRoom;
 import AIMentor.LearnHub.utility.Utility;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -37,11 +39,15 @@ public class TeacherService {
         mariaVirtualCRStudentMMapping.deleteAll(mappingsToDelete);
     }
 
-    public void deleteSelectedVClassFromVCTable(VirtualClassRoom virtualClassRoom){
-//        List<VirtualCR_StudentM_mapping> mappingsToDelete = mariaVirtualCRStudentMMapping.deleteByStudentMemberAndVirtualClassRoom(studentMember, virtualClassRoom);
-//        mariaVirtualCRStudentMMapping.deleteAll(mappingsToDelete);
-        mariaVirtualClassRoom.deleteById(virtualClassRoom.getId());
+//    public void deleteSelectedVClassFromVCTable(VirtualClassRoom virtualClassRoom){
+//        mariaVirtualClassRoom.deleteById(virtualClassRoom.getId());
+//    }
+
+    public void deleteClassroomByClassNameAndTeacherMember(
+            String className,
+            TeacherMember teacherMember,
+            Model model
+    ){
+        mariaVirtualClassRoom.deleteByClassNameAndTeacherMember(className, teacherMember);
     }
-
-
 }

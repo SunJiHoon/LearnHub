@@ -33,22 +33,34 @@
 2. application.properties는 보안 상 깃에 흔적을 남기지 않고 관리됩니다. 필요하다면 관리자에게 요청하십시오.
 3. 관리자에게 요청할 수 없다면, application.properties에 spring.datasource.username=유저이름 spring.datasource.password=유저비밀번호 등의 정보, JPA 정보, 실행 포트 정보 등을 기입하십시오.
 
+```
 ### application.properties 예시
-- #포트 정보
-- server.port=포트 정보
-- #db 이름
-- spring.datasource.url=jdbc:mariadb://localhost:3306/db 이름
-- #user이름과 password
-- spring.datasource.username=user이름
-- spring.datasource.password=password
-- #마리아 디비 사용시
-- spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
-- #Hibernate 설정 예시
-- #테이블 생성을 jpa(hibernate로 구현)를 통해 그때그때 반영합니다.
-- spring.jpa.hibernate.ddl-auto=update
-- spring.jpa.show-sql=true
-- spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MariaDBDialect
+#포트 정보
+server.port=포트 정보
+#db 이름
+spring.datasource.url=jdbc:mariadb://localhost:3306/db 이름
+#user이름과 password
+spring.datasource.username=user이름
+spring.datasource.password=password
+#마리아 디비 사용시
+spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+#Hibernate 설정 예시
+#테이블 생성을 jpa(hibernate로 구현)를 통해 그때그때 반영합니다.
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MariaDBDialect
 
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=gmail 계정 이메일
+spring.mail.password=gmail 계정 앱 비밀번호
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+
+
+test.email=본인의 이메일(테스트용)
+
+```
 
 
 ## 라이선스

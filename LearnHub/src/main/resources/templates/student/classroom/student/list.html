@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선생님 mypage</title>
+    <link rel="stylesheet" href="/assets/stylesheets/common.css">
+    <link rel="stylesheet" href="/assets/stylesheets/table.css">
+    <link rel="stylesheet" href="/assets/stylesheets/form.css">
+</head>
+<div class="container">
+    <div th:replace="~{menu::student(~{::crumbs}, ${name})}">
+        <th:block th:fragment="crumbs">
+            <a href="/student/mypage">마이페이지</a>
+            <img class="icon" src="/assets/images/chevron-right.svg">
+            <a th:href="@{/student/classroom/detail(className=${className},uuid=${uuid})}" th:text="${className}">클래스 관리</a>
+            <img class="icon" src="/assets/images/chevron-right.svg">
+            <span>학생 관리</span>
+        </th:block>
+    </div>
+
+    <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
+        <p th:text="${error_message}"></p>
+    </div>
+    <div th:if="${created_class_name}" class="alert" role="alert" style="color: black;">
+        <p th:text="|${created_class_name} 클래스가 생성되었습니다.|"></p>
+    </div>
+
+    <h2 th:text="|${className} 수강생|">Classroom Detail</h2>
+
+    <h2>학생 목록</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>이름</th>
+            <th>이메일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="studentMember : ${studentMemberArrayList}">
+            <td th:text="${studentMember.studentName}"></td>
+            <td th:text="${studentMember.email}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</script>
+
+<script src="/assets/javascripts/student/register.js"></script>
+
+</html>
