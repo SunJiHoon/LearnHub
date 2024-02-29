@@ -25,14 +25,25 @@
         <p th:text="${error_message}"></p>
     </div>
 
-    <h2>제출 결과</h2>
+    <h2>과제</h2>
 
     <h3>
-        <span th:text="${class_name}"></span>
+<!--        <span th:text="${class_name}"></span>-->
         <span th:text="${section_name}"></span>
     </h3>
 
-    <h2>지난 제출 기록</h2>
+    <p> 과제 내용이 들어갈 장소. </p>
+
+    <form id="studentDeleteForm" action="/student/classroom/assignment/do" method="post">
+        <input type="hidden" id="className" name="className" th:value="${class_name}">
+        <input type="hidden" id="selectedSectionId" name="selectedSectionId" th:value="${selected_section_id}">
+        <input type="hidden" id="uuid" name="uuid" th:value="${uuid}">
+        <button type="submit">과제 제출하기</button>
+    </form>
+
+
+
+
 
 </div>
 

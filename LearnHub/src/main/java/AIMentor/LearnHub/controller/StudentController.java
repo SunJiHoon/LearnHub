@@ -300,9 +300,42 @@ public class StudentController {
 //            model.addAttribute("virtual_class_room",studentAssignment.get().getVirtualClassRoom());
         model.addAttribute("class_name", className);
         model.addAttribute("uuid", uuid);
+        List<StudentAssignmentRecord> studentAssignmentRecordList
+                = mariaStudentAssignmentRecord.findByStudentMemberAndStudentAssignment(
+                        studentMember, studentAssignment.get());
+        model.addAttribute("studentAssignmentRecordList", studentAssignmentRecordList);
 
         return "student/classroom/assignment/detail";
     }
+    @GetMapping("/classroom/assignment/do")
+    public String getDoAssignment(
+            @RequestParam(name = "selectedSectionId") Long selectedSectionId,
+            @RequestParam(name = "className") String className,
+            @RequestParam(name = "uuid") String uuid,
+            Model model,
+            HttpServletRequest request
+    ){
+        StudentMember studentMember = sessionManager.getStudentCookieAndReading(request);
+        if (studentMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", studentMember.getStudentName());
+        }
+        Optional<StudentAssignment> studentAssignment = mariaStudentAssignment.findById(selectedSectionId);
+        if (studentAssignment.isEmpty()){
+            model.addAttribute("error_message", "해당하는 과제 정보가 존재하지 않습니다.");
+        }
+        model.addAttribute("selected_section_id" ,selectedSectionId);
+        model.addAttribute("section_name",studentAssignment.get().getSectionName());
+        model.addAttribute("class_name", className);
+        model.addAttribute("uuid", uuid);
+        return "student/classroom/assignment/do";
+    }
+
     @PostMapping("/classroom/assignment/do")
     public String postDoAssignment(
             @RequestParam(name = "selectedSectionId") Long selectedSectionId,
@@ -342,6 +375,9 @@ public class StudentController {
         model.addAttribute("class_name", className);
         model.addAttribute("uuid", uuid);
 
-        return "student/classroom/assignment/do";
+        return "redirect:/student/classroom/assignment/detail?" +
+                "uuid=" + uuid +
+                "&selectedSectionId=" + selectedSectionId +
+                "&className=" + className;
     }
 }
