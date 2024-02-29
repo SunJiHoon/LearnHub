@@ -13,6 +13,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,7 @@ import AIMentor.LearnHub.utility.Utility;
 @Controller
 @RequestMapping(value = "/teacher")
 @Slf4j
+@AllArgsConstructor
 public class TeacherController {
     Maria_TeacherMember maria_teacherMember;
     Maria_VirtualClassRoom mariaVirtualClassRoom;
@@ -46,27 +48,28 @@ public class TeacherController {
     TeacherService teacherService;
     Maria_StudentAssignment mariaStudentAssignment;
     StudentAssignmentService studentAssignmentService;
-    public TeacherController(
-            Maria_TeacherMember maria_teacherMember,
-            Maria_VirtualClassRoom mariaVirtualClassRoom,
-            Maria_StudentMember mariaStudentMember,
-            Maria_VirtualCR_StudentM_mapping mariaVirtualCRStudentMMapping,
-            Maria_Session mariaSession,
-            SessionManager sessionManager,
-            TeacherService teacherService,
-            Maria_StudentAssignment mariaStudentAssignment,
-            StudentAssignmentService studentAssignmentService
-    ) {
-        this.maria_teacherMember = maria_teacherMember;
-        this.mariaVirtualClassRoom = mariaVirtualClassRoom;
-        this.mariaStudentMember = mariaStudentMember;
-        this.mariaVirtualCRStudentMMapping = mariaVirtualCRStudentMMapping;
-        this.mariaSession = mariaSession;
-        this.sessionManager = sessionManager;
-        this.teacherService = teacherService;
-        this.mariaStudentAssignment = mariaStudentAssignment;
-        this.studentAssignmentService = studentAssignmentService;
-    }
+    Maria_StudentAssignmentRecord mariaStudentAssignmentRecord;
+//    public TeacherController(
+//            Maria_TeacherMember maria_teacherMember,
+//            Maria_VirtualClassRoom mariaVirtualClassRoom,
+//            Maria_StudentMember mariaStudentMember,
+//            Maria_VirtualCR_StudentM_mapping mariaVirtualCRStudentMMapping,
+//            Maria_Session mariaSession,
+//            SessionManager sessionManager,
+//            TeacherService teacherService,
+//            Maria_StudentAssignment mariaStudentAssignment,
+//            StudentAssignmentService studentAssignmentService
+//    ) {
+//        this.maria_teacherMember = maria_teacherMember;
+//        this.mariaVirtualClassRoom = mariaVirtualClassRoom;
+//        this.mariaStudentMember = mariaStudentMember;
+//        this.mariaVirtualCRStudentMMapping = mariaVirtualCRStudentMMapping;
+//        this.mariaSession = mariaSession;
+//        this.sessionManager = sessionManager;
+//        this.teacherService = teacherService;
+//        this.mariaStudentAssignment = mariaStudentAssignment;
+//        this.studentAssignmentService = studentAssignmentService;
+//    }
 
     @GetMapping(value = "/register")
     String teacherRegister(){
@@ -666,6 +669,44 @@ public class TeacherController {
         String encodedString = URLEncoder.encode(className, StandardCharsets.UTF_8);
         return "redirect:/teacher/classroom/assignment/list?className=" + encodedString;
 //        return "redirect:/teacher/classroom/assignment/list?className="+className;
+    }
+
+    @GetMapping("/classroom/assignment/score/record")
+    public String getScoreRecordPageAssignment(
+            @RequestParam(name = "studentAssignmentId") Long selectedSectionId,
+            @RequestParam(name = "className") String className,
+            Model model,
+            HttpServletRequest request
+    ){
+        TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
+        if (teacherMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", teacherMember.getTeacherName());
+        }
+
+
+        Optional<StudentAssignment> studentAssignment = mariaStudentAssignment.findById(selectedSectionId);
+        if (studentAssignment.isEmpty()){
+            model.addAttribute("error_message", "해당하는 학생 정보가 존재하지 않습니다.");
+        }
+
+        if (studentAssignment.isPresent()){
+            model.addAttribute("selectedSectionId",studentAssignment.get().getId());
+            model.addAttribute("section_name",studentAssignment.get().getSectionName());
+//            model.addAttribute("assignment_creation_date",studentAssignment.get().getAssignmentCreationDate());
+//            model.addAttribute("assignment_due_date",studentAssignment.get().getAssignmentDueDate());
+        }
+        model.addAttribute("class_name", className);
+        List<StudentAssignmentRecord> studentAssignmentRecordList
+                = mariaStudentAssignmentRecord.findAll();
+        model.addAttribute("studentAssignmentRecordList", studentAssignmentRecordList);
+
+        return "teacher/classroom/assignment/score/record";
     }
 
 }
