@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>삭제 결과 페이지</title>
+    <title>학생별 과제 점수</title>
     <link rel="stylesheet" href="/assets/stylesheets/common.css">
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
@@ -12,7 +12,16 @@
 <div class="container">
     <div th:replace="~{menu::teacher(~{::crumbs}, ${name})}">
         <th:block th:fragment="crumbs">
-            <span>마이페이지</span>
+            <a href="/teacher/mypage">마이페이지</a>
+            <img class="icon" src="/assets/images/chevron-right.svg">
+            <a th:href="@{/teacher/classroom/detail(className=${class_name})}" th:text="${class_name}">클래스 관리</a>
+            <img class="icon" src="/assets/images/chevron-right.svg">
+            <a th:href="@{/teacher/classroom/assignment/list(className=${class_name})}">과제 관리</a>
+            <img class="icon" src="/assets/images/chevron-right.svg">
+            <!--            <span th:text="${section_name}">과제 세부정보</span>-->
+            <a th:href="@{/teacher/classroom/assignment/detail(className=${class_name}, selectedSectionId=${selectedSectionId})}">과제 세부정보</a>
+            <img class="icon" src="/assets/images/chevron-right.svg">
+            <span>학생과제 제출 기록</span>
         </th:block>
     </div>
     <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
@@ -22,6 +31,11 @@
         <p th:text="|${result_message}|"></p>
     </div>
 
+    <h2>제출 기록</h2>
+    <div th:each="record : ${studentAssignmentRecordList}">
+        <p th:text="${record.getAssignmentSubmitTime()}"></p>
+        <p th:text="${record.getScore()}"></p>
+    </div>
 
 
 

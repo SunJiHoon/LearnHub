@@ -709,4 +709,42 @@ public class TeacherController {
         return "teacher/classroom/assignment/score/record";
     }
 
+    @GetMapping("/classroom/assignment/score/list")
+    public String getScoreListPageAssignment(
+            @RequestParam(name = "studentAssignmentId") Long selectedSectionId,
+            @RequestParam(name = "className") String className,
+            Model model,
+            HttpServletRequest request
+    ){
+        TeacherMember teacherMember = sessionManager.getTeacherCookieAndReading(request);
+        if (teacherMember == null){
+            //로그인 정보 없음
+            model.addAttribute("error_message", "로그인 되어있지 않습니다.");
+            return "index";
+        }
+        else{
+            //로그인 되어있음.
+            model.addAttribute("name", teacherMember.getTeacherName());
+        }
+
+
+        Optional<StudentAssignment> studentAssignment = mariaStudentAssignment.findById(selectedSectionId);
+        if (studentAssignment.isEmpty()){
+            model.addAttribute("error_message", "해당하는 학생 정보가 존재하지 않습니다.");
+        }
+
+        if (studentAssignment.isPresent()){
+            model.addAttribute("selectedSectionId",studentAssignment.get().getId());
+            model.addAttribute("section_name",studentAssignment.get().getSectionName());
+//            model.addAttribute("assignment_creation_date",studentAssignment.get().getAssignmentCreationDate());
+//            model.addAttribute("assignment_due_date",studentAssignment.get().getAssignmentDueDate());
+        }
+        model.addAttribute("class_name", className);
+        List<StudentAssignmentRecord> studentAssignmentRecordList
+                = mariaStudentAssignmentRecord.findAll();
+        model.addAttribute("studentAssignmentRecordList", studentAssignmentRecordList);
+
+        return "teacher/classroom/assignment/score/list";
+    }
+
 }
