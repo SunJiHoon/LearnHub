@@ -222,7 +222,7 @@ public class LoginInfoController {
 //        log.info(newPassword);
 
         if(!newPassword.equals(newPasswordConfirm)){
-            model.addAttribute("error_message", "두 비밀번호가 일치하지 않습니다.");
+            model.addAttribute("error_message", "입력한 두 비밀번호가 일치하지 않습니다.");
             return "teacher/loginInfo/pwd/find";
         }
         //비밀번호 변경
@@ -417,11 +417,16 @@ public class LoginInfoController {
     String postStudentLoginInfoPwdDetail(
             @RequestParam(name = "email") String email,
             @RequestParam(name = "newPassword") String newPassword,
+            @RequestParam(name = "newPasswordConfirm") String newPasswordConfirm,
             Model model
     ){
-        log.info(email);
-        log.info(newPassword);
+//        log.info(email);
+//        log.info(newPassword);
 
+        if(!newPassword.equals(newPasswordConfirm)){
+            model.addAttribute("error_message", "입력한 두 비밀번호가 불일치합니다.");
+            return "student/loginInfo/pwd/find";
+        }
         //비밀번호 변경
         Optional<StudentMember> studentMemberOptional = mariaStudentMember.findByEmail(email);
         if (studentMemberOptional.isEmpty()){
