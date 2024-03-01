@@ -215,11 +215,16 @@ public class LoginInfoController {
     String postTeacherLoginInfoPwdDetail(
             @RequestParam(name = "email") String email,
             @RequestParam(name = "newPassword") String newPassword,
+            @RequestParam(name = "newPasswordConfirm") String newPasswordConfirm,
             Model model
     ){
-        log.info(email);
-        log.info(newPassword);
+//        log.info(email);
+//        log.info(newPassword);
 
+        if(!newPassword.equals(newPasswordConfirm)){
+            model.addAttribute("error_message", "두 비밀번호가 일치하지 않습니다.");
+            return "teacher/loginInfo/pwd/find";
+        }
         //비밀번호 변경
         Optional<TeacherMember> teacherMemberOptional = mariaTeacherMember.findByEmail(email);
         if (teacherMemberOptional.isEmpty()){
