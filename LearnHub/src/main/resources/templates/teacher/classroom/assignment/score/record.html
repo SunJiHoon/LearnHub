@@ -34,6 +34,8 @@
     <h2>제출 기록</h2>
     <div th:each="record : ${studentAssignmentRecordList}">
         <p th:text="${record.getAssignmentSubmitTime()}"></p>
+        <p th:text="${record.getStudentMember().getStudentName()}"></p>
+        <p th:text="${record.getStudentMember().getEmail()}"></p>
         <p th:text="${record.getScore()}"></p>
     </div>
 
