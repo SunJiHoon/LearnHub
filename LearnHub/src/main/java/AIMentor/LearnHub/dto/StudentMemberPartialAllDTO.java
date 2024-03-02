@@ -4,7 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-public class StudentMemberDTO {
+@AllArgsConstructor
+public class StudentMemberPartialAllDTO {
     public Long id;
     public String studentName;
     public String email;

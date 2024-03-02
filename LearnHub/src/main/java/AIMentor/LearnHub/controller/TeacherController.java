@@ -1,8 +1,6 @@
 package AIMentor.LearnHub.controller;
 
-import AIMentor.LearnHub.dto.ResultMessageDTO;
-import AIMentor.LearnHub.dto.StudentMemberDTO;
-import AIMentor.LearnHub.dto.VirtualCR_StudentM_mappingDTO;
+import AIMentor.LearnHub.dto.*;
 import AIMentor.LearnHub.entity.*;
 import AIMentor.LearnHub.repository.*;
 import AIMentor.LearnHub.service.StudentAssignmentService;
@@ -27,10 +25,7 @@ import java.sql.Date;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import AIMentor.LearnHub.utility.Utility;
 
@@ -692,7 +687,7 @@ public class TeacherController {
 
         Optional<StudentAssignment> studentAssignment = mariaStudentAssignment.findById(selectedSectionId);
         if (studentAssignment.isEmpty()){
-            model.addAttribute("error_message", "해당하는 학생 정보가 존재하지 않습니다.");
+            model.addAttribute("error_message", "해당하는 과제 정보가 존재하지 않습니다.");
         }
 
         if (studentAssignment.isPresent()){
@@ -727,18 +722,63 @@ public class TeacherController {
             model.addAttribute("name", teacherMember.getTeacherName());
         }
 
-
+        Optional<VirtualClassRoom> virtualClassRoomOptional = mariaVirtualClassRoom.findByClassNameAndTeacherMember(className, teacherMember);
+        if(virtualClassRoomOptional.isEmpty()){
+            model.addAttribute("error_message", "해당하는 분반 정보가 존재하지 않습니다.");
+            return "teacher/mypage";
+        }
         Optional<StudentAssignment> studentAssignment = mariaStudentAssignment.findById(selectedSectionId);
         if (studentAssignment.isEmpty()){
-            model.addAttribute("error_message", "해당하는 학생 정보가 존재하지 않습니다.");
+            model.addAttribute("error_message", "해당하는 과제 정보가 존재하지 않습니다.");
+            return "teacher/mypage";
         }
+//        findStudentMembersWithScoresByVsmIdAndAId
+        List<Object[]> objectList = mariaStudentMember.findStudentMembersWithScoresByVsmIdAndAId(
+                virtualClassRoomOptional.get(),
+                studentAssignment.get()
+        );
 
-        if (studentAssignment.isPresent()){
-            model.addAttribute("selectedSectionId",studentAssignment.get().getId());
-            model.addAttribute("section_name",studentAssignment.get().getSectionName());
-//            model.addAttribute("assignment_creation_date",studentAssignment.get().getAssignmentCreationDate());
-//            model.addAttribute("assignment_due_date",studentAssignment.get().getAssignmentDueDate());
+        for (Object[] objects : objectList) {
+
+            VirtualCR_StudentM_mapping virtualCRStudentMMapping = (VirtualCR_StudentM_mapping) objects[0];
+            Long id1 = virtualCRStudentMMapping.getId();
+            VirtualClassRoom virtualClassRoom = virtualCRStudentMMapping.getVirtualClassRoom();
+            StudentMember studentMember = virtualCRStudentMMapping.getStudentMember();
+            VirtualCR_StudentM_mapping_All_DTO virtualCRStudentMMappingAllDto = new VirtualCR_StudentM_mapping_All_DTO(id1, virtualClassRoom, studentMember);
+            log.info(String.valueOf(virtualCRStudentMMappingAllDto.getId()));
+
+            StudentMember studentMember1 = (StudentMember) objects[1];
+            Long id2 = studentMember1.getId();
+            String studentName = studentMember1.getStudentName();
+            String email = studentMember1.getEmail();
+            StudentMemberPartialAllDTO studentMemberDTO = new StudentMemberPartialAllDTO(id2, studentName, email);
+            log.info(studentMemberDTO.getStudentName());
+
+            StudentAssignmentRecord studentAssignmentRecord = (StudentAssignmentRecord) objects[2];
+            Long id3 = studentAssignmentRecord.getId();
+            int score = studentAssignmentRecord.getScore();
+            log.info(String.valueOf(score));
+//            log.info(String.valueOf(virtualCRStudentMMappingAllDto.getId()));
+
+//            log.info(virtualCRStudentMMappingAllDto.getStudentMember().)
+//            log.info()
+//            log.info()
+
+
+//            StudentMember studentMember = objects.getStudentMember();
+//            StudentAssignmentRecord studentAssignmentRecord = objects.getAssignmentRecord();
+//            StudentMember studentMember = (StudentMember) objects[1];
+//            StudentAssignmentRecord studentAssignmentRecord = (StudentAssignmentRecord) objects[2];
+
+
+//            log.info("VirtualCR_StudentM_mapping: {}", vsm);
+//            log.info("StudentMember: {}", studentMember);
+//            log.info("StudentAssignmentRecord: {}", studentAssignmentRecord);
         }
+        model.addAttribute("selectedSectionId", studentAssignment.get().getId());
+        model.addAttribute("section_name",studentAssignment.get().getSectionName());
+//      model.addAttribute("assignment_creation_date",studentAssignment.get().getAssignmentCreationDate());
+//      model.addAttribute("assignment_due_date",studentAssignment.get().getAssignmentDueDate());
         model.addAttribute("class_name", className);
         List<StudentAssignmentRecord> studentAssignmentRecordList
                 = mariaStudentAssignmentRecord.findAll();
