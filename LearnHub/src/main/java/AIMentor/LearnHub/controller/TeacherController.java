@@ -733,48 +733,103 @@ public class TeacherController {
             return "teacher/mypage";
         }
 //        findStudentMembersWithScoresByVsmIdAndAId
-        List<Object[]> objectList = mariaStudentMember.findStudentMembersWithScoresByVsmIdAndAId(
+//        List<Object[]> objectList = mariaStudentMember.findStudentMembersWithScoresByVsmIdAndAId(
+//                virtualClassRoomOptional.get(),
+//                studentAssignment.get()
+//        );
+//
+//        for (Object[] objects : objectList) {
+//
+//            VirtualCR_StudentM_mapping virtualCRStudentMMapping = (VirtualCR_StudentM_mapping) objects[0];
+//            Long id1 = virtualCRStudentMMapping.getId();
+//            VirtualClassRoom virtualClassRoom = virtualCRStudentMMapping.getVirtualClassRoom();
+//            StudentMember studentMember = virtualCRStudentMMapping.getStudentMember();
+//            VirtualCR_StudentM_mapping_All_DTO virtualCRStudentMMappingAllDto = new VirtualCR_StudentM_mapping_All_DTO(id1, virtualClassRoom, studentMember);
+//            log.info(String.valueOf(virtualCRStudentMMappingAllDto.getId()));
+//
+//            StudentMember studentMember1 = (StudentMember) objects[1];
+//            Long id2 = studentMember1.getId();
+//            String studentName = studentMember1.getStudentName();
+//            String email = studentMember1.getEmail();
+//            StudentMemberPartialAllDTO studentMemberDTO = new StudentMemberPartialAllDTO(id2, studentName, email);
+//            log.info(studentMemberDTO.getStudentName());
+//
+//            StudentAssignmentRecord studentAssignmentRecord = (StudentAssignmentRecord) objects[2];
+//            Long id3 = studentAssignmentRecord.getId();
+//            int score = studentAssignmentRecord.getScore();
+//            log.info(String.valueOf(score));
+//        }
+//        List<Object[]> objectList2 = mariaStudentMember.findStudentMembersWithHighScoresWithNullByVsmIdAndAId(
+////                virtualClassRoomOptional.get(),
+////                studentAssignment.get()
+////        );
+////
+////        for (Object[] result : objectList2) {
+////            Long id = (Long) result[0];
+////            int score = (int) result[1];
+////
+////            log.info(String.valueOf(id));
+////            log.info(String.valueOf(score));
+////        }
+
+        //studentMember가져오기
+        List<VirtualCR_StudentM_mapping> virtualCRStudentMMappingList =
+                mariaVirtualCRStudentMMapping.findByVirtualClassRoom(virtualClassRoomOptional.get());
+        List<StudentMember> studentMemberList = new ArrayList<>();
+        for (VirtualCR_StudentM_mapping virtualCRStudentMMapping : virtualCRStudentMMappingList) {
+            studentMemberList.add(virtualCRStudentMMapping.getStudentMember());
+        }
+
+        //studentMemer에
+        List<Object[]> objectList1 = mariaStudentMember.findStudentMembersWithHighScoresByVsmIdAndAId(
                 virtualClassRoomOptional.get(),
                 studentAssignment.get()
         );
 
-        for (Object[] objects : objectList) {
-
-            VirtualCR_StudentM_mapping virtualCRStudentMMapping = (VirtualCR_StudentM_mapping) objects[0];
-            Long id1 = virtualCRStudentMMapping.getId();
-            VirtualClassRoom virtualClassRoom = virtualCRStudentMMapping.getVirtualClassRoom();
-            StudentMember studentMember = virtualCRStudentMMapping.getStudentMember();
-            VirtualCR_StudentM_mapping_All_DTO virtualCRStudentMMappingAllDto = new VirtualCR_StudentM_mapping_All_DTO(id1, virtualClassRoom, studentMember);
-            log.info(String.valueOf(virtualCRStudentMMappingAllDto.getId()));
-
-            StudentMember studentMember1 = (StudentMember) objects[1];
-            Long id2 = studentMember1.getId();
-            String studentName = studentMember1.getStudentName();
-            String email = studentMember1.getEmail();
-            StudentMemberPartialAllDTO studentMemberDTO = new StudentMemberPartialAllDTO(id2, studentName, email);
-            log.info(studentMemberDTO.getStudentName());
-
-            StudentAssignmentRecord studentAssignmentRecord = (StudentAssignmentRecord) objects[2];
-            Long id3 = studentAssignmentRecord.getId();
-            int score = studentAssignmentRecord.getScore();
-            log.info(String.valueOf(score));
-//            log.info(String.valueOf(virtualCRStudentMMappingAllDto.getId()));
-
-//            log.info(virtualCRStudentMMappingAllDto.getStudentMember().)
-//            log.info()
-//            log.info()
-
-
-//            StudentMember studentMember = objects.getStudentMember();
-//            StudentAssignmentRecord studentAssignmentRecord = objects.getAssignmentRecord();
-//            StudentMember studentMember = (StudentMember) objects[1];
-//            StudentAssignmentRecord studentAssignmentRecord = (StudentAssignmentRecord) objects[2];
-
-
-//            log.info("VirtualCR_StudentM_mapping: {}", vsm);
-//            log.info("StudentMember: {}", studentMember);
-//            log.info("StudentAssignmentRecord: {}", studentAssignmentRecord);
+        /*
+        for (Object[] result : objectList1) {
+            Long id = (Long) result[0];
+            int score = (int) result[1];
+//            log.info(String.valueOf(id));
+//            log.info(String.valueOf(score));
         }
+*/
+
+        //새로운 반환 DTO 만들기
+        List<StudentMemberWithScoreDTO> studentMemberWithScoreDTOS = new ArrayList<>();
+        boolean isEnded = false;
+        for(int i=0;i<studentMemberList.size();i++){
+            isEnded = false;
+            for (Object[] result : objectList1) {
+                Long id = (Long) result[0];
+                int score = (int) result[1];
+                if(Objects.equals(id, studentMemberList.get(i).getId())){
+                    studentMemberWithScoreDTOS.add(
+                            new StudentMemberWithScoreDTO(
+                                    studentMemberList.get(i).getId(),
+                                    studentMemberList.get(i).getStudentName(),
+                                    studentMemberList.get(i).getEmail(),
+                                    score
+                            )
+                    );
+                    isEnded = true;
+                    break;
+                }
+            }
+            if(!isEnded){
+                studentMemberWithScoreDTOS.add(
+                        new StudentMemberWithScoreDTO(
+                                studentMemberList.get(i).getId(),
+                                studentMemberList.get(i).getStudentName(),
+                                studentMemberList.get(i).getEmail(),
+                                null
+                        )
+                );
+                isEnded = true;
+            }
+        }
+
+
         model.addAttribute("selectedSectionId", studentAssignment.get().getId());
         model.addAttribute("section_name",studentAssignment.get().getSectionName());
 //      model.addAttribute("assignment_creation_date",studentAssignment.get().getAssignmentCreationDate());
@@ -782,7 +837,7 @@ public class TeacherController {
         model.addAttribute("class_name", className);
         List<StudentAssignmentRecord> studentAssignmentRecordList
                 = mariaStudentAssignmentRecord.findAll();
-        model.addAttribute("studentAssignmentRecordList", studentAssignmentRecordList);
+        model.addAttribute("studentMemberWithScoreDTOS", studentMemberWithScoreDTOS);
 
         return "teacher/classroom/assignment/score/list";
     }

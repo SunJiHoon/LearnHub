@@ -32,9 +32,11 @@
     </div>
 
     <h2>제출 기록</h2>
-    <div th:each="record : ${studentAssignmentRecordList}">
-        <p th:text="${record.getAssignmentSubmitTime()}"></p>
-        <p th:text="${record.getScore()}"></p>
+    <div th:each="record : ${studentMemberWithScoreDTOS}">
+        <p th:text="${record.getStudentName()}"></p>
+        <p th:text="${record.getEmail()}"></p>
+        <p th:if="${record.getScore() == null}" th:text="|점수 없음|"></p>
+        <p th:if="${record.getScore() != null}" th:text="${record.getScore()}"></p>
     </div>
 
 
