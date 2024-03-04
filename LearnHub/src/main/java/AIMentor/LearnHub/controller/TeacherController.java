@@ -350,7 +350,7 @@ public class TeacherController {
             if (mariaVirtualCRStudentMMapping.existsByStudentMemberAndVirtualClassRoom(studentMember.get(), virtualClassRoom.get())){
                 //중복이 존재할 경우
                 model.addAttribute("error_message", "이미 추가 되어있는 학생입니다.");
-                return "/teacher/classroom/student/add";
+                return "teacher/classroom/student/add";
             }
             else{
                 //중복이 없는 경우
@@ -362,11 +362,11 @@ public class TeacherController {
                 mariaVirtualCRStudentMMapping.save(virtualCRStudentMMapping);
                 model.addAttribute("result_message", "추가에 성공했습니다.");
                 model.addAttribute("added_student_name", studentMember.get().getStudentName());
-                return "/teacher/classroom/student/add";
+                return "teacher/classroom/student/add";
             }
         }
         model.addAttribute("error_message", "추가에 실패했습니다. 웹을 새로 시작해주세요.");
-        return "/teacher/classroom/student/add";
+        return "teacher/classroom/student/add";
     }
 
 
