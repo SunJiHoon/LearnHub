@@ -1,3 +1,8 @@
+#three js 설치 모듈 제거
+node_modules/
+package-lock.json
+package.json
+
 #application.properties에서 중요 정보 관리.
 src/main/resources/application.properties
 
