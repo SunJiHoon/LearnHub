@@ -1,4 +1,4 @@
-import * as THREE from '/three/Three.js';
+import * as THREE from '/three/build/three.module.js';
 
 // ----- 주제: 기본 장면
 
