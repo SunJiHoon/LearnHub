@@ -1,3 +1,6 @@
+#domain SSL 인증용
+src/main/java/AIMentor/LearnHub/controller/DomainSSLController.java
+
 #three js 설치 모듈 제거
 node_modules/
 package-lock.json
