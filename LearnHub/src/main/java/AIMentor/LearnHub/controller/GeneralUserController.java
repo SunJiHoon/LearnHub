@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static AIMentor.LearnHub.session.SessionConst.sessionId_general_user;
+
 @Controller
 @AllArgsConstructor
 @RequestMapping(value = "/general/user")
@@ -30,41 +32,24 @@ public class GeneralUserController {
 
     Maria_GeneralUserMember mariaGeneralUserMember;
     SessionManager sessionManager;
-//    StudentService studentService;
-//    Maria_VirtualClassRoom mariaVirtualClassRoom;
-//    Maria_StudentAssignment mariaStudentAssignment;
-//    Maria_StudentAssignmentRecord mariaStudentAssignmentRecord;
-
-    //@AllArgsConstructor 생성자 대체함.
-//    public StudentController(
-//            Maria_StudentMember ,
-//            SessionManager sessionManager,
-//            Maria_VirtualCR_StudentM_mapping mariaVirtualCRStudentMMapping,
-//            StudentService studentService
-//) {
-//        this.mariaGeneralUserMember = mariaGeneralUserMember;
-//        this.sessionManager = sessionManager;
-//        this.mariaVirtualCRStudentMMapping = mariaVirtualCRStudentMMapping;
-//        this.studentService = studentService;
-//    }
 
     @GetMapping(value = "/register")
     String teacherRegister(){
-        return "student/register";
+        return "general/user/register";
     }
 
     @PostMapping(value = "/register")
     String DoteacherRegister(
             @RequestParam(name = "login_id") String login_id,
             @RequestParam(name = "login_pwd") String login_pwd,
-            @RequestParam(name = "student_name") String student_name,
+            @RequestParam(name = "general_user_name") String general_user_name,
             @RequestParam(name = "email") String email,
             Model model
     ){
         GeneralUserMember newGeneralUserMember = new GeneralUserMember();
         newGeneralUserMember.setLoginId(login_id);
         newGeneralUserMember.setLoginPwd(login_pwd);
-        newGeneralUserMember.setGeneralUserName(student_name);
+        newGeneralUserMember.setGeneralUserName(general_user_name);
         newGeneralUserMember.setEmail(email);
         if (newGeneralUserMember.getLoginId().isEmpty() ||
                 newGeneralUserMember.getLoginPwd().isEmpty() ||
@@ -72,18 +57,18 @@ public class GeneralUserController {
                 newGeneralUserMember.getEmail().isEmpty()
         ){
             model.addAttribute("error_message", "입력값이 비었습니다.");
-            return "student/register";
+            return "general/user/register";
         }
         else if(mariaGeneralUserMember.findByLoginId(login_id).isPresent()){
             model.addAttribute("error_message", "이미 가입 이력이 있는 id입니다.");
-            return "student/register";
+            return "general/user/register";
         }
         else if(mariaGeneralUserMember.findByEmail(email).isPresent()){
             model.addAttribute("error_message", "이미 가입 이력이 있는 email입니다.");
-            return "student/register";
+            return "general/user/register";
         }
         mariaGeneralUserMember.save(newGeneralUserMember);
-        model.addAttribute("register", "학생 회원가입 완료.");
+        model.addAttribute("register", "일반 학생 회원가입 완료.");
         //return "redirect:/";
         return "index";
     }
@@ -97,10 +82,10 @@ public class GeneralUserController {
         if (generalUserMember == null){
             //로그인 정보 없음
             model.addAttribute("error_message", "로그인 되어있지 않습니다.");
-            return "student/login";
+            return "general/user/login";
         }
         else{
-            return "redirect:/student/mypage";
+            return "redirect:/general/user/mypage";
         }
     }
 
@@ -115,7 +100,7 @@ public class GeneralUserController {
 
         if(loginGeneralUserMember.isEmpty()){
             model.addAttribute("error_message", "일치하는 id가 없습니다.");
-            return "student/login";
+            return "general/user/login";
         }
         else{
             GeneralUserMember realGeneralUserMember = loginGeneralUserMember.get();
@@ -123,12 +108,12 @@ public class GeneralUserController {
                 model.addAttribute("register",
                         realGeneralUserMember.getGeneralUserName() +"님 안녕하세요. "
                                 +"로그인 되었습니다.");
-                sessionManager.createStudentSession(String.valueOf(realGeneralUserMember.getId()), response);
-                return "redirect:/student/mypage";
+                sessionManager.createGeneralUserSession(String.valueOf(realGeneralUserMember.getId()), response);
+                return "redirect:/general/user/mypage";
             }
             else{
                 model.addAttribute("error_message", "비밀번호가 틀렸습니다.");
-                return "student/login";
+                return "general/user/login";
             }
         }
     }
@@ -137,7 +122,7 @@ public class GeneralUserController {
     public String logout(
             HttpServletResponse response
     ) {
-        expireCookie(response, "studentId");
+        expireCookie(response, sessionId_general_user);
         return "redirect:/";
     }
     private void expireCookie(HttpServletResponse response, String cookieName) {
@@ -163,7 +148,7 @@ public class GeneralUserController {
             model.addAttribute("name", generalUserMember.getGeneralUserName());
         }
 
-        return "student/mypage";
+        return "general/user/mypage";
     }
 
 }

@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface Maria_GeneralUserMember extends JpaRepository<GeneralUserMember, Long> {
     Optional<GeneralUserMember> findByLoginId(String loginId);
     Optional<GeneralUserMember> findByEmail(String email);
-    List<GeneralUserMember> findByGeneralUserName(String studentName);
+    List<GeneralUserMember> findByGeneralUserName(String generalUserName);
     List<GeneralUserMember> findByGeneralUserNameContaining(String query); // 추가
 
 }
