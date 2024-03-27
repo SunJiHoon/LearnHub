@@ -1,13 +1,13 @@
 #domain SSL 인증용
-src/main/java/AIMentor/LearnHub/controller/DomainSSLController.java
+/src/main/java/AIMentor/LearnHub/controller/DomainSSLController.java
 
 #three js 설치 모듈 제거
-node_modules/
-package-lock.json
-package.json
+/node_modules/
+/package-lock.json
+/package.json
 
 #application.properties에서 중요 정보 관리.
-src/main/resources/application.properties
+/src/main/resources/application.properties
 
 HELP.md
 .gradle
