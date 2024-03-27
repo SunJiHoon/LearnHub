@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static AIMentor.LearnHub.session.SessionConst.sessionId_student;
+
 @Controller
 @AllArgsConstructor
 @RequestMapping(value = "/student")
@@ -139,7 +141,7 @@ public class StudentController {
     public String logout(
             HttpServletResponse response
     ) {
-        expireCookie(response, "studentId");
+        expireCookie(response, sessionId_student);
         return "redirect:/";
     }
     private void expireCookie(HttpServletResponse response, String cookieName) {

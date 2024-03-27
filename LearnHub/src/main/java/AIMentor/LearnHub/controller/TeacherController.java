@@ -29,6 +29,8 @@ import java.util.*;
 
 import AIMentor.LearnHub.utility.Utility;
 
+import static AIMentor.LearnHub.session.SessionConst.sessionId_teacher;
+
 @Controller
 @RequestMapping(value = "/teacher")
 @Slf4j
@@ -165,7 +167,7 @@ public class TeacherController {
     public String logout(
             HttpServletResponse response
     ) {
-        expireCookie(response, "teacherId");
+        expireCookie(response, sessionId_teacher);
         return "redirect:/";
     }
     private void expireCookie(HttpServletResponse response, String cookieName) {
