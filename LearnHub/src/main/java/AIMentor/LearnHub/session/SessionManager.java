@@ -12,6 +12,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +25,7 @@ import java.util.UUID;
 @Service
 @Transactional
 @Slf4j
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class SessionManager {
     Maria_Session mariaSession;
     Maria_TeacherMember maria_teacherMember;
