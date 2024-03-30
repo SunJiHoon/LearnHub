@@ -33,11 +33,11 @@
     </div>
 
     <h2>제출 기록</h2>
-    <div th:each="record : ${studentMemberWithScoreDTOS}" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
-        <p style="margin: 0; font-weight: bold;" th:text="${record.getStudentName()}">학생 이름</p>
-        <p style="margin: 5px 0;" th:text="${record.getEmail()}">이메일</p>
-        <p style="margin: 0;" th:if="${record.getScore() == null}" th:text="'점수 없음'">점수 없음</p>
-        <p style="margin: 0;" th:if="${record.getScore() != null}" th:text="${record.getScore()}">점수</p>
+    <div th:each="record : ${studentMemberWithScoreDTOS}">
+        <p th:text="${record.getStudentName()}"></p>
+        <p th:text="${record.getEmail()}"></p>
+        <p th:if="${record.getScore() == null}" th:text="|점수 없음|"></p>
+        <p th:if="${record.getScore() != null}" th:text="${record.getScore()}"></p>
     </div>
 
 
