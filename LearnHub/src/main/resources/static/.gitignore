@@ -1,4 +1,5 @@
 #three 모듈 제거용
 /three/
 /three_past/
+/node_modules/
 
