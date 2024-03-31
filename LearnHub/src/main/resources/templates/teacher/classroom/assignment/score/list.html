@@ -36,11 +36,12 @@
 
     <h2>제출 기록</h2>
     <div th:each="record : ${studentMemberWithScoreDTOS}" class="record">
-    <p th:text="${record.getStudentName()}"></p>
-        <p th:text="${record.getEmail()}"></p>
-        <p th:if="${record.getScore() == null}" th:text="|점수 없음|"></p>
-        <p th:if="${record.getScore() != null}" th:text="${record.getScore()}"></p>
+        <p class="name" th:text="${record.getStudentName()}"></p>
+        <p class="email" th:text="${record.getEmail()}"></p>
+        <p class="score" th:if="${record.getScore() != null}" th:text="${record.getScore()}"></p>
+        <p th:if="${record.getScore() == null}">점수 없음</p>
     </div>
+
 
 
 
