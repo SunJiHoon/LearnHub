@@ -51,44 +51,41 @@ export default function example() {
 	// controls.autoRotateSpeed = 50;
 
 
+
 	// Mesh
-	const geometry = new THREE.BoxGeometry(1, 1, 1);
-	let mesh;
-	let material;
+	const geometry = new THREE.BoxGeometry(0.1, 0.1, 0.1);
 
-	// for (let i = 0; i < 20; i++) {
-	// 	material = new THREE.MeshStandardMaterial({
-	// 		color: `rgb(
-	// 			${ 50 + Math.floor(Math.random() * 205) },
-	// 			${ 50 + Math.floor(Math.random() * 205) },
-	// 			${ 50 + Math.floor(Math.random() * 205) }
-	// 		)`
-	// 	});
-	// 	mesh = new THREE.Mesh(geometry, material);
-	// 	mesh.position.x = (Math.random() - 0.5) * 5;
-	// 	mesh.position.y = (Math.random() - 0.5) * 5;
-	// 	mesh.position.z = (Math.random() - 0.5) * 5;
-	// 	scene.add(mesh);
-	// }
 
+
+	
 	// Get the input element and button element
 const objectCountInput = document.getElementById('object-count');
 const generateObjectsButton = document.getElementById('generate-objects-button');
 const clearButton = document.getElementById('generate-objects-clearButton');
+const fx_function = document.getElementById('fx_function');
+const x_start = document.getElementById('x_start');
+const x_end = document.getElementById('x_end');
+
+const fy_function = document.getElementById('fy_function');
+const y_start = document.getElementById('y_start');
+const y_end = document.getElementById('y_end');
+
+function parseAndCreateFunction(expression) {
+    // 'return' 키워드를 추가하여 함수를 생성합니다.
+    return new Function('x', 'return ' + expression);
+}
 
 
-// // Add event listener to the button
-// clearButton.addEventListener('click', () => {
-// 	scene.children.forEach(child => {
-// 		console.log(child);
-// 		if (child instanceof THREE.Mesh) {
-// 			scene.remove(child);
-// 		}
-// 	});
-// });
+// // 수식 예시: "x * x + 2 * x - 7"
+// const expression = "x * x + 2 * x - 7";
+// const parsedFunction = parseAndCreateFunction(expression);
 
-// Add event listener to the button
-clearButton.addEventListener('click', () => {
+// // 예시 값 x = 3일 때의 결과
+// const result = parsedFunction(3);
+// console.log(result); // 출력: 8
+
+
+function handleClearButtonClick() {
     const meshesToRemove = [];
     scene.children.forEach(child => {
         if (child instanceof THREE.Mesh) {
@@ -99,43 +96,70 @@ clearButton.addEventListener('click', () => {
     meshesToRemove.forEach(mesh => {
         scene.remove(mesh);
     });
-});
+}
 
 // Add event listener to the button
-generateObjectsButton.addEventListener('click', () => {
-    // Get the number of objects from the input field
-    const objectCount = parseInt(objectCountInput.value);
+clearButton.addEventListener('click', handleClearButtonClick);
 
-    // Check if the input is a valid number
-    if (!isNaN(objectCount)) {
+
+	// Add event listener to the button
+	generateObjectsButton.addEventListener('click', () => {
+		console.log(fx_function.value);
         // Remove existing objects from the scene
-        scene.children.forEach(child => {
-			console.log(child);
-            if (child instanceof THREE.Mesh) {
-                scene.remove(child);
-            }
-        });
+		handleClearButtonClick();
+		const parsedFunction_fx_function = parseAndCreateFunction(fx_function.value);
+		const parsedFunction_fy_function = parseAndCreateFunction(fy_function.value);
 
         // Generate objects based on the input number
-        for (let i = 0; i < objectCount; i++) {
-            const material = new THREE.MeshStandardMaterial({
-                color: `rgb(
-                    ${ 50 + Math.floor(Math.random() * 205) },
-                    ${ 50 + Math.floor(Math.random() * 205) },
-                    ${ 50 + Math.floor(Math.random() * 205) }
-                )`
-            });
-            const mesh = new THREE.Mesh(geometry, material);
-            mesh.position.x = (Math.random() - 0.5) * 5;
-            mesh.position.y = (Math.random() - 0.5) * 5;
-            mesh.position.z = (Math.random() - 0.5) * 5;
-            scene.add(mesh);
+        for (let i = parseFloat(x_start.value); i < parseFloat(x_end.value); i += 0.1) {
+			for(let j = parseFloat(y_start.value); j < parseFloat(y_end.value); j+= 0.1){
+				console.log(i);
+				let material = new THREE.MeshStandardMaterial({
+					color: `rgb(
+						${ 50 + Math.floor(Math.random() * 205) },
+						${ 50 + Math.floor(Math.random() * 205) },
+						${ 50 + Math.floor(Math.random() * 205) }
+					)`
+				});
+				let mesh = new THREE.Mesh(geometry, material);
+				mesh.position.x = i;
+				mesh.position.z = j;
+				mesh.position.y = parsedFunction_fx_function(i) + parsedFunction_fy_function(j);
+				scene.add(mesh);
+			}
         }
-    } else {
-        // Notify the user if the input is not a valid number
-        alert('Please enter a valid number.');
-    }
-});
+	});
+
+// // Add event listener to the button
+// generateObjectsButton.addEventListener('click', () => {
+//     // Get the number of objects from the input field
+//     const objectCount = parseInt(objectCountInput.value);
+
+//     // Check if the input is a valid number
+//     if (!isNaN(objectCount)) {
+//         // Remove existing objects from the scene
+// 		handleClearButtonClick();
+
+//         // Generate objects based on the input number
+//         for (let i = 0; i < objectCount; i++) {
+//             let material = new THREE.MeshStandardMaterial({
+//                 color: `rgb(
+//                     ${ 50 + Math.floor(Math.random() * 205) },
+//                     ${ 50 + Math.floor(Math.random() * 205) },
+//                     ${ 50 + Math.floor(Math.random() * 205) }
+//                 )`
+//             });
+//             let mesh = new THREE.Mesh(geometry, material);
+//             mesh.position.x = (Math.random() - 0.5) * 5;
+//             mesh.position.y = (Math.random() - 0.5) * 5;
+//             mesh.position.z = (Math.random() - 0.5) * 5;
+//             scene.add(mesh);
+//         }
+//     } else {
+//         // Notify the user if the input is not a valid number
+//         alert('Please enter a valid number.');
+//     }
+// });
 
 
 	// 그리기
