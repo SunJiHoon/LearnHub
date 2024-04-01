@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/assets/stylesheets/common.css">
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
+    <link rel="stylesheet" href="/assets/stylesheets/footer.css">
 </head>
 <div class="container">
     <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
@@ -62,6 +63,7 @@
     </table>
 
 </div>
+<div th:replace="fragments/footer :: footer"></div>
 <script src="/assets/javascripts/student/register.js"></script>
 
 </html>
