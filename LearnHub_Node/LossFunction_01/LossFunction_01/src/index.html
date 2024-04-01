@@ -9,18 +9,28 @@
 </head>
 <body>
 	<!-- Add an input field for the user to enter the number -->
-	<input type="number" id="object-count" placeholder="Enter the number of objects">
-	<button id="generate-objects-button">Generate Objects</button>
-	<button id="generate-objects-clearButton">Clear Objects</button>
+	<!-- <input type="number" id="object-count" placeholder="Enter the number of objects"> -->
+	<p>
+		<button id="generate-objects-button">Generate Objects</button>
+		<button id="generate-objects-clearButton">Clear Objects</button>
+	</p>
 
-	<input type = "text" id="fx_function" value="x * x">fx_function</button>
-	<input type="number"  id="x_start" value="-3">x_start</button>
-	<input type="number" id="x_end" value="3">x_end</button>
-
-	<input type = "text"  id="fy_function" value="x * x">fy_function</button>
-	<input type="number" id="y_start" value="-3">y_start</button>
-	<input type="number" id="y_end" value="3">y_end</button>
-
+	<br>
+	<p>
+		fx_function : <input type = "text" id="fx_function" value="x * x"><br>
+		x_start : <input type="number"  id="x_start" value="-3">, x_end : <input type="number" id="x_end" value="3">
+	</p>
+	<p>
+		fy_function : <input type = "text"  id="fy_function" value="x * x"><br>
+		y_start : <input type="number" id="y_start" value="-3">, y_end : <input type="number" id="y_end" value="3">
+	</p>
+	<br>
+	<p>
+		dot_x : <input type="number"  id="dot_x" value="1">
+		dot_y : <input type="number" id="dot_y" value="1"><br>
+		<button id="generate-dot-button">generate dot</button>
+		<button id="remove-dot-clearButton">Clear dots</button>
+	</p>
 	<canvas id="three-canvas"></canvas>
 </body>
 </html>
