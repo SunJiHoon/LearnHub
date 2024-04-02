@@ -200,14 +200,21 @@ export default function example() {
 	const clock = new THREE.Clock();
 	let lastExecutionTime = 0; // 마지막 작업 실행 시간
 	let meshesTomove = [];
+	let meshesCurCoord = [];
 	let meshesTomoveCoord = [];
-	
 
 	function draw() {
-
 		// const delta = clock.getDelta();
 		const elapsedTime = clock.getElapsedTime(); // 경과된 총 시간을 초 단위로 가져옴
+		let ratioA = (elapsedTime - lastExecutionTime) / 10;
+		let ratioB = 1 - ratioA;
 
+		for(let i = 0; i < meshesTomove.length; i++){
+			// console.log(meshesTomove.at(i));
+			meshesTomove.at(i).position.x=parseFloat(meshesCurCoord[i][0])*ratioB + parseFloat(meshesTomoveCoord[i][0])*ratioA;
+			meshesTomove.at(i).position.y=parseFloat(meshesCurCoord[i][1])*ratioB + parseFloat(meshesTomoveCoord[i][1])*ratioA;
+			meshesTomove.at(i).position.z=parseFloat(meshesCurCoord[i][2])*ratioB + parseFloat(meshesTomoveCoord[i][2])*ratioA;
+		}
 		// 10초마다 특정 작업 수행
     	if (elapsedTime - lastExecutionTime >= 10) {
         	// 여기서 10초마다 실행할 작업 수행
@@ -225,14 +232,25 @@ export default function example() {
 				}
 			});
 
+			meshesCurCoord = [];
+			meshesTomoveCoord = [];
 			meshesTomove.forEach(mesh => {
+				let meshesCurCoordTemp = [];
+				meshesCurCoordTemp.push(mesh.position.x);
+				meshesCurCoordTemp.push(mesh.position.y);
+				meshesCurCoordTemp.push(mesh.position.z);
+				meshesCurCoord.push(meshesCurCoordTemp);
+
 				let meshesTomoveCoordTemp = [];
-				let newX = mesh.position.x - dot_learning_rate * numericalDifferentiation(parsedFunction_fx_function, mesh.position.x);
-				let newZ = mesh.position.z - dot_learning_rate * numericalDifferentiation(parsedFunction_fy_function, mesh.position.z);
+				let newX = parseFloat(mesh.position.x) - (dot_learning_rate.value * numericalDifferentiation(parsedFunction_fx_function, parseFloat(mesh.position.x)));
+				let newZ = parseFloat(mesh.position.z) - (dot_learning_rate.value * numericalDifferentiation(parsedFunction_fy_function, parseFloat(mesh.position.z)));
 				meshesTomoveCoordTemp.push(newX);
 				meshesTomoveCoordTemp.push(parsedFunction_fx_function(newX) + parsedFunction_fy_function(newZ));
 				meshesTomoveCoordTemp.push(newZ);
-				
+				// console.log(parseFloat(mesh.position.x));
+				// console.log(newX);
+				// console.log(meshesTomoveCoordTemp[0]);
+
 				meshesTomoveCoord.push(meshesTomoveCoordTemp);
 			});
 //
