@@ -1,0 +1,18 @@
+{
+  "name": "loss_function_test",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "glob": "^10.3.12",
+    "vite": "^5.2.0"
+  },
+  "dependencies": {
+    "three": "^0.163.0"
+  }
+}
