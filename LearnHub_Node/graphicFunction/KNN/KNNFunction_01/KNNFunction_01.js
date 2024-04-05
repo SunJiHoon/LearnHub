@@ -40,14 +40,6 @@ export default function example() {
 
 	// Controls
 	const controls = new PointerLockControls(camera, renderer.domElement);
-	// // 마우스 우클릭 이벤트를 감지하는 함수
-	// function handleRightClick(event) {
-   	// 	// 마우스 오른쪽 버튼을 클릭했을 때 실행할 내용을 여기에 작성합니다.
-    // 	// 예를 들어, 우클릭 시 어떤 동작을 수행하도록 합니다.
-    // 	// 여기서는 예시로 콘솔에 "마우스 우클릭 감지됨"을 출력합니다.
-    // 	console.log("마우스 우클릭 감지됨");
-	// }
-
 
 	controls.domElement.addEventListener('mousedown', (event) => {
 		if (event.button === 0) { // 0은 좌클릭 버튼을 나타냅니다. 1은 스크롤 휠, 2는 우클릭 버튼
@@ -62,6 +54,16 @@ export default function example() {
 		console.log('unlock!');
 	});
 
+
+	const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
+	let boxMaterial = new THREE.MeshStandardMaterial({
+		color: `rgb(
+			${ 50 + Math.floor(Math.random() * 205) },
+			${ 50 + Math.floor(Math.random() * 205) },
+			${ 50 + Math.floor(Math.random() * 205) }
+		)`
+	});
+
 	const mouseController = new MouseController(controls);
 
 	// 마우스 컨트롤 
@@ -74,6 +76,33 @@ export default function example() {
 		}
 		if(mouseController.keys[2]){
 			console.log("우클릭");
+			// 새로운 벡터를 생성합니다.
+			var targetVector = new THREE.Vector3();
+			// 카메라의 시선 방향 벡터를 가져옵니다.
+			// var lookDirection = camera.getWorldDirection(targetVector);
+			var lookDirection = controls.getDirection(targetVector);
+			// 콘솔에 카메라의 시선 방향 벡터를 출력합니다.
+			console.log("카메라의 시선 방향:", lookDirection);
+			console.log("카메라의 현재 위치:", camera.position);
+			let a = camera.position.x;
+			let b = camera.position.y;
+			let c = camera.position.z;
+			
+			let u1 = lookDirection.x;
+			let u2 = lookDirection.y;
+			let u3 = lookDirection.z;
+	
+			let setupX = ((0 - parseFloat(b)) / parseFloat(u2)) * parseFloat(u1) + parseFloat(a);
+			let setupY = 0;
+			let setupZ = ((0 - b) / u2) * u3 + c;
+			let boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
+			// console.log(setupX);
+			// console.log(setupY);
+			// console.log(setupZ);
+			boxMesh.position.x = setupX;
+			boxMesh.position.y = setupY;
+			boxMesh.position.z = setupZ;
+			scene.add(boxMesh);
 		}
 		
 	}
@@ -93,27 +122,34 @@ export default function example() {
 		if (keyController.keys['KeyD'] || keyController.keys['ArrowRight']) {
 			controls.moveRight(0.02);
 		}
+		if (keyController.keys['Space']) {
+   			// Space 키가 눌렸을 때 상승하는 동작 추가
+			camera.position.y += 0.02; // 카메라의 y 좌표를 증가시킴
+		}
+		if (keyController.keys['ShiftLeft'] || keyController.keys['ShiftRight']) {
+    		// Shift 키가 눌렸을 때 하강하는 동작 추가
+    		camera.position.y -= 0.02; // 카메라의 y 좌표를 감소시킴
+		}
+		
 	}
 
 
 	// Mesh
-	const geometry = new THREE.BoxGeometry(1, 1, 1);
+	const geometry = new THREE.BoxGeometry(10, 0.1, 10);
 	let mesh;
 	let material;
-	for (let i = 0; i < 20; i++) {
-		material = new THREE.MeshStandardMaterial({
-			color: `rgb(
-				${ 50 + Math.floor(Math.random() * 205) },
-				${ 50 + Math.floor(Math.random() * 205) },
-				${ 50 + Math.floor(Math.random() * 205) }
-			)`
-		});
-		mesh = new THREE.Mesh(geometry, material);
-		mesh.position.x = (Math.random() - 0.5) * 5;
-		mesh.position.y = (Math.random() - 0.5) * 5;
-		mesh.position.z = (Math.random() - 0.5) * 5;
-		scene.add(mesh);
-	}
+	material = new THREE.MeshStandardMaterial({
+		color: `rgb(
+			${ 50 + Math.floor(Math.random() * 205) },
+			${ 50 + Math.floor(Math.random() * 205) },
+			${ 50 + Math.floor(Math.random() * 205) }
+		)`
+	});
+	mesh = new THREE.Mesh(geometry, material);
+	mesh.position.x = 0;
+	mesh.position.y = 0;
+	mesh.position.z = 0;
+	scene.add(mesh);
 
 	// 그리기
 	const clock = new THREE.Clock();
