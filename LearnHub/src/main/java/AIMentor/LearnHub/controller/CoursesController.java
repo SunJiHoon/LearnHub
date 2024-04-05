@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class CoursesController {
     @GetMapping(value = "/LossFunction/LossFunction_01")
-    String teacherRegister(){
+    String getLossFunction_01(){
         return "courses/LossFunction/LossFunction_01";
     }
-
+    @GetMapping(value = "/LossFunction/LossFunction_01_dev")
+    String getLossFunction_01_dev(){
+        return "courses/LossFunction/LossFunction_01_dev";
+    }
 }

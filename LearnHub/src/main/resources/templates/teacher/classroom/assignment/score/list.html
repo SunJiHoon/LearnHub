@@ -7,7 +7,10 @@
     <link rel="stylesheet" href="/assets/stylesheets/common.css">
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
-    
+    <link rel="stylesheet" href="/assets/stylesheets/record.css">
+    <link rel="stylesheet" href="/assets/stylesheets/footer.css">
+
+
 </head>
 <body class="teacher">
 <div class="container">
@@ -33,16 +36,18 @@
     </div>
 
     <h2>제출 기록</h2>
-    <div th:each="record : ${studentMemberWithScoreDTOS}">
-        <p th:text="${record.getStudentName()}"></p>
-        <p th:text="${record.getEmail()}"></p>
-        <p th:if="${record.getScore() == null}" th:text="|점수 없음|"></p>
-        <p th:if="${record.getScore() != null}" th:text="${record.getScore()}"></p>
+    <div th:each="record : ${studentMemberWithScoreDTOS}" class="record">
+        <p class="name" th:text="${record.getStudentName()}"></p>
+        <p class="email" th:text="${record.getEmail()}"></p>
+        <p class="score" th:if="${record.getScore() != null}" th:text="${record.getScore()}"></p>
+        <p th:if="${record.getScore() == null}">점수 없음</p>
     </div>
 
 
 
+
 </div>
+<div th:replace="fragments/footer :: footer"></div>
 <script src="/assets/javascripts/teacher/register.js"></script>
 
 </body>
