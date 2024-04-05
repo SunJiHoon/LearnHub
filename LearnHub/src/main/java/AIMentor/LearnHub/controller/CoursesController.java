@@ -15,6 +15,11 @@ public class CoursesController {
     String getLossFunction_01(){
         return "courses/LossFunction/LossFunction_01";
     }
+    @GetMapping(value = "/KNN/KNNFunction_01")
+    String getKNNFunction_01(){
+        return "courses/KNN/KNNFunction_01";
+    }
+
     @GetMapping(value = "/LossFunction/LossFunction_01_dev")
     String getLossFunction_01_dev(){
         return "courses/LossFunction/LossFunction_01_dev";
