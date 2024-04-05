@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
 import { KeyController } from './KeyController';
+import { MouseController } from './MouseController';
 
 // ----- 주제: PointerLockControls에 키보드 컨트롤 추가
 
@@ -39,10 +40,21 @@ export default function example() {
 
 	// Controls
 	const controls = new PointerLockControls(camera, renderer.domElement);
-	
-	controls.domElement.addEventListener('click', () => {
-		controls.lock();
+	// // 마우스 우클릭 이벤트를 감지하는 함수
+	// function handleRightClick(event) {
+   	// 	// 마우스 오른쪽 버튼을 클릭했을 때 실행할 내용을 여기에 작성합니다.
+    // 	// 예를 들어, 우클릭 시 어떤 동작을 수행하도록 합니다.
+    // 	// 여기서는 예시로 콘솔에 "마우스 우클릭 감지됨"을 출력합니다.
+    // 	console.log("마우스 우클릭 감지됨");
+	// }
+
+
+	controls.domElement.addEventListener('mousedown', (event) => {
+		if (event.button === 0) { // 0은 좌클릭 버튼을 나타냅니다. 1은 스크롤 휠, 2는 우클릭 버튼
+			controls.lock();
+		}
 	});
+	
 	controls.addEventListener('lock', () => {
 		console.log('lock!');
 	});
@@ -50,6 +62,21 @@ export default function example() {
 		console.log('unlock!');
 	});
 
+	const mouseController = new MouseController(controls);
+
+	// 마우스 컨트롤 
+	function click(){
+		if(mouseController.keys[0]){
+			console.log("좌클릭");
+		}
+		if(mouseController.keys[1]){
+			console.log("휠");
+		}
+		if(mouseController.keys[2]){
+			console.log("우클릭");
+		}
+		
+	}
 	// 키보드 컨트롤
 	const keyController = new KeyController();
 
@@ -93,7 +120,8 @@ export default function example() {
 
 	function draw() {
 		const delta = clock.getDelta();
-
+		
+		click();
 		walk();
 
 		renderer.render(scene, camera);
