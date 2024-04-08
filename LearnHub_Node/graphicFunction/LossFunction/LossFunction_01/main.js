@@ -92,11 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		},
 		side: DoubleSide,
 	});
-	const
-		material1 = new MeshBasicMaterial({ color: 0xff0000, side: DoubleSide }),
-		material2 = new MeshBasicMaterial({ color: 0x00ff00, side: DoubleSide }),
-		material3 = new MeshBasicMaterial({ color: 0x0000ff, side: DoubleSide }),
-		material4 = new MeshBasicMaterial({ color: 0xffff00, side: DoubleSide });
 	const sphereMaterial = new MeshBasicMaterial({ color: 0xff0000 });
 	console.log(plotMaterial);
 
@@ -137,22 +132,32 @@ document.addEventListener('DOMContentLoaded', () => {
 		plotMaterial.uniforms.valueMin.value = values.reduce((acc, x) => Math.min(acc, x), Infinity);
 		plotMaterial.uniforms.valueMax.value = values.reduce((acc, x) => Math.max(acc, x), -Infinity);
 
-		function subplot(material, x1, y1, x2, y2) {
-			const triangles = [];
-			for(let y = 0; y < gridHeight; y++)
-				for(let x = 0; x < gridWidth; x++) {
-					triangles.push(xmin + (x + x1)*dx, grid[y + y1][x + x1], ymin + (y + y1)*dy);
-					triangles.push(xmin + (x + 0.5)*dx, gridCenter[y][x], ymin + (y + 0.5)*dy);
-					triangles.push(xmin + (x + x2)*dx, grid[y + y2][x + x2], ymin + (y + y2)*dy);
-				}
-			const geometry = new BufferGeometry();
-			geometry.setAttribute('position', new Float32BufferAttribute(triangles, 3));
-			plotRoot.add(new Mesh(geometry, material));
+		function addPoint(xIndex, yIndex) {
+			triangles.push(xmin + xIndex*dx, grid[yIndex][xIndex], ymin + yIndex*dy);
 		}
-		subplot(material1, 0, 0, 1, 0);
-		subplot(material2, 1, 0, 1, 1);
-		subplot(material3, 1, 1, 0, 1);
-		subplot(material4, 0, 1, 0, 0);
+		const triangles = [];
+		for(let y = 0; y < gridHeight; y++)
+			for(let x = 0; x < gridWidth; x++) {
+				const
+					x1 = x, y1 = y,
+					x2 = x + 1, y2 = y + 1,
+					center = [xmin + (x + 0.5)*dx, gridCenter[y][x], ymin + (y + 0.5)*dy];
+				addPoint(x1, y1);
+				triangles.push(...center);
+				addPoint(x2, y1);
+				addPoint(x2, y1);
+				triangles.push(...center);
+				addPoint(x2, y2);
+				addPoint(x2, y2);
+				triangles.push(...center);
+				addPoint(x1, y2);
+				addPoint(x1, y2);
+				triangles.push(...center);
+				addPoint(x1, y1);
+			}
+		const geometry = new BufferGeometry();
+		geometry.setAttribute('position', new Float32BufferAttribute(triangles, 3));
+		plotRoot.add(new Mesh(geometry, plotMaterial));
 	}
 
 	// event listeners

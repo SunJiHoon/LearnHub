@@ -64,5 +64,36 @@
 		<canvas id="three-canvas"></canvas>
 	</div>
 	<script type="module" src="main.js"></script>
+	<script type="x-shader/x-vertex" id="vsh">
+		uniform float valueMin, valueMax;
+		varying float gauge;
+		varying vec2 raw;
+		void main() {
+			gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.);
+			gauge = (position.y - valueMin)/(valueMax - valueMin);
+			raw = position.xz;
+		}
+	</script>
+	<script type="x-shader/x-fragment" id="fsh">
+		varying float gauge;
+		varying vec2 raw;
+		void main() {
+			float
+				xfrac = fract(raw.x), yfrac = fract(raw.y),
+				xfrac10 = fract(10.*xfrac), yfrac10 = fract(10.*yfrac);
+			float gridOpacity =
+				xfrac < 0.01 || xfrac > 0.99 ||
+				yfrac < 0.01 || yfrac > 0.99
+					? 1.
+				: xfrac10 < 0.05 || xfrac10 > 0.95 ||
+				yfrac10 < 0.05 || yfrac10 > 0.95
+					? 0.5
+					: 0.;
+			vec3 col = 0. <= gauge && gauge <= 1.
+				? vec3(gauge, 0., 1. - gauge)
+				: vec3(1., 0., 1.);
+			gl_FragColor = vec4(gridOpacity*vec3(0.) + (1. - gridOpacity)*col, 1.);
+		}
+	</script>
 </body>
 </html>
