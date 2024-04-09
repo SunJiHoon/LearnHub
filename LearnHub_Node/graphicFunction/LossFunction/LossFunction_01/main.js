@@ -3,9 +3,10 @@ import {
 	Scene,
 	Object3D,
 	PerspectiveCamera,
-	MeshBasicMaterial, ShaderMaterial, DoubleSide,
+	MeshBasicMaterial, ShaderMaterial, FrontSide, BackSide,
 	Mesh, SphereGeometry, BufferGeometry,
 	Float32BufferAttribute,
+	Matrix4,
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
@@ -72,28 +73,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// object hierarchy
 	const
-		lightRoot = new Object3D(),
+		sceneRoot = new Object3D(),
 		plotRoot = new Object3D(),
 		pointRoot = new Object3D();
-	scene.add(lightRoot);
-	scene.add(plotRoot);
-	scene.add(pointRoot);
+	sceneRoot.applyMatrix4(new Matrix4(
+		1, 0, 0, 0,
+		0, 0, 1, 0,
+		0, -1, 0, 0,
+		0, 0, 0, 1,
+	));
+	scene.add(sceneRoot);
+	sceneRoot.add(plotRoot);
+	sceneRoot.add(pointRoot);
 
 	// geometry
 	const sphereGeometry = new SphereGeometry(0.1, 32, 32);
 
 	// materials
-	const plotMaterial = new ShaderMaterial({
-		vertexShader: vsh.textContent,
-		fragmentShader: fsh.textContent,
-		uniforms: {
-			valueMin: { value: 0 },
-			valueMax: { value: 1 },
-		},
-		side: DoubleSide,
-	});
+	const
+		uValueMin = { value: 0 },
+		uValueMax = { value: 1 },
+		plotMaterialFront = new ShaderMaterial({
+			vertexShader: vsh.textContent,
+			fragmentShader: fsh.textContent,
+			uniforms: {
+				valueMin: uValueMin,
+				valueMax: uValueMax,
+				opacity: { value: 1 },
+			},
+			side: FrontSide,
+		}),
+		plotMaterialBack = new ShaderMaterial({
+			vertexShader: vsh.textContent,
+			fragmentShader: fsh.textContent,
+			uniforms: {
+				valueMin: uValueMin,
+				valueMax: uValueMax,
+				opacity: { value: 0.25 },
+			},
+			side: BackSide,
+			transparent: true,
+		});
 	const sphereMaterial = new MeshBasicMaterial({ color: 0xff0000 });
-	console.log(plotMaterial);
 
 	function clearPoints() {
 		pointRoot.clear();
@@ -128,12 +149,14 @@ document.addEventListener('DOMContentLoaded', () => {
 			values = [
 				...grid.flat(1),
 				...gridCenter.flat(1),
-			];
-		plotMaterial.uniforms.valueMin.value = values.reduce((acc, x) => Math.min(acc, x), Infinity);
-		plotMaterial.uniforms.valueMax.value = values.reduce((acc, x) => Math.max(acc, x), -Infinity);
+			],
+			valueMin = values.reduce((acc, x) => Math.min(acc, x), Infinity),
+			valueMax = values.reduce((acc, x) => Math.max(acc, x), -Infinity);
+		uValueMin.value = valueMin;
+		uValueMax.value = valueMax;
 
 		function addPoint(xIndex, yIndex) {
-			triangles.push(xmin + xIndex*dx, grid[yIndex][xIndex], ymin + yIndex*dy);
+			triangles.push(xmin + xIndex*dx, ymin + yIndex*dy, grid[yIndex][xIndex]);
 		}
 		const triangles = [];
 		for(let y = 0; y < gridHeight; y++)
@@ -141,23 +164,24 @@ document.addEventListener('DOMContentLoaded', () => {
 				const
 					x1 = x, y1 = y,
 					x2 = x + 1, y2 = y + 1,
-					center = [xmin + (x + 0.5)*dx, gridCenter[y][x], ymin + (y + 0.5)*dy];
+					center = [xmin + (x + 0.5)*dx, ymin + (y + 0.5)*dy, gridCenter[y][x]];
 				addPoint(x1, y1);
-				triangles.push(...center);
-				addPoint(x2, y1);
 				addPoint(x2, y1);
 				triangles.push(...center);
-				addPoint(x2, y2);
+				addPoint(x2, y1);
 				addPoint(x2, y2);
 				triangles.push(...center);
-				addPoint(x1, y2);
+				addPoint(x2, y2);
 				addPoint(x1, y2);
 				triangles.push(...center);
+				addPoint(x1, y2);
 				addPoint(x1, y1);
+				triangles.push(...center);
 			}
 		const geometry = new BufferGeometry();
 		geometry.setAttribute('position', new Float32BufferAttribute(triangles, 3));
-		plotRoot.add(new Mesh(geometry, plotMaterial));
+		plotRoot.add(new Mesh(geometry, plotMaterialFront));
+		plotRoot.add(new Mesh(geometry, plotMaterialBack));
 	}
 
 	// event listeners
