@@ -23,10 +23,20 @@ document.addEventListener('DOMContentLoaded', () => {
 		inputY0 = document.getElementById('y0'),
 		inputEta = document.getElementById('eta'),
 		btnPlot = document.getElementById('btn-plot'),
-		btnStep = document.getElementById('btn-step'),
-		btnStop = document.getElementById('btn-stop'),
+		btnAddPoint = document.getElementById('btn-add-point'),
+		btnClearPoint = document.getElementById('btn-clear-point'),
 		vsh = document.getElementById('vsh'),
 		fsh = document.getElementById('fsh');
+	let f = () => 0;
+	// temporary derivative logic
+	function fPrimeX(x, y) {
+		const dx = 1e-4;
+		return (f(x + dx, y) - f(x, y))/dx;
+	}
+	function fPrimeY(x, y) {
+		const dy = 1e-4;
+		return (f(x, y + dy) - f(x, y))/dy;
+	}
 
 	// renderer, scene, camera
 	const renderer = new WebGLRenderer({
@@ -116,6 +126,16 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	const sphereMaterial = new MeshBasicMaterial({ color: 0xff0000 });
 
+	function addPoint() {
+		const
+			px = inputX0.valueAsNumber,
+			py = inputY0.valueAsNumber;
+		const point = new Mesh(sphereGeometry, sphereMaterial);
+		point.position.x = px;
+		point.position.y = py;
+		point.position.z = f(px, py);
+		pointRoot.add(point);
+	}
 	function clearPoints() {
 		pointRoot.clear();
 	}
@@ -123,10 +143,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		plotRoot.clear();
 		clearPoints();
 
-		// temporary f
-		function f(x, y) {
-			return x**2 + y**2;
-		}
+		// temporary f logic
+		f = new Function('x', 'y', `return ${inputF.value}`);
 
 		const
 			dx = 0.1, dy = 0.1,
@@ -186,13 +204,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// event listeners
 	btnPlot.addEventListener('click', () => plot());
-	btnStop.addEventListener('click', () => clearPoints());
+	btnAddPoint.addEventListener('click', () => addPoint());
+	btnClearPoint.addEventListener('click', () => clearPoints());
 
 	plot();
 
-	// draw
-	renderer.setAnimationLoop(() => {
+	let next_tick = Date.now();
+	function tick() {
+		if(Date.now() >= next_tick) {
+			next_tick += 1000;
+			for(const point of pointRoot.children) {
+				const
+					eta = inputEta.valueAsNumber,
+					px = point.position.x,
+					py = point.position.y;
+				point.position.x = px - eta*fPrimeX(px, py);
+				point.position.y = py - eta*fPrimeY(px, py);
+				point.position.z = f(point.position.x, point.position.y);
+			}
+		}
+
 		controls.update();
 		renderer.render(scene, camera);
-	});
+	}
+
+	// draw
+	renderer.setAnimationLoop(tick);
 });
