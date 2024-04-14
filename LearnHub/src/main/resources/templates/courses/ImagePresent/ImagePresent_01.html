@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNNFunction_01 학습페이지</title>
+    <link rel="stylesheet" href="/assets/stylesheets/common.css">
+    <link rel="stylesheet" href="/assets/stylesheets/table.css">
+    <link rel="stylesheet" href="/assets/stylesheets/form.css">
+</head>
+<div class="container">
+
+    <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
+        <p th:text="${error_message}"></p>
+    </div>
+    <div th:if="${name}" class="alert" role="alert" style="color: black;">
+        <p th:text="|${name} 학생이 로그인 되었습니다.|"></p>
+    </div>
+    <div th:if="${created_class_name}" class="alert" role="alert" style="color: black;">
+        <p th:text="|${created_class_name} 클래스가 생성되었습니다.|"></p>
+    </div>
+    <form action="/general/user/mypage" method="GET">
+        <button type="submit" style="width: 30%;">My Page로 가기</button>
+    </form>
+    <br>
+    <form action="/general/user/logout" method="POST">
+        <button type="submit" style="width: 30%;">학생 로그아웃</button>
+    </form>
+
+    <input type="hidden" id="CurrPath" th:value="${CurrPath}">
+
+
+    <canvas id="imageCanvas" width="500" height="500" onclick="changeImage()"></canvas>
+    <script>
+        /* hidden input 요소 선택 */
+        // var hiddenInput = document.getElementById('currPath');
+
+        /* hidden input 요소의 값 가져오기 */
+        // var currPath = hiddenInput.value;
+
+        // const images =
+        //     [
+        //         currPath + "first_image.jpg",
+        //         currPath + "second_image.jpg",
+        //         currPath + "third_image.jpg"
+        //     ]; // 전환할 이미지들의 경로
+
+        const images =
+            [
+                "/assets/images/ImagesPresent/first_image.jpg",
+                "/assets/images/ImagesPresent/second_image.jpg",
+                "/assets/images/ImagesPresent/third_image.jpg"
+            ]; // 전환할 이미지들의 경로
+        let currentImageIndex = 0;
+        const canvas = document.getElementById('imageCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function changeImage() {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            drawImage();
+        }
+
+        function drawImage() {
+            const img = new Image();
+            img.onload = function() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            };
+            img.src = images[currentImageIndex];
+        }
+
+        // 초기 이미지 그리기
+        drawImage();
+    </script>
+
+</div>
+<script src="/assets/javascripts/student/register.js"></script>
+</html>

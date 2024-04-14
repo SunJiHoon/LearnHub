@@ -14,6 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class CoursesController {
     PathController_api pathControllerApi;
+
+    //2단원
+    @GetMapping(value = "/ImagePresent/ImagePresent_01")
+    String getImagePresent_01(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/ImagePresent_01";
+    }
+
+    //4단원
     @GetMapping(value = "/LossFunction/LossFunction_01")
     String getLossFunction_01(Model model){
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
