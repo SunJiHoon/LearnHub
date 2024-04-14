@@ -58,6 +58,9 @@ spring.mail.properties.mail.smtp.starttls.enable=true
 
 # 메일 수신 테스트용 계정
 test.email=<이메일 주소>
+
+# asset을 가져올 경로
+myCurrentUrl=http://localhost:50001
 ```
 
 ## 라이선스
