@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNNFunction_01 학습페이지</title>
+    <title>사진 자료 표현 - 서사 페이지</title>
     <style>
-        canvas { display: block; margin: auto; border: 1px solid black; }
-        #dialogueBox { width: 500px; height: 100px; overflow-y: auto; margin: 10px auto; padding: 10px; border: 1px solid black; background-color: #f0f0f0; }
+        #talkInterface { display: flex; justify-content: space-between; align-items: center; }
+        #imageCanvas { flex: 1; margin-right: 10px; }
+        #dialogueBox { height: 500px;  flex: 1; overflow-y: auto; padding: 10px; border: 1px solid black; background-color: #f0f0f0; }
         .message { margin-bottom: 5px; }
         .user { color: blue; }
         .assistant { color: green; }
@@ -36,11 +37,12 @@
     </form>
 
 <!--    <input type="hidden" id="CurrPath" th:value="${CurrPath}">-->
+    <br>
 
-
-    <canvas id="imageCanvas" width="500" height="500" onclick="changeImage()"></canvas>
-    <div id="dialogueBox"></div>
-
+    <div id="talkInterface">
+        <canvas id="imageCanvas" width="500" height="500" onclick="changeImage()"></canvas>
+        <div id="dialogueBox"></div>
+    </div>
     <script>
         /* hidden input 요소 선택 */
         // var hiddenInput = document.getElementById('currPath');
