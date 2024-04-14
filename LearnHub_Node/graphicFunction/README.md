@@ -1,4 +1,4 @@
-# LearnHub + three.js 연동
+# LearnHub + Vite
 
 ## 의존성
 
@@ -6,7 +6,7 @@
 
 ## 최초 설치
 
-모든 명령은 `/LearnHub_Node/loss_function_test`에서 실행하면 됩니다.
+모든 명령은 `/LearnHub_Node/graphicFunction`에서 실행하면 됩니다.
 
 ```
 npm i
