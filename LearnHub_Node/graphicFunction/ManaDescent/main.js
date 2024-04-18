@@ -103,7 +103,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			index: null,
 			particles: [],
 			turns: [],
-		}
+			result: undefined,
+		};
 
 		promptDim.textContent = dim;
 		hint2d.style.display = dim == 2 ? '' : 'none';
@@ -187,6 +188,21 @@ document.addEventListener('DOMContentLoaded', () => {
 		for(const slider of sliders)
 			slider.disabled = true;
 		buttonConfirm.disabled = true;
+
+		game.result = [];
+		for(let i = 0; i < game.state.dim; i++) {
+			const
+				slice = [],
+				coord = sliders.map(x => x.valueAsNumber);
+			for(let j = 0; j < MAP_SIZE; j++) {
+				coord[i] = j/MAP_SIZE;
+				slice.push(game.state.noise(...coord)[0]);
+			}
+			const
+				min = slice.reduce((acc, x) => Math.min(acc, x), Infinity),
+				max = slice.reduce((acc, x) => Math.max(acc, x), -Infinity);
+			game.result.push({ slice, min, max });
+		}
 	}
 	function updateCanvas() {
 		const newParticles = [];
@@ -202,8 +218,65 @@ document.addEventListener('DOMContentLoaded', () => {
 		game.particles = newParticles;
 
 		ctx.clearRect(0, 0, canv.width, canv.height);
-		// position marker
 		ctx.lineWidth = 2;
+
+		// result
+		if(game.result !== undefined) {
+			if(game.state.dim == 2) {
+				const
+					x = sliders[0].valueAsNumber,
+					y = sliders[1].valueAsNumber;
+
+				const gradientX = ctx.createLinearGradient(
+					...toMapCoord(0, y),
+					...toMapCoord(1, y)
+				);
+				for(const [j, z] of game.result[0].slice.entries())
+					gradientX.addColorStop(j/MAP_SIZE, gaugeToColor(rawToGauge(z)));
+				ctx.strokeStyle = gradientX;
+				ctx.beginPath();
+				ctx.moveTo(...toMapCoord(0, y));
+				ctx.lineTo(...toMapCoord(1, y));
+				ctx.stroke();
+
+				const gradientY = ctx.createLinearGradient(
+					...toMapCoord(x, 0),
+					...toMapCoord(x, 1)
+				);
+				for(const [j, z] of game.result[1].slice.entries())
+					gradientY.addColorStop(j/MAP_SIZE, gaugeToColor(rawToGauge(z)));
+				ctx.strokeStyle = gradientY;
+				ctx.beginPath();
+				ctx.moveTo(...toMapCoord(x, 0));
+				ctx.lineTo(...toMapCoord(x, 1));
+				ctx.stroke();
+			}
+			for(const [i, { slice, min, max }] of game.result.entries()) {
+				const gradient = ctx.createLinearGradient(
+					...toWindowCoord(i, 0, 1),
+					...toWindowCoord(i, 0, 0)
+				);
+				for(let i = 0; i <= WINDOW_SIZE; i++) {
+					const ratio = i/WINDOW_SIZE;
+					gradient.addColorStop(ratio, gaugeToColor(rawToGauge(min + ratio*(max - min))));
+				}
+				ctx.strokeStyle = gradient;
+				ctx.beginPath();
+				for(const [j, x] of slice.entries()) {
+					const coord = toWindowCoord(
+						i,
+						j/MAP_SIZE, 1 - (x - min)/(max - min)
+					);
+					if(j == 0)
+						ctx.moveTo(...coord);
+					else
+						ctx.lineTo(...coord);
+				}
+				ctx.stroke();
+			}
+		}
+
+		// position marker
 		ctx.strokeStyle = 'black';
 		if(game.state.dim == 2) {
 			const [x, y] = toMapCoord(sliders[0].valueAsNumber, sliders[1].valueAsNumber);
@@ -222,6 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			ctx.lineTo(x, y + 4);
 			ctx.stroke();
 		}
+
 		// arrow
 		if(game.state.history.length > 0) {
 			const
@@ -244,6 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				);
 			}
 		}
+
 		// particles
 		for(const x of game.particles) {
 			ctx.fillStyle = gaugeToColor(x.gauge, 1 - x.time/x.life);
