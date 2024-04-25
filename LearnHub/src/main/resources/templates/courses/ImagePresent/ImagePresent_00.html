@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overlapping Divs</title>
+    <link rel="stylesheet" href="/assets/stylesheets/courses/ImagePresent/ImagePresent_01.css">
+    <link rel="stylesheet" href="/assets/stylesheets/common.css">
+    <link rel="stylesheet" href="/assets/stylesheets/table.css">
+    <link rel="stylesheet" href="/assets/stylesheets/form.css">
+<!---->
+    <style>
+        .container {
+            position: relative;
+        }
+
+        .div1, .div2 {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+        }
+
+        .div1 {
+            background-color: red;
+            z-index: 1;
+        }
+
+        .div2 {
+            background-color: blue;
+            opacity: 0.5; /* 투명도 조절 */
+            z-index: 2;
+            top: 50px;
+            left: 50px;
+        }
+    </style>
+<!--    -->
+</head>
+
+
+
+
+<body>
+
+<div class="container">
+    <div class="div1"></div>
+    <div class="div2"></div>
+</div>
+
+</body>
+
+<script src="/assets/javascripts/courses/ImagePresent/ImagePresent_01.js"></script>
+<script src="/assets/javascripts/student/register.js"></script>
+</html>

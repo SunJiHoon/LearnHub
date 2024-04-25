@@ -16,6 +16,12 @@ public class CoursesController {
     PathController_api pathControllerApi;
 
     //2단원
+    @GetMapping(value = "/ImagePresent/ImagePresent_00")
+    String getImagePresent_00(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/ImagePresent_00";
+    }
+    //2단원
     @GetMapping(value = "/ImagePresent/ImagePresent_01")
     String getImagePresent_01(Model model){
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
