@@ -27,6 +27,16 @@ public class CoursesController {
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
         return "courses/ImagePresent/ImagePresent_01";
     }
+    @GetMapping(value = "/ImagePresent/ImagePresent_02")
+    String getImagePresent_02(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/ImagePresent_02";
+    }
+    @GetMapping(value = "/ImagePresent/ImagePresent_03")
+    String getImagePresent_03(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/ImagePresent_03";
+    }
 
     //4단원
     @GetMapping(value = "/LossFunction/LossFunction_01")
