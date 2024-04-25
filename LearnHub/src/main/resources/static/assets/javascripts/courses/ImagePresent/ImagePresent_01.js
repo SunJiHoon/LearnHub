@@ -8,6 +8,8 @@ const texts = ["First Image", "Second Image", "Third Image"]; // 이미지에 �
 
 let currentImageIndex = 0;
 const canvas = document.getElementById('imageCanvas');
+const dialogueBox = document.getElementById('dialogueBox');
+
 const ctx = canvas.getContext('2d');
 
 function changeImage() {
@@ -37,6 +39,7 @@ function addDialogue(message, speaker) {
         messageElement.classList.add('assistant');
     }
     messageElement.textContent = message;
+    messageElement.setAttribute('style', 'color: black;');
     dialogueBox.appendChild(messageElement);
     dialogueBox.scrollTop = dialogueBox.scrollHeight;
 }
