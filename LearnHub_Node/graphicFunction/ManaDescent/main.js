@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	let game;
 	function init(dim) {
+		game?.cleanup?.();
 		game = {
 			state: {
 				dim,
@@ -104,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			particles: [],
 			turns: [],
 			result: undefined,
+			cleanup: undefined,
 		};
 
 		promptDim.textContent = dim;
@@ -119,7 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			slider.style.left = `${x}px`;
 			slider.style.top = `${y}px`;
 			slider.value = Math.random();
-			slider.disabled = false;
 		}
 
 		while(status.firstChild)
@@ -185,11 +186,21 @@ document.addEventListener('DOMContentLoaded', () => {
 			buttonConfirm.textContent = '확정';
 	}
 	function confirm() {
-		for(const slider of sliders)
-			slider.disabled = true;
 		buttonConfirm.disabled = true;
-
-		game.result = [];
+		game.result = {
+			pos: sliders.map(x => x.valueAsNumber),
+			slices: [],
+		};
+		updateResult();
+		for(let i = 0; i < game.state.dim; i++)
+			sliders[i].addEventListener('input', updateResult);
+		game.cleanup = () => {
+			for(let i = 0; i < game.state.dim; i++)
+				sliders[i].removeEventListener('input', updateResult);
+		};
+	}
+	function updateResult() {
+		game.result.slices = [];
 		for(let i = 0; i < game.state.dim; i++) {
 			const
 				slice = [],
@@ -201,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			const
 				min = slice.reduce((acc, x) => Math.min(acc, x), Infinity),
 				max = slice.reduce((acc, x) => Math.max(acc, x), -Infinity);
-			game.result.push({ slice, min, max });
+			game.result.slices.push({ slice, min, max });
 		}
 	}
 	function updateCanvas() {
@@ -231,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					...toMapCoord(0, y),
 					...toMapCoord(1, y)
 				);
-				for(const [j, z] of game.result[0].slice.entries())
+				for(const [j, z] of game.result.slices[0].slice.entries())
 					gradientX.addColorStop(j/MAP_SIZE, gaugeToColor(rawToGauge(z)));
 				ctx.strokeStyle = gradientX;
 				ctx.beginPath();
@@ -243,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					...toMapCoord(x, 0),
 					...toMapCoord(x, 1)
 				);
-				for(const [j, z] of game.result[1].slice.entries())
+				for(const [j, z] of game.result.slices[1].slice.entries())
 					gradientY.addColorStop(j/MAP_SIZE, gaugeToColor(rawToGauge(z)));
 				ctx.strokeStyle = gradientY;
 				ctx.beginPath();
@@ -251,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				ctx.lineTo(...toMapCoord(x, 1));
 				ctx.stroke();
 			}
-			for(const [i, { slice, min, max }] of game.result.entries()) {
+			for(const [i, { slice, min, max }] of game.result.slices.entries()) {
 				const gradient = ctx.createLinearGradient(
 					...toWindowCoord(i, 0, 1),
 					...toWindowCoord(i, 0, 0)
@@ -316,6 +327,29 @@ document.addEventListener('DOMContentLoaded', () => {
 					x, y,
 					-64*entry.deriv[i], 0
 				);
+			}
+		}
+
+		// final position
+		if(game.result !== undefined) {
+			ctx.strokeStyle = 'black';
+			if(game.state.dim == 2) {
+				ctx.beginPath();
+				const [x, y] = toMapCoord(...game.result.pos);
+				ctx.moveTo(x - 5, y - 5);
+				ctx.lineTo(x + 5, y + 5);
+				ctx.moveTo(x - 5, y + 5);
+				ctx.lineTo(x + 5, y - 5);
+				ctx.stroke();
+			}
+			for(let i = 0; i < game.state.dim; i++) {
+				ctx.beginPath();
+				const [x, y] = toWindowCoord(i, game.result.pos[i]);
+				ctx.moveTo(x - 5, y - 5);
+				ctx.lineTo(x + 5, y + 5);
+				ctx.moveTo(x - 5, y + 5);
+				ctx.lineTo(x + 5, y - 5);
+				ctx.stroke();
 			}
 		}
 
