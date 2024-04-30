@@ -112,24 +112,24 @@ export default function example() {
 
 	function walk() {
 		if (keyController.keys['KeyW'] || keyController.keys['ArrowUp']) {
-			controls.moveForward(0.02);
+			controls.moveForward(0.02 * 3);
 		}
 		if (keyController.keys['KeyS'] || keyController.keys['ArrowDown']) {
-			controls.moveForward(-0.02);
+			controls.moveForward(-0.02 * 3);
 		}
 		if (keyController.keys['KeyA'] || keyController.keys['ArrowLeft']) {
-			controls.moveRight(-0.02);
+			controls.moveRight(-0.02 * 3);
 		}
 		if (keyController.keys['KeyD'] || keyController.keys['ArrowRight']) {
-			controls.moveRight(0.02);
+			controls.moveRight(0.02 * 3);
 		}
 		if (keyController.keys['Space']) {
    			// Space 키가 눌렸을 때 상승하는 동작 추가
-			camera.position.y += 0.02; // 카메라의 y 좌표를 증가시킴
+			camera.position.y += 0.02 * 3; // 카메라의 y 좌표를 증가시킴
 		}
 		if (keyController.keys['ShiftLeft'] || keyController.keys['ShiftRight']) {
     		// Shift 키가 눌렸을 때 하강하는 동작 추가
-    		camera.position.y -= 0.02; // 카메라의 y 좌표를 감소시킴
+    		camera.position.y -= 0.02 * 3; // 카메라의 y 좌표를 감소시킴
 		}
 		
 	}
@@ -139,13 +139,6 @@ export default function example() {
 	const geometry = new THREE.BoxGeometry(10, 0.1, 10);
 	let mesh;
 	let badacMaterial;
-	// badacMaterial = new THREE.MeshStandardMaterial({
-	// 	color: `rgb(
-	// 		${ 50 + Math.floor(Math.random() * 205) },
-	// 		${ 50 + Math.floor(Math.random() * 205) },
-	// 		${ 50 + Math.floor(Math.random() * 205) }
-	// 	)`
-	// });
 
 	badacMaterial = new THREE.MeshStandardMaterial({
 		color: `rgb(100,150,100)`	
@@ -161,9 +154,10 @@ export default function example() {
 	const gltfLoader = new GLTFLoader();
 	let namuMesh;
 	let namuIpMesh;
-
-	// let namuGeoMetry;
-	// let mixer;
+	let apple1Mesh;
+	let apple2Mesh;
+	let apple3Mesh;
+	let apple4Mesh;
 
 	gltfLoader.load(
 		'./models/namu.glb',
@@ -187,6 +181,47 @@ export default function example() {
 		}
 	);
 
+
+	gltfLoader.load(
+		'./models/apple1.glb',
+		gltf => {
+			apple1Mesh = gltf.scene.children[0];
+			// namuGeoMetry = gltf.scene.children[0].geometry;
+			// 색상을 가진 머티리얼 생성
+			scene.add(apple1Mesh);
+		}
+	);
+
+	gltfLoader.load(
+		'./models/apple2.glb',
+		gltf => {
+			apple2Mesh = gltf.scene.children[0];
+			// namuGeoMetry = gltf.scene.children[0].geometry;
+			// 색상을 가진 머티리얼 생성
+			scene.add(apple2Mesh);
+		}
+	);
+
+	gltfLoader.load(
+		'./models/apple3.glb',
+		gltf => {
+			apple3Mesh = gltf.scene.children[0];
+			// namuGeoMetry = gltf.scene.children[0].geometry;
+			// 색상을 가진 머티리얼 생성
+			scene.add(apple3Mesh);
+		}
+	);
+
+	gltfLoader.load(
+		'./models/apple4.glb',
+		gltf => {
+			apple4Mesh = gltf.scene.children[0];
+			// namuGeoMetry = gltf.scene.children[0].geometry;
+			// 색상을 가진 머티리얼 생성
+			scene.add(apple4Mesh);
+		}
+	);
+
 	// 그리기
 	const clock = new THREE.Clock();
 		
@@ -199,11 +234,27 @@ export default function example() {
 		const treeIpColorHex = 0x008000; // 나뭇잎색
 		const treeIpColorHexMat = new THREE.MeshStandardMaterial({ color: treeIpColorHex });
 
+		const appleColorHex = 0xff0000; // 사과색
+		const appleColorHexMat = new THREE.MeshStandardMaterial({ color: appleColorHex });
+
+
 		if(namuMesh && namuMesh.material) {
 			namuMesh.material = treeColorHexMat;
 		}
 		if(namuIpMesh && namuIpMesh.material) {
 			namuIpMesh.material = treeIpColorHexMat;
+		}
+		if(apple1Mesh && apple1Mesh.material) {
+			apple1Mesh.material = appleColorHexMat;
+		}
+		if(apple2Mesh && apple2Mesh.material) {
+			apple2Mesh.material = appleColorHexMat;
+		}
+		if(apple3Mesh && apple3Mesh.material) {
+			apple3Mesh.material = appleColorHexMat;
+		}
+		if(apple4Mesh && apple4Mesh.material) {
+			apple4Mesh.material = appleColorHexMat;
 		}
 		click();
 		walk();
