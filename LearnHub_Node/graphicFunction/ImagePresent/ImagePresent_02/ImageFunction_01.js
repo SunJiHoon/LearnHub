@@ -137,6 +137,11 @@ export default function example() {
 		}
 	);
 
+	let appleRed = 0; // 빨강(Red) 채널 값
+	let appleGreen = 0; // 녹색(Green) 채널 값
+	let appleBlue = 0; // 파랑(Blue) 채널 값
+		
+
 	// 그리기
 	const clock = new THREE.Clock();
 		
@@ -149,9 +154,9 @@ export default function example() {
 		const treeIpColorHex = 0x008000; // 나뭇잎색
 		const treeIpColorHexMat = new THREE.MeshStandardMaterial({ color: treeIpColorHex });
 
-		const appleRed = 255; // 빨강(Red) 채널 값
-		const appleGreen = 0; // 녹색(Green) 채널 값
-		const appleBlue = 0; // 파랑(Blue) 채널 값
+		// appleRed = 255; // 빨강(Red) 채널 값
+		// appleGreen = 0; // 녹색(Green) 채널 값
+		// appleBlue = 0; // 파랑(Blue) 채널 값
 		
 		// RGB 값을 계산하여 정수로 표현
 		const appleColorInt = (appleRed << 16) + (appleGreen << 8) + appleBlue;
@@ -176,7 +181,7 @@ export default function example() {
 			apple3Mesh.material = appleColorIntMat;
 		}
 		if(apple4Mesh && apple4Mesh.material) {
-			// apple4Mesh.material = appleColorIntMat;
+			apple4Mesh.material = appleColorIntMat;
 		}
 
 		renderer.render(scene, camera);
@@ -193,11 +198,12 @@ export default function example() {
 		const intersects = raycaster.intersectObjects(meshes);
 		for (const item of intersects) {
 			console.log(item.object.name);
+			appleRed += 10;
 			// item.object.material.color.set('red');
-			const treeColorHex = 0x8B4513; // 나무색
-			const treeColorHexMat = new THREE.MeshStandardMaterial({ color: treeColorHex });
+			// const treeColorHex = 0x8B4513; // 나무색
+			// const treeColorHexMat = new THREE.MeshStandardMaterial({ color: treeColorHex });
 	
-			item.object.material = treeColorHexMat;
+			// item.object.material = treeColorHexMat;
 			break;
 		}
 		// if (intersects[0]) {
