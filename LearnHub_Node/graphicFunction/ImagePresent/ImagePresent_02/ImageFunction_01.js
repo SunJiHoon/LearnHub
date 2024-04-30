@@ -1,8 +1,6 @@
 import * as THREE from 'three';
-import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
-import { KeyController } from './KeyController';
-import { MouseController } from './MouseController';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 // ----- 주제: PointerLockControls에 키보드 컨트롤 추가
 
@@ -26,7 +24,7 @@ export default function example() {
 		0.1,
 		1000
 	);
-	camera.position.y = 3;
+	camera.position.y = 5;
 	camera.position.z = 7;
 	scene.add(camera);
 
@@ -40,20 +38,8 @@ export default function example() {
 	scene.add(directionalLight);
 
 	// Controls
-	const controls = new PointerLockControls(camera, renderer.domElement);
-
-	controls.domElement.addEventListener('mousedown', (event) => {
-		if (event.button === 0) { // 0은 좌클릭 버튼을 나타냅니다. 1은 스크롤 휠, 2는 우클릭 버튼
-			controls.lock();
-		}
-	});
-	
-	controls.addEventListener('lock', () => {
-		console.log('lock!');
-	});
-	controls.addEventListener('unlock', () => {
-		console.log('unlock!');
-	});
+	// const controls = new PointerLockControls(camera, renderer.domElement);
+	const controls = new OrbitControls(camera, renderer.domElement);
 
 
 	const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
@@ -64,75 +50,6 @@ export default function example() {
 			${ 50 + Math.floor(Math.random() * 205) }
 		)`
 	});
-
-	const mouseController = new MouseController(controls);
-
-	// 마우스 컨트롤 
-	function click(){
-		if(mouseController.keys[0]){
-			console.log("좌클릭");
-		}
-		if(mouseController.keys[1]){
-			console.log("휠");
-		}
-		if(mouseController.keys[2]){
-			console.log("우클릭");
-			// 새로운 벡터를 생성합니다.
-			// var targetVector = new THREE.Vector3();
-			// // 카메라의 시선 방향 벡터를 가져옵니다.
-			// // var lookDirection = camera.getWorldDirection(targetVector);
-			// var lookDirection = controls.getDirection(targetVector);
-			// // 콘솔에 카메라의 시선 방향 벡터를 출력합니다.
-			// console.log("카메라의 시선 방향:", lookDirection);
-			// console.log("카메라의 현재 위치:", camera.position);
-			// let a = camera.position.x;
-			// let b = camera.position.y;
-			// let c = camera.position.z;
-			
-			// let u1 = lookDirection.x;
-			// let u2 = lookDirection.y;
-			// let u3 = lookDirection.z;
-	
-			// let setupX = ((0 - parseFloat(b)) / parseFloat(u2)) * parseFloat(u1) + parseFloat(a);
-			// let setupY = 0;
-			// let setupZ = ((0 - b) / u2) * u3 + c;
-			// let boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
-			// // console.log(setupX);
-			// // console.log(setupY);
-			// // console.log(setupZ);
-			// boxMesh.position.x = setupX;
-			// boxMesh.position.y = setupY;
-			// boxMesh.position.z = setupZ;
-			// scene.add(boxMesh);
-		}
-		
-	}
-	// 키보드 컨트롤
-	const keyController = new KeyController();
-
-	function walk() {
-		if (keyController.keys['KeyW'] || keyController.keys['ArrowUp']) {
-			controls.moveForward(0.02 * 3);
-		}
-		if (keyController.keys['KeyS'] || keyController.keys['ArrowDown']) {
-			controls.moveForward(-0.02 * 3);
-		}
-		if (keyController.keys['KeyA'] || keyController.keys['ArrowLeft']) {
-			controls.moveRight(-0.02 * 3);
-		}
-		if (keyController.keys['KeyD'] || keyController.keys['ArrowRight']) {
-			controls.moveRight(0.02 * 3);
-		}
-		if (keyController.keys['Space']) {
-   			// Space 키가 눌렸을 때 상승하는 동작 추가
-			camera.position.y += 0.02 * 3; // 카메라의 y 좌표를 증가시킴
-		}
-		if (keyController.keys['ShiftLeft'] || keyController.keys['ShiftRight']) {
-    		// Shift 키가 눌렸을 때 하강하는 동작 추가
-    		camera.position.y -= 0.02 * 3; // 카메라의 y 좌표를 감소시킴
-		}
-		
-	}
 
 
 	// Mesh
@@ -159,6 +76,12 @@ export default function example() {
 	let apple3Mesh;
 	let apple4Mesh;
 
+
+	const meshes = [namuMesh, namuIpMesh, apple1Mesh, apple2Mesh, apple3Mesh, apple4Mesh];
+
+	const raycaster = new THREE.Raycaster();
+
+
 	gltfLoader.load(
 		'./models/namu.glb',
 		gltf => {
@@ -169,7 +92,6 @@ export default function example() {
 			scene.add(namuMesh);
 		}
 	);
-
 	gltfLoader.load(
 		'./models/namuip.glb',
 		gltf => {
@@ -180,8 +102,6 @@ export default function example() {
 
 		}
 	);
-
-
 	gltfLoader.load(
 		'./models/apple1.glb',
 		gltf => {
@@ -191,7 +111,6 @@ export default function example() {
 			scene.add(apple1Mesh);
 		}
 	);
-
 	gltfLoader.load(
 		'./models/apple2.glb',
 		gltf => {
@@ -201,7 +120,6 @@ export default function example() {
 			scene.add(apple2Mesh);
 		}
 	);
-
 	gltfLoader.load(
 		'./models/apple3.glb',
 		gltf => {
@@ -211,7 +129,6 @@ export default function example() {
 			scene.add(apple3Mesh);
 		}
 	);
-
 	gltfLoader.load(
 		'./models/apple4.glb',
 		gltf => {
@@ -234,9 +151,16 @@ export default function example() {
 		const treeIpColorHex = 0x008000; // 나뭇잎색
 		const treeIpColorHexMat = new THREE.MeshStandardMaterial({ color: treeIpColorHex });
 
-		const appleColorHex = 0xff0000; // 사과색
-		const appleColorHexMat = new THREE.MeshStandardMaterial({ color: appleColorHex });
-
+		const appleRed = 255; // 빨강(Red) 채널 값
+		const appleGreen = 0; // 녹색(Green) 채널 값
+		const appleBlue = 0; // 파랑(Blue) 채널 값
+		
+		// RGB 값을 계산하여 정수로 표현
+		const appleColorInt = (appleRed << 16) + (appleGreen << 8) + appleBlue;
+		
+		// 정수로 표현된 색상을 이용하여 머티리얼 생성
+		const appleColorIntMat = new THREE.MeshStandardMaterial({ color: appleColorInt });
+		
 
 		if(namuMesh && namuMesh.material) {
 			namuMesh.material = treeColorHexMat;
@@ -245,19 +169,17 @@ export default function example() {
 			namuIpMesh.material = treeIpColorHexMat;
 		}
 		if(apple1Mesh && apple1Mesh.material) {
-			apple1Mesh.material = appleColorHexMat;
+			apple1Mesh.material = appleColorIntMat;
 		}
 		if(apple2Mesh && apple2Mesh.material) {
-			apple2Mesh.material = appleColorHexMat;
+			apple2Mesh.material = appleColorIntMat;
 		}
 		if(apple3Mesh && apple3Mesh.material) {
-			apple3Mesh.material = appleColorHexMat;
+			apple3Mesh.material = appleColorIntMat;
 		}
 		if(apple4Mesh && apple4Mesh.material) {
-			apple4Mesh.material = appleColorHexMat;
+			apple4Mesh.material = appleColorIntMat;
 		}
-		click();
-		walk();
 
 		renderer.render(scene, camera);
 		renderer.setAnimationLoop(draw);
