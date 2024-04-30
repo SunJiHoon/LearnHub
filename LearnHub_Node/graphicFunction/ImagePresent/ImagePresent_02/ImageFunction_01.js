@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { PreventDragClick } from './PreventDragClick';
 
 // ----- 주제: PointerLockControls에 키보드 컨트롤 추가
 
@@ -76,10 +77,8 @@ export default function example() {
 	let apple3Mesh;
 	let apple4Mesh;
 
-
-	const meshes = [namuMesh, namuIpMesh, apple1Mesh, apple2Mesh, apple3Mesh, apple4Mesh];
-
 	const raycaster = new THREE.Raycaster();
+	const mouse = new THREE.Vector2();
 
 
 	gltfLoader.load(
@@ -99,7 +98,6 @@ export default function example() {
 			// namuGeoMetry = gltf.scene.children[0].geometry;
 			// 색상을 가진 머티리얼 생성
 			scene.add(namuIpMesh);
-
 		}
 	);
 	gltfLoader.load(
@@ -178,12 +176,35 @@ export default function example() {
 			apple3Mesh.material = appleColorIntMat;
 		}
 		if(apple4Mesh && apple4Mesh.material) {
-			apple4Mesh.material = appleColorIntMat;
+			// apple4Mesh.material = appleColorIntMat;
 		}
 
 		renderer.render(scene, camera);
 		renderer.setAnimationLoop(draw);
 	}
+
+	function checkIntersects() {
+		console.log(preventDragClick.mouseMoved);
+		if (preventDragClick.mouseMoved) return;
+
+		raycaster.setFromCamera(mouse, camera);
+
+		let meshes = [namuMesh, namuIpMesh, apple1Mesh, apple2Mesh, apple3Mesh, apple4Mesh];
+		const intersects = raycaster.intersectObjects(meshes);
+		for (const item of intersects) {
+			console.log(item.object.name);
+			// item.object.material.color.set('red');
+			const treeColorHex = 0x8B4513; // 나무색
+			const treeColorHexMat = new THREE.MeshStandardMaterial({ color: treeColorHex });
+	
+			item.object.material = treeColorHexMat;
+			break;
+		}
+		// if (intersects[0]) {
+		// 	intersects[0].object.material.color.set('blue');
+		// }
+	}
+
 
 	function setSize() {
 		camera.aspect = window.innerWidth / window.innerHeight;
@@ -194,6 +215,14 @@ export default function example() {
 
 	// 이벤트
 	window.addEventListener('resize', setSize);
+	canvas.addEventListener('click', e => {
+		mouse.x = e.clientX / canvas.clientWidth * 2 - 1;
+		mouse.y = -(e.clientY / canvas.clientHeight * 2 - 1);
+		// console.log(mouse);
+		checkIntersects();
+	});
+
+	const preventDragClick = new PreventDragClick(canvas);
 
 	draw();
 }
