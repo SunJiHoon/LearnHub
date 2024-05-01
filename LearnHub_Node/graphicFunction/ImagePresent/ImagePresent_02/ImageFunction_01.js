@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { PreventDragClick } from './PreventDragClick';
+import dat from 'dat.gui';
 
 // ----- 주제: PointerLockControls에 키보드 컨트롤 추가
 
@@ -41,7 +42,6 @@ export default function example() {
 	// Controls
 	// const controls = new PointerLockControls(camera, renderer.domElement);
 	const controls = new OrbitControls(camera, renderer.domElement);
-
 
 	const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
 	let boxMaterial = new THREE.MeshStandardMaterial({
@@ -137,11 +137,26 @@ export default function example() {
 		}
 	);
 
-	let appleRed = 0; // 빨강(Red) 채널 값
-	let appleGreen = 0; // 녹색(Green) 채널 값
-	let appleBlue = 0; // 파랑(Blue) 채널 값
-		
+	let appleRed = [0 ,0 ,0 ,0]; // 빨강(Red) 채널 값
+	let appleGreen = [0 ,0 ,0 ,0]; // 녹색(Green) 채널 값
+	let appleBlue = [0 ,0 ,0 ,0]; // 파랑(Blue) 채널 값
+	// let appleRed = []; // 빨강(Red) 채널 값
+	// let appleGreen = []; // 녹색(Green) 채널 값
+	// let appleBlue = []; // 파랑(Blue) 채널 값
 
+
+	const gui = new dat.GUI();
+
+	// 색상 채널 값 (초기값: 빨간색)
+	const colorChannels = {
+		red: 255 // 초기값
+	};
+	
+	// 빨간색 채널에 대한 슬라이더를 추가
+	const redController = gui.add(colorChannels, 'red', 0, 255).name('Red').onChange(function(value) {
+		appleRed[0] = parseInt(value);
+	});
+	
 	// 그리기
 	const clock = new THREE.Clock();
 		
@@ -159,10 +174,18 @@ export default function example() {
 		// appleBlue = 0; // 파랑(Blue) 채널 값
 		
 		// RGB 값을 계산하여 정수로 표현
-		const appleColorInt = (appleRed << 16) + (appleGreen << 8) + appleBlue;
+		// let appleColorInt = [0,0,0,0];
+		let appleColorInt = [];
+		for(let i = 0; i < 4; i++){
+			appleColorInt[i] = (appleRed[i] << 16) + (appleGreen[i] << 8) + appleBlue[i];
+		}
 		
 		// 정수로 표현된 색상을 이용하여 머티리얼 생성
-		const appleColorIntMat = new THREE.MeshStandardMaterial({ color: appleColorInt });
+		// let appleColorIntMat = [0,0,0,0];
+		let appleColorIntMat = [];
+		for(let i = 0; i < 4; i++){
+			appleColorIntMat[i] = new THREE.MeshStandardMaterial({ color: appleColorInt[i] });
+		}
 		
 
 		if(namuMesh && namuMesh.material) {
@@ -172,16 +195,16 @@ export default function example() {
 			namuIpMesh.material = treeIpColorHexMat;
 		}
 		if(apple1Mesh && apple1Mesh.material) {
-			apple1Mesh.material = appleColorIntMat;
+			apple1Mesh.material = appleColorIntMat[0];
 		}
 		if(apple2Mesh && apple2Mesh.material) {
-			apple2Mesh.material = appleColorIntMat;
+			apple2Mesh.material = appleColorIntMat[1];
 		}
 		if(apple3Mesh && apple3Mesh.material) {
-			apple3Mesh.material = appleColorIntMat;
+			apple3Mesh.material = appleColorIntMat[2];
 		}
 		if(apple4Mesh && apple4Mesh.material) {
-			apple4Mesh.material = appleColorIntMat;
+			apple4Mesh.material = appleColorIntMat[3];
 		}
 
 		renderer.render(scene, camera);
@@ -198,7 +221,7 @@ export default function example() {
 		const intersects = raycaster.intersectObjects(meshes);
 		for (const item of intersects) {
 			console.log(item.object.name);
-			appleRed += 10;
+			// appleRed += 10; // 문자열 오류
 			// item.object.material.color.set('red');
 			// const treeColorHex = 0x8B4513; // 나무색
 			// const treeColorHexMat = new THREE.MeshStandardMaterial({ color: treeColorHex });
