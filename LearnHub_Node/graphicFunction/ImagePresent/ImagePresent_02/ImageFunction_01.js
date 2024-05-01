@@ -147,20 +147,33 @@ export default function example() {
 
 	const gui = new dat.GUI();
 
-	// 색상 채널 값 (초기값: 빨간색)
+	// 색상 채널 값 (초기값: 빨간색, 초록색, 파란색)
 	const colorChannels = {
-		red: 255 // 초기값
+		red: 0,
+		green: 0,
+		blue: 0
 	};
 	
-	// 빨간색 채널에 대한 슬라이더를 추가
+	let curIndex = 0;
+	
+	// 빨간색 채널에 대한 슬라이더 추가
 	const redController = gui.add(colorChannels, 'red', 0, 255).name('Red').onChange(function(value) {
-		appleRed[0] = parseInt(value);
+		appleRed[curIndex] = parseInt(value);
 	});
 	
-	// 그리기
+	// 녹색 채널에 대한 슬라이더 추가
+	const greenController = gui.add(colorChannels, 'green', 0, 255).name('Green').onChange(function(value) {
+		appleGreen[curIndex] = parseInt(value);
+	});
+	
+	// 파란색 채널에 대한 슬라이더 추가
+	const blueController = gui.add(colorChannels, 'blue', 0, 255).name('Blue').onChange(function(value) {
+		appleBlue[curIndex] = parseInt(value);
+	});	// 그리기
 	const clock = new THREE.Clock();
 		
 	function draw() {
+		// console.log(appleRed)
 		const delta = clock.getDelta();
 		
 		const treeColorHex = 0x8B4513; // 나무색
@@ -217,10 +230,26 @@ export default function example() {
 
 		raycaster.setFromCamera(mouse, camera);
 
-		let meshes = [namuMesh, namuIpMesh, apple1Mesh, apple2Mesh, apple3Mesh, apple4Mesh];
+		// let meshes = [namuMesh, namuIpMesh, apple1Mesh, apple2Mesh, apple3Mesh, apple4Mesh];
+		let meshes = [apple1Mesh, apple2Mesh, apple3Mesh, apple4Mesh];
 		const intersects = raycaster.intersectObjects(meshes);
 		for (const item of intersects) {
 			console.log(item.object.name);
+			if (item.object.name == "큐브004"){
+				curIndex = 2;
+			}
+			else if (item.object.name == "큐브001"){
+				curIndex = 3;
+			}
+			else if (item.object.name == "큐브002"){
+				curIndex = 1;
+			}
+			// else if (item.object == apple2Mesh){
+			// 	curIndex == 1;
+			// }
+			else if (item.object.name == "큐브003"){
+				curIndex = 0;
+			}
 			// appleRed += 10; // 문자열 오류
 			// item.object.material.color.set('red');
 			// const treeColorHex = 0x8B4513; // 나무색
