@@ -1,0 +1,33 @@
+#talkInterface {
+    display: flex;
+    /*justify-content: space-between; */
+    /*align-items: center;*/
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: flex-end; /* 수직 가운데 정렬 */
+
+}
+#imageCanvas {
+    position: relative;
+    z-index: 1; /* 다른 요소보다 낮은 z-index 값 */
+    /*flex: 1;*/
+    /*margin-right: 10px;*/
+    width: 500px;
+    height: 500px;
+}
+#dialogueBox {
+    position: absolute;
+    z-index : 2;
+    height: 100px;
+    width: 500px;
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    /*border: 1px solid black;*/
+    background-color: rgba(240, 240, 240, 0.7); /* 투명도 조절 */
+    /*opacity: 0.7; !* 투명도 조절 *!*/
+    /*top: 0px; !* 시작 위치 조절 *!*/
+    /*left: 0px; !* 시작 위치 조절 *!*/
+}
+.message { margin-bottom: 5px; }
+.user { color: blue; }
+.assistant { color: green; }

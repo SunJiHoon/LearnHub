@@ -14,6 +14,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class CoursesController {
     PathController_api pathControllerApi;
+
+    //2단원
+    @GetMapping(value = "/ImagePresent/ImagePresent_00")
+    String getImagePresent_00(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/ImagePresent_00";
+    }
+    //2단원
+    @GetMapping(value = "/ImagePresent/ImagePresent_01")
+    String getImagePresent_01(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/ImagePresent_01";
+    }
+    @GetMapping(value = "/ImagePresent/ImagePresent_02")
+    String getImagePresent_02(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/ImagePresent_02";
+    }
+    @GetMapping(value = "/ImagePresent/ImagePresent_03")
+    String getImagePresent_03(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/ImagePresent_03";
+    }
+
+    //4단원
     @GetMapping(value = "/LossFunction/LossFunction_01")
     String getLossFunction_01(Model model){
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
