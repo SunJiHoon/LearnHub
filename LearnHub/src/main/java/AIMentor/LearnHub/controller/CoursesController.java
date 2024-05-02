@@ -70,7 +70,7 @@ public class CoursesController {
         return "courses/LossFunction/LossFunction_01_dev";
     }
 
-    @GetMapping(value = "/ManaDescent")
+    @GetMapping(value = "/ManaDescent/ManaDescent_01")
     String getManaDescent(){
         return "courses/ManaDescent/ManaDescent_01";
     }
