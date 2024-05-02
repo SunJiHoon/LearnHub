@@ -69,4 +69,9 @@ public class CoursesController {
     String getLossFunction_01_dev(){
         return "courses/LossFunction/LossFunction_01_dev";
     }
+
+    @GetMapping(value = "/ManaDescent")
+    String getManaDescent(){
+        return "courses/ManaDescent/ManaDescent_01";
+    }
 }
