@@ -54,7 +54,11 @@ public class CoursesController {
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
         return "courses/KNN/KNNFunction_02";
     }
-
+    @GetMapping(value = "/KNN/KNNFunction_03")
+    String getKNNFunction_03(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/KNN/KNNFunction_03";
+    }
     @GetMapping(value = "/KNN/KNNFunction_04")
     String getKNNFunction_04(Model model){
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
