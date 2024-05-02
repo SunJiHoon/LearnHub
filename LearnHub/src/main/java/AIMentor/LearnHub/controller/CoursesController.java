@@ -71,7 +71,8 @@ public class CoursesController {
     }
 
     @GetMapping(value = "/ManaDescent/ManaDescent_01")
-    String getManaDescent(){
+    String getManaDescent(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
         return "courses/ManaDescent/ManaDescent_01";
     }
 }
