@@ -19,15 +19,28 @@ export default function example() {
 	// Scene
 	const scene = new THREE.Scene();
 
-	// Camera
-	const camera = new THREE.PerspectiveCamera(
-		75,
-		window.innerWidth / window.innerHeight,
-		0.1,
-		1000
-	);
-	camera.position.y = 5;
-	camera.position.z = 7;
+	// // Camera
+	// const camera = new THREE.PerspectiveCamera(
+	// 	75,
+	// 	window.innerWidth / window.innerHeight,
+	// 	0.1,
+	// 	1000
+	// );
+// Orthographic Camera
+const camera = new THREE.OrthographicCamera(
+    window.innerWidth / -200, // left
+    window.innerWidth / 200,  // right
+    window.innerHeight / 200, // top
+    window.innerHeight / -200, // bottom
+    0.1,
+    1000
+);
+
+	camera.position.y = 7;
+	camera.position.z = 10;
+	camera.position.x = 0;
+
+
 	scene.add(camera);
 
 	// Light
@@ -175,7 +188,10 @@ export default function example() {
 	function draw() {
 		// console.log(appleRed)
 		const delta = clock.getDelta();
-		
+		camera.lookAt(0,2,0);
+		// camera.zoom=0.5;
+		// camera.updateMatrix();
+	
 		const treeColorHex = 0x8B4513; // 나무색
 		const treeColorHexMat = new THREE.MeshStandardMaterial({ color: treeColorHex });
 
