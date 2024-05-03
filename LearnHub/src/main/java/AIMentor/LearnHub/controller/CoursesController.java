@@ -26,7 +26,28 @@ public class CoursesController {
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
         return "courses/MagicUniv/supply_01";
     }
+    @GetMapping(value = "/MagicUniv/supply_02")
+    String getMagicUniv_supply_02(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/MagicUniv/supply_02";
+    }
+    @GetMapping(value = "/MagicUniv/supply_03")
+    String getMagicUniv_supply_03(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/MagicUniv/supply_03";
+    }
 
+    @GetMapping(value = "/MagicUniv/supply_04")
+    String getMagicUniv_supply_04(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/MagicUniv/supply_04";
+    }
+
+    @GetMapping(value = "/MagicUniv/supply_05")
+    String getMagicUniv_supply_05(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/MagicUniv/supply_05";
+    }
 
     //2단원
     @GetMapping(value = "/ImagePresent/ImagePresent_00")

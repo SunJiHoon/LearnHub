@@ -1,11 +1,9 @@
 const images =
     [
         "/assets/images/MagicUniv/supply_welcome.jfif",
-        "/assets/images/MagicUniv/supply_welcome.jfif",
     ]; // 전환할 이미지들의 경로
 const texts = [
-    "마법학교의 조교 우드우드가 모두를 환영하는 소리를 내고 강의실에 들어섰다. ",
-    "\"여러분, 오늘은 특별한 주제를 준비했습니다. 마법의 세계에서 우드로우 교수님이 선보이신 마법을 함께 살펴보겠습니다.\"",
+    "\"이렇게 우리는 우드로우 교수님의 마법을 통해 마법의 세계와 기술적인 지식을 함께 탐험해보았습니다. 앞으로도 함께 열정적으로 공부해나가요!\" 조교 우드우드가 마무리하며 학생들에게 미소를 지어 보냈다.\n",
 ]; // 이미지에 대응하는 텍스트
 
 let currentImageIndex = 0;
