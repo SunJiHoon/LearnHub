@@ -1,16 +1,16 @@
 const images =
     [
-        "/assets/images/MagicUniv/enroll_welcome.jpg",
-        "/assets/images/MagicUniv/enroll_welcome.jpg",
-        "/assets/images/MagicUniv/enroll_welcome.jpg",
+        "/assets/images/MagicUniv/enroll_welcome.jfif",
+        "/assets/images/MagicUniv/enroll_welcome.jfif",
+        "/assets/images/MagicUniv/enroll_welcome.jfif",
 
-        "/assets/images/MagicUniv/enroll_math.jpg",
-        "/assets/images/MagicUniv/enroll_math.jpg",
-        "/assets/images/MagicUniv/enroll_math.jpg",
-        "/assets/images/MagicUniv/enroll_math.jpg",
+        "/assets/images/MagicUniv/enroll_math.jfif",
+        "/assets/images/MagicUniv/enroll_math.jfif",
+        "/assets/images/MagicUniv/enroll_math.jfif",
+        "/assets/images/MagicUniv/enroll_math.jfif",
 
-        "/assets/images/MagicUniv/enroll_welcome.jpg",
-        "/assets/images/MagicUniv/enroll_welcome.jpg",
+        "/assets/images/MagicUniv/enroll_welcome.jfif",
+        "/assets/images/MagicUniv/enroll_welcome.jfif",
     ]; // 전환할 이미지들의 경로
 const texts = [
     "\"마법학교에 입학한 것을 환영하네! ",
@@ -22,7 +22,7 @@ const texts = [
     "\"수업에서는 다양한 주제를 다루며, 실제로 마법을 이용하여 데이터를 분석하고 패턴을 찾는 연습을 하게 될 거야. " ,
     "또한 인공지능 알고리즘과 마법적인 방법을 결합하여 문제를 해결하는 능력을 키울 수 있을 거야.\"\n" ,
 
-    "\"우드로우 교수님의 강의를 통해 인공지능 수학의 신비를 탐험하며, 자네는 놀라운 마법의 세계를 열어볼 수 있을 거야.\"" +
+    "\"우드로우 교수님의 강의를 통해 인공지능 수학의 신비를 탐험하며, 자네는 놀라운 마법의 세계를 열어볼 수 있을 거야.\"",
     "\"지금부터 흥미진진한 여정이 시작되었네!\"",
 
 ]; // 이미지에 대응하는 텍스트
