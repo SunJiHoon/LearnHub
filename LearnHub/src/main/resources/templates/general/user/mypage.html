@@ -7,6 +7,47 @@
     <link rel="stylesheet" href="/assets/stylesheets/common.css">
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
+    <style>
+        .all_section{
+            margin: 20px;
+            padding: 20px;
+            background-color: #d5f0ff; /* 연한 하늘색 */
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .big_section {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /*text-align: left; !* 왼쪽 정렬 *!*/
+        }
+        .all_section h2,
+        .all_section h3,
+        .all_section li {
+            text-align: left; /* 왼쪽 정렬 */
+            font-family: "Nanum Gothic", sans-serif; /* 특정 글꼴 지정 */
+        }
+        .custom-button {
+            background-color: #87ceeb; /* 하늘색 */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition-duration: 0.4s;
+        }
+        .custom-button:hover {
+            background-color: #53868b; /* 짙은 하늘색 */
+        }
+
+    </style>
+
 </head>
 <div class="container">
     <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
@@ -27,20 +68,105 @@
     <br>
     <br>
 
-    <form action="/courses/ImagePresent/ImagePresent_01" method="GET">
-        <input type="submit" value="ImagePresent 학습">
-    </form>
-    <form action="/courses/LossFunction/LossFunction_01" method="GET">
-        <input type="submit" value="LossFunction 학습">
-    </form>
+
+    <div class ="all_section">
+    <div class="big_section">
+    <h2>I. 인공지능의 발전과정</h2>
+    <ol>
+        <li>
+            <h3>인공지능의 발전 과정</h3>
+            <ol>
+<!--                <li>-->
+<!--                    -->
+<!--                </li>-->
+            </ol>
+        </li>
+        <li>
+            <h3>인공지능과 관련도니 수학</h3>
+            <ol>
+<!--                <li>-->
+<!--                    -->
+<!--                </li>-->
+            </ol>
+        </li>
+    </ol>
+    </div>
+    <div class="big_section">
+    <h2>II. 인공지능과 관련된 수학</h2>
+    <ol>
+        <li>
+            <h3>텍스트 자료의 표현과 처리</h3>
+            <ol>
+                <li>텍스트 자료의 표현</li>
+                <li>텍스트 자료의 처리와 시각화</li>
+            </ol>
+        </li>
+        <li>
+            <h3>이미지 자료의 표현과 처리</h3>
+            <ol>
+                <li>
+                    <span>이미지 자료의 표현</span>
+                    <form action="/courses/ImagePresent/ImagePresent_01" method="GET">
+                        <input type="submit" value="ImagePresent 학습" class="custom-button">
+                    </form>
+                </li>
+                <li>이미지 자료의 처리</li>
+            </ol>
+        </li>
+    </ol>
+    </div>
+    <div class="big_section">
+    <h2>III. 분류와 예측</h2>
+    <ol>
+        <li>
+            <h3>자료의 분류</h3>
+            <ol>
+                <li>텍스트 자료의 분류</li>
+                <li>이미지 자료의 분류</li>
+            </ol>
+        </li>
+        <li>
+            <h3>경향성과 예측</h3>
+            <ol>
+                <li>확률을 이용한 예측</li>
+                <li>추세선과 예측</li>
+            </ol>
+        </li>
+    </ol>
+    </div>
+    <div class="big_section">
+    <h2>IV. 최적화</h2>
+    <ol>
+        <li>
+            <h3>최적화와 의사 결정</h3>
+            <ol>
+                <li>
+                    <span>오차와 손실함수</span>
+                    <form action="/courses/LossFunction/LossFunction_01" method="GET">
+                        <input type="submit" value="LossFunction 학습" class="custom-button">
+                    </form>
+                </li>
+                <li>
+                    <span>경사하강법</span>
+                    <form action="/courses/ManaDescent/ManaDescent_01" method="GET">
+                        <input type="submit" value="ManaDescent 학습" class="custom-button">
+                    </form>
+                </li>
+            </ol>
+        </li>
+        <li>
+            <h3>합리적 의사 결정과 수학 탐구</h3>
+            <ol>
+                <li>인공지능의 합리적 의사 결정 사례</li>
+                <li>인공지능 수학 탐구</li>
+            </ol>
+        </li>
+    </ol>
+    </div>
+    </div>
     <form action="/courses/KNN/KNNFunction_02" method="GET">
-        <input type="submit" value="KNN 학습">
+        <input type="submit" value="KNN 학습" class="custom-button">
     </form>
-    <form action="/courses/ManaDescent/ManaDescent_01" method="GET">
-        <input type="submit" value="ManaDescent 학습">
-    </form>
-
-
 </div>
 <script src="/assets/javascripts/student/register.js"></script>
 
