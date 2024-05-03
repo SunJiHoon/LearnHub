@@ -1,0 +1,37 @@
+.all_section{
+    margin: 20px;
+    padding: 20px;
+    background-color: #d5f0ff; /* 연한 하늘색 */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.big_section {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /*text-align: left; !* 왼쪽 정렬 *!*/
+}
+.all_section h2,
+.all_section h3,
+.all_section li {
+    text-align: left; /* 왼쪽 정렬 */
+    font-family: "Nanum Gothic", sans-serif; /* 특정 글꼴 지정 */
+}
+.custom-button {
+    background-color: #87ceeb; /* 하늘색 */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+.custom-button:hover {
+    background-color: #53868b; /* 짙은 하늘색 */
+}
