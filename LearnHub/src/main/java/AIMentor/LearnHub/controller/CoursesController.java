@@ -15,13 +15,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CoursesController {
     PathController_api pathControllerApi;
 
+    //1단원
+    @GetMapping(value = "/MagicUniv/enroll_01")
+    String getMagicUniv_enroll_01(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/MagicUniv/enroll_01";
+    }
+    @GetMapping(value = "/MagicUniv/supply_01")
+    String getMagicUniv_supply_01(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/MagicUniv/supply_01";
+    }
+    @GetMapping(value = "/MagicUniv/supply_02")
+    String getMagicUniv_supply_02(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/MagicUniv/supply_02";
+    }
+    @GetMapping(value = "/MagicUniv/supply_03")
+    String getMagicUniv_supply_03(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/MagicUniv/supply_03";
+    }
+
+    @GetMapping(value = "/MagicUniv/supply_04")
+    String getMagicUniv_supply_04(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/MagicUniv/supply_04";
+    }
+
+    @GetMapping(value = "/MagicUniv/supply_05")
+    String getMagicUniv_supply_05(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/MagicUniv/supply_05";
+    }
+
     //2단원
     @GetMapping(value = "/ImagePresent/ImagePresent_00")
     String getImagePresent_00(Model model){
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
         return "courses/ImagePresent/ImagePresent_00";
     }
-    //2단원
     @GetMapping(value = "/ImagePresent/ImagePresent_01")
     String getImagePresent_01(Model model){
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
