@@ -52,7 +52,7 @@
         </p>
         <canvas id="myCanvas" width="400" height="200"></canvas>
         <p>
-            위 그래프는 수평 방향으로 크기를 갖는 벡터들이 모여있답니다.
+            위 그래프는 수평 방향으로 크기를 갖는 벡터들이 모여있답니다. 호감도를 벡터로 나타낸 것이에요.
             "미워"는 왼쪽 방향으로 0.8 크기를 갖고 있고, "사랑해"는 오른쪽 방향으로 0.8, "고마워"는 오른쪽 방향으로 0.7이네요!
         </p>
         <p>
@@ -60,6 +60,71 @@
             아직 잘 몰라도 괜찮습니다. 지금은 차원에만 집중해봐요.
         </p>
     </div>
+
+    <div class ="big_section">
+        <p>
+            2차원 공간에서의 비교
+        </p>
+        <canvas id="myCanvas2" width="400" height="400"></canvas>
+        <p>
+            위 그래프는 X축으로는 호감도, Y축으로는 다정함을 크기로 갖는 벡터들이 모여있답니다.
+            "미워"에 해당하는 벡터는 좌측하단을 향하고 있고, "사랑해"와 "고마워"는 우측 상단을 가르키네요!
+        </p>
+        <p>
+            차원이 늘어났는데도, "사랑해"와 "고마워"벡터가 비슷하게 생긴 것을 쉽게 알아차릴 수 있어요. 하지만 여전히 얼마나 비슷한지 측정하는 것은 쉽지가 않아요.
+            지금까지 단어끼리 유사하게 생긴 것을 확인했어요. 이후 단원들에서 벡터가 얼마나 비슷하게 생겼는지 알아내는 방법이있는데, 천천히 알아가봐요!
+        </p>
+    </div>
+
+    <div class ="big_section">
+        <p>
+            2차원 공간에서의 비교 - 직접 단어에 정보 입력하고 벡터 확인하기
+        </p>
+        <p>
+            이번엔 직접 단어를 입력하고, 단어의 정보를 입력해서 실습을 진행해봐요!
+            위에서 말했지만, X축으로는 호감도, Y축으로는 다정함을 크기로 가져요.
+        </p>
+        <div class ="outer-div">
+            <div class="canvas-container">
+                <canvas id="myCanvas3" width="400" height="400"></canvas>
+                </div>
+            <div  class="canvas-container">
+                <p>2차원 공간에서의 비교</p>
+                <label for="input1_sentence">
+                    <input type="text" id="input1_sentence" value="미워">
+                </label>
+                <label for="input1_x">입력1 x:</label>
+                <input type="range" min="-1" max="1" step="0.1" value="-0.8" id="input1_x"> <!-- x 좌표를 슬라이더로 입력받음 -->
+                <label for="input1_y">입력1 y:</label>
+                <input type="range" min="-1" max="1" step="0.1" value="-0.8" id="input1_y"> <!-- x 좌표를 슬라이더로 입력받음 -->
+
+                <label for="input2_sentence">
+                    <input type="text" id="input2_sentence" value="사랑해">
+                </label>
+                <label for="input2_x">입력2 x:</label>
+                <input type="range" min="-1" max="1" step="0.1" value="0.8" id="input2_x"> <!-- x 좌표를 슬라이더로 입력받음 -->
+                <label for="input2_y">입력2 y:</label>
+                <input type="range" min="-1" max="1" step="0.1" value="0.8" id="input2_y"> <!-- x 좌표를 슬라이더로 입력받음 -->
+
+                <label for="input3_sentence">
+                    <input type="text" id="input3_sentence" value="고마워">
+                </label>
+                <label for="input3_x">입력3 x:</label>
+                <input type="range" min="-1" max="1" step="0.1" value="0.7" id="input3_x"> <!-- x 좌표를 슬라이더로 입력받음 -->
+                <label for="input3_y">입력3 y:</label>
+                <input type="range" min="-1" max="1" step="0.1" value="0.7" id="input3_y"> <!-- x 좌표를 슬라이더로 입력받음 -->
+
+            </div>
+        </div>
+        <p>
+            마법사님은 지금까지 단어를 벡터로 나타내는 것을 배웠고, 단어가 얼마나 비슷한지 시각적으로 바로 알아챌 수 있게 되었어요.
+            단어를 원하는데로 수치화해본게 도움이 되었으면 좋겠네요!
+        </p>
+        <p>
+            혹시 어려우셨나요? 걱정하지 말아요. 추후 단원에선 얼마나 닮았는지 측정하는 방법을 다시 (더 자세히!) 배울 거니까요.
+        </p>
+    </div>
+
 
 
 
