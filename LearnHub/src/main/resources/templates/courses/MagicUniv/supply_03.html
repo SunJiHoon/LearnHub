@@ -34,11 +34,35 @@
     </div>
 
     <div class="big_section">
-        "두 번째 마법은 '말을 이해하도록 벡터를 사용하는 마법'입니다.
-        이 마법은 음성 데이터를 벡터로 변환하여 컴퓨터가 이해할 수 있는 형태로 바꾸는 것을 의미합니다.
-        우드로우 교수님께서는 이를 통해 기계가 음성을 분류하고 이해하는 능력을 키울 수 있다고 설명하셨습니다."
-
+        <p>
+            "두 번째 마법은 '말을 이해하도록 벡터를 사용하는 마법'입니다.
+            이 마법은 음성 데이터를 벡터로 변환하여 컴퓨터가 이해할 수 있는 형태로 바꾸는 것을 의미합니다.
+            우드로우 교수님께서는 이를 통해 기계가 음성을 분류하고 이해하는 능력을 키울 수 있다고 설명하셨습니다."
+        </p>
+        <p>
+            예를 들면 "사랑해"와 "고마워"는 얼마나 비슷할까요?
+            반대로 "사랑해"와 "미워"는 얼마나 다를까요?
+            아래 그래프를 보며 확인해봅시다!
+        </p>
     </div>
+
+    <div class ="big_section">
+        <p>
+            1차원 공간에서의 비교
+        </p>
+        <canvas id="myCanvas" width="400" height="200"></canvas>
+        <p>
+            위 그래프는 수평 방향으로 크기를 갖는 벡터들이 모여있답니다.
+            "미워"는 왼쪽 방향으로 0.8 크기를 갖고 있고, "사랑해"는 오른쪽 방향으로 0.8, "고마워"는 오른쪽 방향으로 0.7이네요!
+        </p>
+        <p>
+            눈으로 보았을 때, "사랑해"와 "고마워"벡터가 비슷하게 생긴 것을 쉽게 알아차릴 수 있어요. 하지만 얼마나 비슷한지 측정하는 것은 쉽지가 않아요.
+            아직 잘 몰라도 괜찮습니다. 지금은 차원에만 집중해봐요.
+        </p>
+    </div>
+
+
+
     <!--    <input type="hidden" id="CurrPath" th:value="${CurrPath}">-->
     <br>
 <!--    <div id="talkInterface">-->
@@ -53,6 +77,6 @@
 
 
 </div>
-<script src="/assets/javascripts/courses/MagicUniv/supply_01.js"></script>
+<script src="/assets/javascripts/courses/MagicUniv/supply_03.js"></script>
 <script src="/assets/javascripts/student/register.js"></script>
 </html>
