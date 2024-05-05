@@ -9,6 +9,24 @@
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
     <link rel="stylesheet" href="/assets/stylesheets/mypage.css">
+    <style>
+        .outer-div {
+            display: flex;
+            justify-content: center; /* 수평 가운데 정렬 */
+            align-items: center; /* 수직 가운데 정렬 */
+        }
+
+        .canvas-container {
+            display: flex; /* flexbox 사용 */
+            flex-direction: column; /* 세로로 배치 */
+        }
+        .canvas-container canvas {
+            border: 1px solid #000;
+            margin: 5px; /* 각 canvas 요소 사이의 간격 조정 */
+            /*text-align: center;*/
+        }
+    </style>
+
 </head>
 <div class="container">
 
@@ -45,13 +63,40 @@
 <!--        <div id="dialogueBox"></div>-->
 <!--    </div>-->
     <br>
+
+    <div class ="outer-div">
+        <div class="canvas-container">
+            <canvas id="myCanvas1" width="200" height="200" style="border:1px solid #000;"></canvas>
+            <label for="scaleSlider1">
+                <input type="range" min="0" max="10" value="10" id="scaleSlider1"> <!-- 슬라이더 요소 -->
+            </label>
+
+            <canvas id="myCanvas2" width="200" height="200" style="border:1px solid #000;"></canvas>
+            <label for="scaleSlider2">
+                <input type="range" min="0" max="10" value="0" id="scaleSlider2"> <!-- 슬라이더 요소 -->
+            </label>
+
+            <canvas id="myCanvas3" width="200" height="200" style="border:1px solid #000;"></canvas>
+            <label for="scaleSlider3">
+                <input type="range" min="0" max="10" value="0" id="scaleSlider3"> <!-- 슬라이더 요소 -->
+            </label>
+        </div>
+        <div>
+            <img src="/assets/images/MagicUniv/arrow.jpg" alt="세 개의 화살표">
+        </div>
+        <div>
+            <canvas id="myCanvas4" width="200" height="200" style="border:1px solid #000;"></canvas>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
     <form action="/courses/MagicUniv/supply_03" method="get">
         <!-- 전송 버튼 -->
         <input type="submit" value = "다음으로 이동하기" class = "custom-button">
     </form>
 
-
 </div>
-<script src="/assets/javascripts/courses/MagicUniv/supply_01.js"></script>
+<script src="/assets/javascripts/courses/MagicUniv/supply_02.js"></script>
 <script src="/assets/javascripts/student/register.js"></script>
 </html>
