@@ -67,6 +67,11 @@ public class CoursesController {
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
         return "courses/TextMaterials/Visualization_01";
     }
+    @GetMapping(value = "/TextMaterials/Visualization_02")
+    String getTextMaterialsVisualization_02(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/TextMaterials/Visualization_02";
+    }
 
     @GetMapping(value = "/ImagePresent/ImagePresent_00")
     String getImagePresent_00(Model model){
