@@ -35,3 +35,19 @@
 .custom-button:hover {
     background-color: #53868b; /* 짙은 하늘색 */
 }
+
+.outer-div {
+     display: flex;
+     justify-content: center; /* 수평 가운데 정렬 */
+     align-items: center; /* 수직 가운데 정렬 */
+ }
+
+.canvas-container {
+    display: flex; /* flexbox 사용 */
+    flex-direction: column; /* 세로로 배치 */
+}
+.canvas-container canvas {
+    border: 1px solid #000;
+    margin: 5px; /* 각 canvas 요소 사이의 간격 조정 */
+    /*text-align: center;*/
+}
