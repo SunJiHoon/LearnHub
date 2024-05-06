@@ -51,3 +51,15 @@
     margin: 5px; /* 각 canvas 요소 사이의 간격 조정 */
     /*text-align: center;*/
 }
+
+.box {
+    /*border: 2px solid #000;*/
+    padding: 5px;
+    width: fit-content;
+    background-color: #ADD8E6; /* 연한 하늘색 */
+}
+
+
+
+
+

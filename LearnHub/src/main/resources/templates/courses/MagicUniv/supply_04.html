@@ -41,8 +41,8 @@
 
     <div class ="big_section">
         <p>
-            아직은 이해하기 어렵지요? 직접 분류기를 구성하면서 학습을 해봅시다!
-            저희가 이번에 만들 것은 물의 문양, 불의 문양, 풀의 문양을 분류할 수 있는 마법 분류기입니다.
+            아직은 이해하기 어렵지요? 분류기의 예시를 보면서 학습을 해봅시다!
+            제가 준비한 것은 물의 문양, 불의 문양, 풀의 문양을 분류할 수 있는 마법 분류기입니다.
         </p>
         <p>
             분류할 문양은 아래의 세 가지 문양이에요.
@@ -62,38 +62,88 @@
             </div>
         </div>
         <p>
-            제가 만든 분류기를 먼저 소개해드릴게요!
+            제가 만든 분류기는 아래와 같습니다.<br> selection button 을 클릭해서 사진을 바꿔가며 동작하는 모습을 간단히 확인해보세요!
         </p>
         <div class = "outer-div">
             <div>
                 <label for="image-select">
                     <select id="image-select" style="width: 100px;">
-                        <option value="/assets/images/MagicUniv/rain.png">물의 문양</option>
-                        <option value="/assets/images/MagicUniv/fire.png">불의 문양</option>
-                        <option value="/assets/images/MagicUniv/leaf.png">풀의 문양</option>
+                        <option value=0>물의 문양</option>
+                        <option value=1>불의 문양</option>
+                        <option value=2>풀의 문양</option>
                     </select>
                     <br>
                     <img id="selected-image" src="/assets/images/MagicUniv/rain.png" alt="Selected Image" style="width: 100px; height: 100px">
                 </label>
             </div>
             <div>
-                <img src="/assets/images/MagicUniv/featureArrow.jpg" alt="featrue 추출기" style="width: 150px; height: 300px">
+                <img id="feature-image" src="/assets/images/MagicUniv/featureArrow_1.jpg" alt="featrue 추출기" style="width: 150px; height: 300px">
             </div>
             <div>
-                <img src="/assets/images/MagicUniv/fullyConnected.JPG" alt="fullyConnected.jpg" style="width: 150px; height: 300px">
+                <p class="box" style="width: 100px;">
+                    |대각선 성분이 있을 경우 반응하는 기계|
+                </p>
+                <p class="box" style="width: 100px;">
+                    |수직 직선 성분이 있을 경우 반응하는 기계|
+                </p>
+                <p class="box" style="width: 100px;">
+                    |곡선(풀잎) 성분이 있을 경우 반응하는 기계|
+                </p>
+            </div>
+            <div>
+                <img id="fullyConnected-image" src="/assets/images/MagicUniv/fullyConnected_1.JPG" alt="fullyConnected.jpg" style="width: 150px; height: 300px">
+            </div>
+            <div>
+                <div class = "outer-div">
+                    <div>
+                        <img src="/assets/images/MagicUniv/rain.png" alt="물" style="width: 100px; height: 100px">
+                    </div>
+                    <div>
+                        <p>물의 문양일 확률</p>
+                    </div>
+                </div>
+                <div class = "outer-div">
+                    <div>
+                        <img src="/assets/images/MagicUniv/fire.png" alt="불" style="width: 100px; height: 100px">
+                    </div>
+                    <div>
+                        <p>불의 문양일 확률</p>
+                    </div>
+                </div>
+                <div class = "outer-div">
+                    <div>
+                        <img src="/assets/images/MagicUniv/leaf.png" alt="풀" style="width: 100px; height: 100px">
+                    </div>
+                    <div>
+                        <p>풀의 문양일 확률</p>
+                    </div>
+                </div>
             </div>
         </div>
-        <canvas id="myCanvas" width="400" height="200"></canvas>
+    </div>
+    <div class = "outer-div">
         <p>
-            위 그래프는 수평 방향으로 크기를 갖는 벡터들이 모여있답니다. 호감도를 벡터로 나타낸 것이에요.
-            "미워"는 왼쪽 방향으로 0.8 크기를 갖고 있고, "사랑해"는 오른쪽 방향으로 0.8, "고마워"는 오른쪽 방향으로 0.7이네요!
+            위의 분류기를 클릭해보셨나요?<br>
+            위 분류기의 요소들을 조금 더 자세히 설명 드릴게요.<br>
+            |대각선 성분이 있을 경우 반응하는 기계| <br>
+            |수직 직선 성분이 있을 경우 반응하는 기계| <br>
+            |곡선(풀잎) 성분이 있을 경우 반응하는 기계| <br>
+            위 세가지 기계는 특정 성분(feature)를 검출하는 기계입니다.
         </p>
         <p>
-            눈으로 보았을 때, "사랑해"와 "고마워"벡터가 비슷하게 생긴 것을 쉽게 알아차릴 수 있어요. 하지만 얼마나 비슷한지 측정하는 것은 쉽지가 않아요.
-            아직 잘 몰라도 괜찮습니다. 지금은 차원에만 집중해봐요.
+            다양한 특징(feature)을 뽑아내고 오른쪽 레이어에서 활용합니다.
+            오른쪽에 있는 완전 연결 레이어로 특정 문양인지 확률을 구할 수 있습니다!
         </p>
     </div>
 
+    <div class = "outer-div">
+        <p>
+            수업이 너무 어려웠나요?
+            걱정하지 마세요. 지금까지 말씀드린 부분은 저희가 마법대학교에서 무엇을 학습할 것인지 대해 개요를 간략하게 설명 드린 거에요.
+            다시 한 번 더 자세히 설명 드릴 것이니 다음 수업을 기대해주세요!
+            오늘은 너무 수고하셨습니다.
+        </p>
+    </div>
 
     <br>
     <br>
