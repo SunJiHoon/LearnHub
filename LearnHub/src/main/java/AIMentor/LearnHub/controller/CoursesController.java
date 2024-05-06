@@ -49,6 +49,8 @@ public class CoursesController {
         return "courses/MagicUniv/supply_05";
     }
 
+
+
     //2단원
     @GetMapping(value = "/TextMaterials/Presentation_01")
     String getTextMaterialsPresentation_01(Model model){
@@ -92,6 +94,8 @@ public class CoursesController {
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
         return "courses/ImagePresent/ImageProcess_01";
     }
+
+
 
     //4단원
     @GetMapping(value = "/LossFunction/LossFunction_01")
