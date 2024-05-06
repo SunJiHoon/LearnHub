@@ -66,10 +66,21 @@
         </p>
         <div class = "outer-div">
             <div>
-                <img src="/assets/images/MagicUniv/featureArrow.jpg" alt="불" style="width: 100px; height: 100px">
+                <label for="image-select">
+                    <select id="image-select" style="width: 100px;">
+                        <option value="/assets/images/MagicUniv/rain.png">물의 문양</option>
+                        <option value="/assets/images/MagicUniv/fire.png">불의 문양</option>
+                        <option value="/assets/images/MagicUniv/leaf.png">풀의 문양</option>
+                    </select>
+                    <br>
+                    <img id="selected-image" src="/assets/images/MagicUniv/rain.png" alt="Selected Image" style="width: 100px; height: 100px">
+                </label>
             </div>
             <div>
-                <img src="/assets/images/MagicUniv/fullyConnected.JPG" alt="불" style="width: 100px; height: 100px">
+                <img src="/assets/images/MagicUniv/featureArrow.jpg" alt="featrue 추출기" style="width: 150px; height: 300px">
+            </div>
+            <div>
+                <img src="/assets/images/MagicUniv/fullyConnected.JPG" alt="fullyConnected.jpg" style="width: 150px; height: 300px">
             </div>
         </div>
         <canvas id="myCanvas" width="400" height="200"></canvas>
@@ -93,6 +104,6 @@
 
 
 </div>
-<script src="/assets/javascripts/courses/MagicUniv/supply_01.js"></script>
+<script src="/assets/javascripts/courses/MagicUniv/supply_04.js"></script>
 <script src="/assets/javascripts/student/register.js"></script>
 </html>
