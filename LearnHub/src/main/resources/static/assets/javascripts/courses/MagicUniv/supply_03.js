@@ -129,9 +129,9 @@ var ctx3 = canvas3.getContext('2d');
 
 // 좌표 설정
 var points3 = [
-    { sentence: "미워", x: -0.8, y: -0.9 },
-    { sentence: "고마워", x: 0.8, y: 0.3 },
-    { sentence: "사랑해", x: 0.7, y: 0.8 }
+    { inputSequence : 1, sentence: "미워", x: -0.8, y: -0.9 },
+    { inputSequence : 2, sentence: "고마워", x: 0.8, y: 0.3 },
+    { inputSequence : 3, sentence: "사랑해", x: 0.7, y: 0.8 }
 ];
 
 function drawPoints3() {
@@ -147,7 +147,7 @@ function drawPoints3() {
 
     points3.forEach(function(point) {
         drawPoint3(point.x, point.y, 'blue');
-        drawSentence3(point.sentence, point.x, point.y);
+        drawSentence3(point.inputSequence, point.sentence, point.x, point.y);
         drawArrow3(point.x, point.y); // 화살표 그리기
     });
 }
@@ -159,10 +159,11 @@ function drawPoint3(x, y, color) {
     ctx3.fill();
 }
 
-function drawSentence3(sentence, x, y) {
+function drawSentence3(inputSequence, sentence, x, y) {
     ctx3.fillStyle = 'black';
     ctx3.font = "14px Arial";
     ctx3.textAlign = "center";
+    ctx3.fillText("입력" + inputSequence, (x + 1) * canvas3.width / 2, (1 - y) * canvas3.height / 2 - 25);
     ctx3.fillText(sentence, (x + 1) * canvas3.width / 2, (1 - y) * canvas3.height / 2 - 10);
     ctx3.fillText(" (" + x + ", " + y + ")", (x + 1) * canvas3.width / 2, (1 - y) * canvas3.height / 2 - 0);
 }
@@ -208,7 +209,7 @@ input3_x.addEventListener('input', function() {
 
 input1_y.addEventListener('input', function() {
     points3[0].y = parseFloat(this.value);
-    console.log(points3)
+    // console.log(points3)
     drawPoints3();
 });
 
