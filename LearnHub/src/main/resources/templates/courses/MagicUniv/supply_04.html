@@ -38,12 +38,53 @@
         이 마법은 사진을 컴퓨터 비전 기술을 사용하여 분석하고 이해하는 것을 의미합니다.
         이를 통해 우리는 사진 속에 있는 객체나 패턴을 식별하고 분류할 수 있습니다."
     </div>
-    <!--    <input type="hidden" id="CurrPath" th:value="${CurrPath}">-->
+
+    <div class ="big_section">
+        <p>
+            아직은 이해하기 어렵지요? 직접 분류기를 구성하면서 학습을 해봅시다!
+            저희가 이번에 만들 것은 물의 문양, 불의 문양, 풀의 문양을 분류할 수 있는 마법 분류기입니다.
+        </p>
+        <p>
+            분류할 문양은 아래의 세 가지 문양이에요.
+        </p>
+        <div class ="outer-div">
+            <div>
+                <img src="/assets/images/MagicUniv/rain.png" alt="물" style="width: 100px; height: 100px">
+                <p>물의 문양</p>
+            </div>
+            <div>
+                <img src="/assets/images/MagicUniv/fire.png" alt="불" style="width: 100px; height: 100px">
+                <p>불의 문양</p>
+            </div>
+            <div>
+                <img src="/assets/images/MagicUniv/leaf.png" alt="풀" style="width: 100px; height: 100px">
+                <p>풀의 문양</p>
+            </div>
+        </div>
+        <p>
+            제가 만든 분류기를 먼저 소개해드릴게요!
+        </p>
+        <div class = "outer-div">
+            <div>
+                <img src="/assets/images/MagicUniv/featureArrow.jpg" alt="불" style="width: 100px; height: 100px">
+            </div>
+            <div>
+                <img src="/assets/images/MagicUniv/fullyConnected.JPG" alt="불" style="width: 100px; height: 100px">
+            </div>
+        </div>
+        <canvas id="myCanvas" width="400" height="200"></canvas>
+        <p>
+            위 그래프는 수평 방향으로 크기를 갖는 벡터들이 모여있답니다. 호감도를 벡터로 나타낸 것이에요.
+            "미워"는 왼쪽 방향으로 0.8 크기를 갖고 있고, "사랑해"는 오른쪽 방향으로 0.8, "고마워"는 오른쪽 방향으로 0.7이네요!
+        </p>
+        <p>
+            눈으로 보았을 때, "사랑해"와 "고마워"벡터가 비슷하게 생긴 것을 쉽게 알아차릴 수 있어요. 하지만 얼마나 비슷한지 측정하는 것은 쉽지가 않아요.
+            아직 잘 몰라도 괜찮습니다. 지금은 차원에만 집중해봐요.
+        </p>
+    </div>
+
+
     <br>
-<!--    <div id="talkInterface">-->
-<!--        <canvas id="imageCanvas" width="500" height="500" onclick="changeImage()"></canvas>-->
-<!--        <div id="dialogueBox"></div>-->
-<!--    </div>-->
     <br>
     <form action="/courses/MagicUniv/supply_05" method="get">
         <!-- 전송 버튼 -->
