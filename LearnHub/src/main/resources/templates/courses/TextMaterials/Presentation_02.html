@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>텍스트 자료의 표현 - 빈도수 벡터</title>
+    <link rel="stylesheet" href="/assets/stylesheets/courses/ImagePresent/ImagePresent_01.css">
+    <link rel="stylesheet" href="/assets/stylesheets/common.css">
+    <link rel="stylesheet" href="/assets/stylesheets/table.css">
+    <link rel="stylesheet" href="/assets/stylesheets/form.css">
+    <link rel="stylesheet" href="/assets/stylesheets/mypage.css">
+
+</head>
+<div class="container">
+
+    <div th:if="${error_message}" class="alert" role="alert" style="color: red;">
+        <p th:text="${error_message}"></p>
+    </div>
+    <div th:if="${name}" class="alert" role="alert" style="color: black;">
+        <p th:text="|${name} 학생이 로그인 되었습니다.|"></p>
+    </div>
+    <div th:if="${created_class_name}" class="alert" role="alert" style="color: black;">
+        <p th:text="|${created_class_name} 클래스가 생성되었습니다.|"></p>
+    </div>
+    <form action="/general/user/mypage" method="GET">
+        <button type="submit" style="width: 30%;">My Page로 가기</button>
+    </form>
+    <br>
+    <form action="/general/user/logout" method="POST">
+        <button type="submit" style="width: 30%;">학생 로그아웃</button>
+    </form>
+
+
+    <div class="big_section">
+        <p>
+            수와 수학 기호를 이용하여 실생활의 텍스트 자료를 목적에 알맞게 표현할 수 있다.
+        </p>
+    </div>
+
+    <div class="big_section">
+        <p>
+            우드로우 교수님의 설명을 잘 들었나요?<br>
+            우드로우 교수님이 주신 마법서는 텍스트 데이터, 이미지 데이터 등에 모두 활용됩니다.<br>
+            텍스트 데이터와 이미지 데이터를 어떤 수치화하는 이유는 마법서에 쓰기 위함입니다.<br>
+            실제 세상에서도 텍스트 데이터와 이미지 데이터를 수치화하여 컴퓨터에 저장하는데, 이는 같은 이유 때문입니다.<br>
+        </p>
+        <p>
+            이번 챕터에선 간략하게 빈도수 벡터, 원 핫 인코딩, 임베딩 벡터를 배워볼거예요.
+        </p>
+    </div>
+    <div class="big_section">
+        <p>
+            "첫째로, 빈도수 벡터는 각 단어가 문서나 문장에서 등장하는 횟수를 벡터로 표현하는 방법입니다.
+            이 방법은 각 단어의 중요도를 빈도수로 표현하여 텍스트를 수학적으로 이해할 수 있도록 합니다."
+        </p>
+    </div>
+
+    <div class="big_section">
+        <p>
+            적용되는 예시에 대해 먼저 알아볼까요?<br>
+            아래 두 문장이 얼마나 비슷한지 측정하면서 공부해봅시다!<br>
+            <br>
+            문장 a. The dog wants a walk<br>
+            문장 b. The cat wants to go home<br>
+            <br>
+            위 두 문장의 유사도를 판단하기 위해서 아래 공식이 필요합니다.
+        </p>
+        <img src="/assets/images/TextMaterials/cosineSimilarity.JPG" alt="코사인 유사도 공식" >
+        <p>
+            두 문장을 빈도수 벡터로 표현하고 이를 사용하여 유사도를 계산할 수 있습니다.<br>
+            코사인 유사도 공식이 이해하기 어렵나요? 코사인 유사도 공식은 3단원에서 더 자세히 한답니다. 지금은 이해하지 못해도 괜찮아요.<br>
+            지금은 문장을 벡터로 나타내야하는 이유만 알고 가면 됩니다!
+        </p>
+    </div>
+    <div class="big_section">
+        <p>
+            문장이 벡터로 나타나야 하는 이유를 알았고, 이제 실제로 문장을 벡터로 바꿔 봅시다!
+            <br>
+            문장 a. The dog wants a walk<br>
+            문장 b. The cat wants to go home<br>
+            위에서 말했던 예시 문장을 다시 가져왔어요!
+            이 문장은 아래로 다시 나타낼 수 있답니다.
+        </p>
+        <div id="PreparedSentence1"></div>
+        <div id="PreparedSentence2"></div>
+
+        <p>문장의 합집합은 아래와 같아요.</p>
+        <div id="union"></div>
+        <p>이제부터 합집합에 들어있는 모든 속성은 축(차원)이 되고 단어의 수 만큼 크기를 갖습니다.</p>
+        <br>
+        <p>문장 a를 벡터 A로 바꾼 것</p>
+        <div id="VectorizedSentence1"></div>
+        <p>문장 b를 벡터 b로 바꾼 것</p>
+        <div id="VectorizedSentence2"></div>
+        <br>
+        <p>문장을 벡터로 바꾸고 코사인 유사도 공식을 이용하면 아래와 같은 결과를 얻을 수 있습니다!</p>
+        <p>코사인 유사도</p>
+        <div id="PreparedResult"></div>
+        <br>
+
+        <p>어려우셨나요? 우리, 실습을 통해 더 쉽게 이해해봐요!</p>
+    </div>
+
+    <div class="big_section">
+        <div>
+            <label for="sentence1">Sentence 1:</label>
+            <input type="text" id="sentence1" oninput="calculateSimilarity()">
+        </div>
+        <div>
+            <label for="sentence2">Sentence 2:</label>
+            <input type="text" id="sentence2" oninput="calculateSimilarity()">
+        </div>
+        <div id="result"></div>
+
+<!--        <div id="result"></div>-->
+
+    </div>
+
+    <!--문장 간 유사도 계산하는 것 나타내자    -->
+<!--    유저가 동적으로 문장을 입력하고 동적으로 유사도가 계산되도록 하자-->
+    <br>
+
+    <form action="/courses/TextMaterials/Presentation_03" method="get">
+        <input type="submit" value = "다음으로 이동하기" class = "custom-button">
+    </form>
+
+
+
+</div>
+<script src="/assets/javascripts/courses/TextMaterials/Presentation_02.js"></script>
+<script src="/assets/javascripts/student/register.js"></script>
+</html>

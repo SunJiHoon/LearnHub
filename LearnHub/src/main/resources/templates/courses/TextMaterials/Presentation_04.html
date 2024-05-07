@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>마법 대학교 입학하기 - 서사 페이지</title>
+    <title>텍스트 자료의 표현 - 임베딩 벡터</title>
     <link rel="stylesheet" href="/assets/stylesheets/courses/ImagePresent/ImagePresent_01.css">
     <link rel="stylesheet" href="/assets/stylesheets/common.css">
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
@@ -32,23 +32,28 @@
 
 
     <div class="big_section">
-        매번 학습목표가 여기에 제시됩니다. 신규 마법사님께서는 아래의 듀토리얼을 확인해주세요.
+        <p>
+            수와 수학 기호를 이용하여 실생활의 텍스트 자료를 목적에 알맞게 표현할 수 있다.
+        </p>
     </div>
+
+    <div class="big_section">
+        <p>
+            "마지막으로, 임베딩 벡터는 각 단어를 고차원 공간에 벡터로 매핑하는 방법입니다.
+            이 방법은 단어의 의미와 유사성을 보존하면서 텍스트를 표현하는 데 사용됩니다."
+        </p>
+    </div>
+
     <!--    <input type="hidden" id="CurrPath" th:value="${CurrPath}">-->
     <br>
-    <div id="talkInterface">
-        <canvas id="imageCanvas" width="500" height="500" onclick="changeImage()"></canvas>
-        <div id="dialogueBox"></div>
-    </div>
 
+    <form action="/courses/TextMaterials/Presentation_05" method="get">
+        <input type="submit" value = "다음으로 이동하기" class = "custom-button">
+    </form>
 
-<!--    <form action="/courses/MagicUniv/enroll_02" method="get">-->
-<!--        &lt;!&ndash; 전송 버튼 &ndash;&gt;-->
-<!--        <input type="submit" value = "다음으로 이동하기">-->
-<!--    </form>-->
 
 
 </div>
-<script src="/assets/javascripts/courses/MagicUniv/enroll_01.js"></script>
+<!--<script src="/assets/javascripts/courses/TextMaterials/Presentation_01.js"></script>-->
 <script src="/assets/javascripts/student/register.js"></script>
 </html>

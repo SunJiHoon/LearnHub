@@ -49,7 +49,46 @@ public class CoursesController {
         return "courses/MagicUniv/supply_05";
     }
 
+
+
     //2단원
+    @GetMapping(value = "/TextMaterials/Presentation_01")
+    String getTextMaterialsPresentation_01(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/TextMaterials/Presentation_01";
+    }
+    @GetMapping(value = "/TextMaterials/Presentation_02")
+    String getTextMaterialsPresentation_02(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/TextMaterials/Presentation_02";
+    }
+    @GetMapping(value = "/TextMaterials/Presentation_03")
+    String getTextMaterialsPresentation_03(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/TextMaterials/Presentation_03";
+    }
+    @GetMapping(value = "/TextMaterials/Presentation_04")
+    String getTextMaterialsPresentation_04(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/TextMaterials/Presentation_04";
+    }
+    @GetMapping(value = "/TextMaterials/Presentation_05")
+    String getTextMaterialsPresentation_05(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/TextMaterials/Presentation_05";
+    }
+
+    @GetMapping(value = "/TextMaterials/Visualization_01")
+    String getTextMaterialsVisualization_01(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/TextMaterials/Visualization_01";
+    }
+    @GetMapping(value = "/TextMaterials/Visualization_02")
+    String getTextMaterialsVisualization_02(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/TextMaterials/Visualization_02";
+    }
+
     @GetMapping(value = "/ImagePresent/ImagePresent_00")
     String getImagePresent_00(Model model){
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
@@ -70,6 +109,14 @@ public class CoursesController {
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
         return "courses/ImagePresent/ImagePresent_03";
     }
+
+    @GetMapping(value = "/ImagePresent/ImageProcess_01")
+    String getImageProcess_01(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/ImageProcess_01";
+    }
+
+
 
     //4단원
     @GetMapping(value = "/LossFunction/LossFunction_01")
