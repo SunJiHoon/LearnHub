@@ -79,14 +79,14 @@
             문장 a. The dog wants a walk<br>
             문장 b. The cat wants to go home<br>
             위에서 말했던 예시 문장을 다시 가져왔어요!
-            이 문장은 아래로 다시 나타낼 수 있답니다.
+            이 문장은 아래처럼 토큰으로 다시 나타낼 수 있답니다.
         </p>
         <div id="PreparedSentence1"></div>
         <div id="PreparedSentence2"></div>
 
-        <p>문장의 합집합은 아래와 같아요.</p>
+        <p>토큰이 된 문장의 합집합은 아래와 같아요.</p>
         <div id="union"></div>
-        <p>이제부터 합집합에 들어있는 모든 속성은 축(차원)이 되고 단어의 수 만큼 크기를 갖습니다.</p>
+        <p>이제부터 합집합에 들어있는 모든 속성은 축(차원)이 됩니다. 그리고 각 문장 벡터들은 해당 속성에 단어의 수 만큼 크기를 갖습니다.</p>
         <br>
         <p>문장 a를 벡터 A로 바꾼 것</p>
         <div id="VectorizedSentence1"></div>
@@ -98,18 +98,47 @@
         <div id="PreparedResult"></div>
         <br>
 
-        <p>어려우셨나요? 우리, 실습을 통해 더 쉽게 이해해봐요!</p>
+        <p>어려우셨나요? 실습을 통해 더 쉽게 이해해봐요!</p>
     </div>
 
     <div class="big_section">
+        <p>비교하고 싶은 문장을 입력해주세요!</p>
         <div>
             <label for="sentence1">Sentence 1:</label>
-            <input type="text" id="sentence1" oninput="calculateSimilarity()">
+            <input type="text" id="sentence1"
+                   oninput="calculateSimilarity(); tokenizeSentence(); vetorization();"
+            >
         </div>
         <div>
             <label for="sentence2">Sentence 2:</label>
-            <input type="text" id="sentence2" oninput="calculateSimilarity()">
+            <input type="text" id="sentence2"
+                   oninput="calculateSimilarity(); tokenizeSentence(); vetorization();"
+            >
         </div>
+
+        <p>토큰화 된 sentence1</p>
+        <div id="tokenized_sentence1"></div>
+        <p>토큰화 된 sentence2</p>
+        <div id="tokenized_sentence2"></div>
+        <p>토큰화 된 문장들의 합집합</p>
+        <div id="unioned_sentence"></div>
+
+        <p>
+            sentence1을 벡터 S1로 바꾼 것
+        </p>
+<!--        {"The":1,"dog":1,"wants":1,"a":1,"walk":1,"cat":0,"to":0,"go":0,"home":0}-->
+        <div id="VectorizedUserSentence1"></div>
+
+        <p>
+            sentecne2를 벡터 S2로 바꾼 것
+        </p>
+<!--        {"The":1,"dog":0,"wants":1,"a":0,"walk":0,"cat":1,"to":1,"go":1,"home":1}-->
+        <div id="VectorizedUserSentence2"></div>
+
+
+<p>
+    코사인 유사도
+</p>
         <div id="result"></div>
 
 <!--        <div id="result"></div>-->
@@ -123,7 +152,6 @@
     <form action="/courses/TextMaterials/Presentation_03" method="get">
         <input type="submit" value = "다음으로 이동하기" class = "custom-button">
     </form>
-
 
 
 </div>
