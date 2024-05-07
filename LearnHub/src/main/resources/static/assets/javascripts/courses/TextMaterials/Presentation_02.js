@@ -251,7 +251,7 @@ function vetorization(){
     vectorizedSentence1Div.textContent = JSON.stringify(preparedVector1);
     vectorizedSentence2Div.textContent = JSON.stringify(preparedVector2);
 
-    var cosineSimilarityDiv = document.getElementById("PreparedResult");
+    var cosineSimilarityDiv = document.getElementById("result");
     cosineSimilarityDiv.textContent = cosineSimilarity(preparedVector1, preparedVector2);
 
 
