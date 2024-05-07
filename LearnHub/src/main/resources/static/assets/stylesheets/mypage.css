@@ -59,7 +59,13 @@
     background-color: #ADD8E6; /* 연한 하늘색 */
 }
 
-
+.word {
+    display: inline-block;
+    margin: 5px;
+    padding: 5px 10px;
+    background-color: lightblue;
+    border-radius: 5px;
+}
 
 
 
