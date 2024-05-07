@@ -42,9 +42,84 @@
             "마지막으로, 임베딩 벡터는 각 단어를 고차원 공간에 벡터로 매핑하는 방법입니다.
             이 방법은 단어의 의미와 유사성을 보존하면서 텍스트를 표현하는 데 사용됩니다."
         </p>
+        <p>
+            "인공지능과 관련된 수학 - 앞으로 배울 것들"에서 다루었던 내용이죠? 그 내용을 다시 가져왔으니 천천히 복습해봐요!
+        </p>
     </div>
 
-    <!--    <input type="hidden" id="CurrPath" th:value="${CurrPath}">-->
+
+    <div class ="big_section">
+        <p>
+            1차원 공간에서의 비교
+        </p>
+        <canvas id="myCanvas" width="400" height="200"></canvas>
+        <p>
+            위 그래프는 수평 방향으로 크기를 갖는 벡터들이 모여있답니다. 호감도를 벡터로 나타낸 것이에요.
+            "미워"는 왼쪽 방향으로 0.8 크기를 갖고 있고, "사랑해"는 오른쪽 방향으로 0.8, "고마워"는 오른쪽 방향으로 0.7이네요!
+        </p>
+        <p>
+            눈으로 보았을 때, "사랑해"와 "고마워"벡터가 비슷하게 생긴 것을 쉽게 알아차릴 수 있어요. 하지만 얼마나 비슷한지 측정하는 것은 쉽지가 않아요.
+            아직 잘 몰라도 괜찮습니다. 지금은 차원에만 집중해봐요.
+        </p>
+    </div>
+
+    <div class ="big_section">
+        <p>
+            2차원 공간에서의 비교
+        </p>
+        <canvas id="myCanvas2" width="400" height="400"></canvas>
+        <p>
+            위 그래프는 X축으로는 호감도, Y축으로는 다정함을 크기로 갖는 벡터들이 모여있답니다.
+            "미워"에 해당하는 벡터는 좌측하단을 향하고 있고, "사랑해"와 "고마워"는 우측 상단을 가리키네요!
+        </p>
+        <p>
+            차원이 늘어났는데도, "사랑해"와 "고마워"벡터가 비슷하게 생긴 것을 쉽게 알아차릴 수 있어요. 하지만 여전히 얼마나 비슷한지 측정하는 것은 쉽지가 않아요.
+            지금까지 단어끼리 유사하게 생긴 것을 확인했어요. 이후 단원들에서 벡터가 얼마나 비슷하게 생겼는지 알아내는 방법이있는데, 천천히 알아가봐요!
+        </p>
+    </div>
+
+    <div class ="big_section">
+        <p>
+            2차원 공간에서의 비교 - 직접 단어에 정보 입력하고 벡터 확인하기
+        </p>
+        <p>
+            이번엔 직접 단어를 입력하고, 단어의 정보를 입력해서 실습을 진행해봐요!
+            위에서 말했지만, X축으로는 호감도, Y축으로는 다정함을 크기로 가져요.
+        </p>
+        <div class ="outer-div">
+            <div class="canvas-container">
+                <canvas id="myCanvas3" width="400" height="400"></canvas>
+            </div>
+            <div  class="canvas-container">
+                <p>2차원 공간에서의 비교</p>
+                <label for="input1_sentence">
+                    <input type="text" id="input1_sentence" value="미워">
+                </label>
+                <label for="input1_x">입력1 x:</label>
+                <input type="range" min="-1" max="1" step="0.1" value="-0.8" id="input1_x"> <!-- x 좌표를 슬라이더로 입력받음 -->
+                <label for="input1_y">입력1 y:</label>
+                <input type="range" min="-1" max="1" step="0.1" value="-0.9" id="input1_y"> <!-- x 좌표를 슬라이더로 입력받음 -->
+
+                <label for="input2_sentence">
+                    <input type="text" id="input2_sentence" value="고마워">
+                </label>
+                <label for="input2_x">입력2 x:</label>
+                <input type="range" min="-1" max="1" step="0.1" value="0.8" id="input2_x"> <!-- x 좌표를 슬라이더로 입력받음 -->
+                <label for="input2_y">입력2 y:</label>
+                <input type="range" min="-1" max="1" step="0.1" value="0.3" id="input2_y"> <!-- x 좌표를 슬라이더로 입력받음 -->
+
+                <label for="input3_sentence">
+                    <input type="text" id="input3_sentence" value="사랑해">
+                </label>
+                <label for="input3_x">입력3 x:</label>
+                <input type="range" min="-1" max="1" step="0.1" value="0.7" id="input3_x"> <!-- x 좌표를 슬라이더로 입력받음 -->
+                <label for="input3_y">입력3 y:</label>
+                <input type="range" min="-1" max="1" step="0.1" value="0.8" id="input3_y"> <!-- x 좌표를 슬라이더로 입력받음 -->
+
+            </div>
+        </div>
+
+        <!--    <input type="hidden" id="CurrPath" th:value="${CurrPath}">-->
     <br>
 
     <form action="/courses/TextMaterials/Presentation_05" method="get">
@@ -54,6 +129,6 @@
 
 
 </div>
-<!--<script src="/assets/javascripts/courses/TextMaterials/Presentation_01.js"></script>-->
+<script src="/assets/javascripts/courses/TextMaterials/Presentation_04.js"></script>
 <script src="/assets/javascripts/student/register.js"></script>
 </html>
