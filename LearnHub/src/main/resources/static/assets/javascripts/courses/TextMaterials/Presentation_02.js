@@ -235,15 +235,15 @@ function vetorization(){
     var allWords = words1.concat(words2);
 // 합집합을 구함 (중복된 단어 제거)
     var union = Array.from(new Set(allWords));
-    console.log(words1);
-    console.log(words2);
-    console.log(union);
+    // console.log(words1);
+    // console.log(words2);
+    // console.log(union);
 
 
     var preparedVector1 = makePreparedVector(words1, union);
     var preparedVector2 = makePreparedVector(words2, union);
-    console.log(preparedVector1);
-    console.log(preparedVector2);
+    // console.log(preparedVector1);
+    // console.log(preparedVector2);
 
 // 결과를 HTML로 출력
     var vectorizedSentence1Div = document.getElementById("VectorizedUserSentence1");
