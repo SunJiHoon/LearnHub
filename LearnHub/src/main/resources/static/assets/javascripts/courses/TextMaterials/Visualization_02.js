@@ -356,4 +356,128 @@ function vetorization(){
 
     updateChart(myDoughnutChart1, labels1, data1);
     updateChart(myDoughnutChart2, labels2, data2);
+
+
+
+    //
+
+    // 워드클라우드 모듈불러오기
+    zingchart.MODULESDIR = 'https://cdn.zingchart.com/modules/';
+
+    let wordss1 = [];
+    for(el in preparedVector1){
+        wordss1.push({text : el, count : preparedVector1[el]});
+    }
+    let wordss2 = [];
+    for(el in preparedVector2){
+        wordss2.push({text : el, count : preparedVector2[el]});
+    }
+
+//워드클라우드 환경설정
+    var myConfig1 = {
+        type: 'wordcloud',
+        options: {
+            words: wordss1,
+            minLength: 5,
+            ignore: [""],
+            maxItems: 40,
+            aspect: 'spiral', // 'flow-top' | 'flow-center'
+
+            colorType: 'palette',
+            palette: ['#D32F2F', '#5D4037', '#1976D2', '#E53935', '#6D4C41', '#1E88E5', '#F44336', '#795548', '#2196F3', '#EF5350', '#8D6E63', '#42A5F5'],
+
+            style: {
+                fontFamily: 'Crete Round',
+
+                hoverState: {
+                    backgroundColor: '#D32F2F',
+                    borderRadius: 2,
+                    fontColor: 'white'
+                },
+                tooltip: {
+                    text: '%text: %hits',
+                    visible: true,
+                    alpha: 0.9,
+                    backgroundColor: '#1976D2',
+                    borderRadius: 2,
+                    borderColor: 'none',
+                    fontColor: 'white',
+                    fontFamily: 'Georgia',
+                    textAlpha: 1
+                }
+            }
+        },
+
+        source: {
+            //text: '--President Barack Obama<br> Selma 50th anniversary speech<br>March 7, 2015',
+            //Source: https://obamawhitehouse.archives.gov/the-press-office/2015/03/07/remarks-president-50th-anniversary-selma-montgomery-marches
+            fontColor: '#64B5F6',
+            fontSize: 10,
+            fontFamily: 'Georgia',
+            fontWeight: 'normal',
+            marginBottom: '10%'
+        }
+    };
+
+//워드클라우드 렌더링
+    zingchart.render({
+        id: 'wordCloud1',
+        data: myConfig1,
+        height: 400,
+        width: '100%'
+    });
+
+    //워드클라우드 환경설정
+    var myConfig2 = {
+        type: 'wordcloud',
+        options: {
+            words: wordss2,
+            minLength: 5,
+            ignore: [""],
+            maxItems: 40,
+            aspect: 'spiral', // 'flow-top' | 'flow-center'
+
+            colorType: 'palette',
+            palette: ['#D32F2F', '#5D4037', '#1976D2', '#E53935', '#6D4C41', '#1E88E5', '#F44336', '#795548', '#2196F3', '#EF5350', '#8D6E63', '#42A5F5'],
+
+            style: {
+                fontFamily: 'Crete Round',
+
+                hoverState: {
+                    backgroundColor: '#D32F2F',
+                    borderRadius: 2,
+                    fontColor: 'white'
+                },
+                tooltip: {
+                    text: '%text: %hits',
+                    visible: true,
+                    alpha: 0.9,
+                    backgroundColor: '#1976D2',
+                    borderRadius: 2,
+                    borderColor: 'none',
+                    fontColor: 'white',
+                    fontFamily: 'Georgia',
+                    textAlpha: 1
+                }
+            }
+        },
+
+        source: {
+            //text: '--President Barack Obama<br> Selma 50th anniversary speech<br>March 7, 2015',
+            //Source: https://obamawhitehouse.archives.gov/the-press-office/2015/03/07/remarks-president-50th-anniversary-selma-montgomery-marches
+            fontColor: '#64B5F6',
+            fontSize: 10,
+            fontFamily: 'Georgia',
+            fontWeight: 'normal',
+            marginBottom: '10%'
+        }
+    };
+
+//워드클라우드 렌더링
+    zingchart.render({
+        id: 'wordCloud2',
+        data: myConfig2,
+        height: 400,
+        width: '100%'
+    });
 }
