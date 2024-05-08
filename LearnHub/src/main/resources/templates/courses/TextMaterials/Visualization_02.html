@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>텍스트 자료의 처리와 시각화 - 임베딩 벡터 시각화</title>
+    <title>텍스트 자료의 처리와 시각화 - 상대 도수 벡터</title>
     <link rel="stylesheet" href="/assets/stylesheets/courses/ImagePresent/ImagePresent_01.css">
     <link rel="stylesheet" href="/assets/stylesheets/common.css">
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
@@ -34,15 +34,35 @@
     <div class="big_section">
         수와 수학 기호로 표현된 텍스트 자료를 처리하는 수학 원리를 이해하고 자료를 시각화할 수 있다.
     </div>
-    <!--    <input type="hidden" id="CurrPath" th:value="${CurrPath}">-->
+
+    <div class="big_section">
+        <p>
+            "지난 단원에서 배웠던 빈도수 벡터를 잘 기억하고 계신가요?<br>
+            빈도수 벡터는 각 단어가 문서나 문장에서 등장하는 횟수를 벡터로 표현하는 방법입니다.
+            <br> 즉, 단어의 등장 빈도를 요소로 갖는 벡터를 생성하여 각 단어의 중요성을 표현하는 것이죠."
+            <br><br>
+
+            "그리고 이 빈도수 벡터의 후속 개념으로는 바로 '상대도수'가 있습니다. <br>
+            상대도수는 빈도수 벡터에서 각 단어의 등장 빈도를 전체 단어 수로 나눈 값으로,
+            특정 단어가 전체 텍스트에서 얼마나 자주 등장하는지를 상대적으로 나타냅니다."
+<br><br>
+            "따라서 상대도수는 단순히 단어의 등장 빈도를 보다 의미 있는 값으로 변환하여
+            단어의 중요성을 더욱 잘 파악할 수 있게 해 줍니다. 이러한 상대도수 개념을 이해하고
+            적절히 활용하면, 텍스트 데이터를 보다 효과적으로 이해하고 분석할 수 있습니다."
+        </p>
+
+    </div>
+    <div class="big_section">
+        <p>
+            자 그럼 본격적으로 상대도수에 대해 배워볼까요?<br>
+            상대도수는 단어의 등장 빈도를 전체 단어 수로 나눈 값으로,
+            특정 단어가 전체 텍스트에서 얼마나 자주 등장하는지를 상대적으로 나타냅니다.
+        </p>
+    </div>
+
     <br>
-<!--    <div id="talkInterface">-->
-<!--        <canvas id="imageCanvas" width="500" height="500" onclick="changeImage()"></canvas>-->
-<!--        <div id="dialogueBox"></div>-->
-<!--    </div>-->
 
-
-    <form action="/courses/TextMaterials/Visualization_02" method="get">
+    <form action="/courses/TextMaterials/Visualization_03" method="get">
         <input type="submit" value = "다음으로 이동하기" class = "custom-button">
     </form>
 
