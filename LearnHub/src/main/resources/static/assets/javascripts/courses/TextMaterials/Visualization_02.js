@@ -199,6 +199,102 @@ function tokenizeSentence(){
         unionDiv.appendChild(wordSpan);
     });
 }
+
+// 초기 라벨과 데이터 설정
+let labels1 = Object.keys(relativePreparedVector1);
+let data1 = Object.values(relativePreparedVector1);
+let labels2 = Object.keys(relativePreparedVector2);
+let data2 = Object.values(relativePreparedVector2);
+
+// 차트 생성 함수
+function createChart(id, label, data) {
+    const ctx = document.getElementById(id).getContext('2d');
+    const config = {
+        type: 'bar',
+        // type: 'doughnut', // 원형 그래프로 설정
+
+        data: {
+            labels: label,
+            datasets: [{
+                label: 'Relative Frequency',
+                data: data,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    };
+
+    const myChart = new Chart(ctx, config);
+
+    return myChart;
+}
+
+// 차트 생성 함수
+function createDoughnutChart(id, label, data) {
+    const ctx = document.getElementById(id).getContext('2d');
+    const config = {
+        // type: 'bar',
+        type: 'doughnut', // 원형 그래프로 설정
+
+        data: {
+            labels: label,
+            datasets: [{
+                label: 'Relative Frequency',
+                data: data,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    };
+
+    const myChart = new Chart(ctx, config);
+
+    return myChart;
+}
+
+// 초기 차트 생성
+let myChart1 = createChart("myChart1", labels1, data1);
+let myChart2 = createChart("myChart2", labels2, data2);
+// 초기 차트 생성
+let myDoughnutChart1 = createDoughnutChart("myDoughnutChart1", labels1, data1);
+let myDoughnutChart2 = createDoughnutChart("myDoughnutChart2", labels2, data2);
+
+// 라벨과 데이터 업데이트 함수
+function updateChart(myChart, newLabels, newData) {
+    myChart.data.labels = newLabels;
+    myChart.data.datasets[0].data = newData;
+    myChart.update();
+}
 function vetorization(){
     var sentence1 = document.getElementById("sentence1").value;
     var sentence2 = document.getElementById("sentence2").value;
@@ -232,4 +328,32 @@ function vetorization(){
     vectorizedSentence1Div.textContent = JSON.stringify(preparedVector1);
     vectorizedSentence2Div.textContent = JSON.stringify(preparedVector2);
 
+    var relativePreparedUserVector1 = makeRelativePreparedVector(words1, union);
+    var relativePreparedUserVector2 = makeRelativePreparedVector(words2, union);
+// 각 상대도수를 반올림하여 소수점 둘째 자리까지 표시
+    for (const word in relativePreparedUserVector1) {
+        relativePreparedUserVector1[word] = Math.round(relativePreparedUserVector1[word] * 100) / 100;
+    }
+    for (const word in relativePreparedUserVector2) {
+        relativePreparedUserVector2[word] = Math.round(relativePreparedUserVector2[word] * 100) / 100;
+    }
+
+// 결과를 HTML로 출력
+    var relativeVectorizedUserSentence1Div = document.getElementById("RelativeVectorizedUserSentence1");
+    var relativeVectorizedUserSentence2Div = document.getElementById("RelativeVectorizedUserSentence2");
+    relativeVectorizedUserSentence1Div.textContent = JSON.stringify(relativePreparedUserVector1);
+    relativeVectorizedUserSentence2Div.textContent = JSON.stringify(relativePreparedUserVector2);
+
+
+
+    const labels1 = Object.keys(relativePreparedUserVector1);
+    const data1 = Object.values(relativePreparedUserVector1);
+    const labels2 = Object.keys(relativePreparedUserVector2);
+    const data2 = Object.values(relativePreparedUserVector2);
+
+    updateChart(myChart1, labels1, data1);
+    updateChart(myChart2, labels2, data2);
+
+    updateChart(myDoughnutChart1, labels1, data1);
+    updateChart(myDoughnutChart2, labels2, data2);
 }
