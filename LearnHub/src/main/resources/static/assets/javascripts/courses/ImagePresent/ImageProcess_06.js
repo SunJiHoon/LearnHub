@@ -3,18 +3,12 @@ const images =
         "/assets/images/ImagePresent/summonMagic.jfif",
         "/assets/images/ImagePresent/summonMagic.jfif",
         "/assets/images/ImagePresent/summonMagic.jfif",
-        "/assets/images/ImagePresent/summonMagic.jfif",
-        "/assets/images/ImagePresent/summonMagic.jfif",
-        "/assets/images/ImagePresent/summonMagic.jfif",
+
     ]; // 전환할 이미지들의 경로
 const texts = [
-    "RGB 채널과 행렬에 관한 수업이 진행되고 있다.",
-    "수업 중 우드루이 교수가 말씀하셨다.",
-    "\"이 방법은 더 정교한 마법 기술로, 물건의 세부적인 속성과 색상까지 저장할 수 있습니다.\"",
-    "\"먼저, 마법서의 페이지에는 물건의 RGB 채널 값을 행렬 형태로 저장합니다.\"",
-    "\"각각의 채널은 물건의 색상을 나타내며," +
-    " 행렬은 그것들을 조합하여 물건의 전체 색상을 나타냅니다.\"",
-    "\"이러한 행렬은 물건의 색상을 완벽하게 재현할 수 있도록 합니다.\"",
+    "\"오늘의 수업에서는 이미지 프로세싱의 기초를 깊이 있게 학습하고, 이를 소환마법과 연계하여 창의적으로 활용하는 방법을 탐구했습니다.\"",
+    "\"이미지 프로세싱은 마법의 세계에서 놀라운 가능성을 제공하며, 우리는 마법진을 통해 이미지를 수정하고 조작하여 새로운 시각적 경험을 창출할 수 있습니다.\"",
+    "\"이를 통해 우리는 더욱 풍부한 창의력과 마법의 능력을 발휘할 수 있게 되었습니다.\"" ,
 ]; // 이미지에 대응하는 텍스트
 
 let currentImageIndex = 0;
