@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
     <link rel="stylesheet" href="/assets/stylesheets/mypage.css">
+    <link rel="stylesheet" href="/assets/stylesheets/dnd.css">
+
 
 </head>
 <div class="container">
@@ -63,9 +65,19 @@
         </div>
     </div>
     <div class="big_section">
-        <p>
-            ㅁㄴㅇㄹ
-        </p>
+<!--        닭 돼지 소-->
+<!--        병아리 아기 돼지 송아지-->
+<!--        닭고기 돼지고기 소고기-->
+        <p>닭, 돼지, 소에 더하고 싶은 벡터 성분을 끌어다 놓아 주세요.</p>
+        <div id="drag-container">
+            <div id="draggable1" draggable="true" class="draggable">새끼 벡터</div>
+            <div id="draggable2" draggable="true" class="draggable">음식 벡터</div>
+
+            <div id="dropzone1" class="dropzone">벡터 주머니</div>
+            <div id="dropzone2" class="dropzone">(여기로 드래그 & 드롭 해주세요!)적용할 것</div>
+        </div>
+        <img id="chickenImg" src="/assets/images/TextMaterials/chicken.jpg" alt="닭 벡터" >
+
     </div>
     <!--    <input type="hidden" id="CurrPath" th:value="${CurrPath}">-->
     <br>
