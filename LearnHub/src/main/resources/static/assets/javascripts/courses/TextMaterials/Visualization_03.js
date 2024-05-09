@@ -13,6 +13,9 @@ const draggable1 = document.getElementById('draggable1');
 const draggable2 = document.getElementById('draggable2');
 const dropzone1 = document.getElementById('dropzone1');
 const dropzone2 = document.getElementById('dropzone2');
+// 이미지 요소 선택
+const chickenImg = document.getElementById('chickenImg');
+
 
 draggable1.addEventListener('dragstart', dragStart);
 draggable2.addEventListener('dragstart', dragStart);
@@ -39,6 +42,15 @@ function drop(event) {
     event.preventDefault();
     const data = event.dataTransfer.getData('text');
     const draggedElement = document.getElementById(data);
+    if( draggedElement.id === "draggable1"){
+        // 새로운 이미지 경로 설정
+        let newSrc = '/assets/images/TextMaterials/chick.jpg';
+        chickenImg.src = newSrc;
+    }
+    else{
+        let newSrc = '/assets/images/TextMaterials/chicken_food.jpg';
+        chickenImg.src = newSrc;
+    }
     // event.target.appendChild(draggedElement);
     // dropzone2에 있는 모든 자식 요소를 dropzone1로 이동
     while (dropzone2.lastChild) {
