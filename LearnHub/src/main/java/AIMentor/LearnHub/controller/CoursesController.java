@@ -99,6 +99,42 @@ public class CoursesController {
         return "courses/TextMaterials/Visualization_04";
     }
 
+
+
+
+    //3단원
+    @GetMapping(value = "/ImagePresent/2dImagePresent_01")
+    String get2dImagePresent_01(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/2dImagePresent_01";
+    }
+    @GetMapping(value = "/ImagePresent/2dImagePresent_02")
+    String get2dImagePresent_02(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/2dImagePresent_02";
+    }
+    @GetMapping(value = "/ImagePresent/2dImagePresent_03")
+    String get2dImagePresent_03(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/2dImagePresent_03";
+    }
+
+    @GetMapping(value = "/ImagePresent/2dImagePresent_04")
+    String get2dImagePresent_04(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/2dImagePresent_04";
+    }
+    @GetMapping(value = "/ImagePresent/2dImagePresent_05")
+    String get2dImagePresent_05(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/2dImagePresent_05";
+    }
+    @GetMapping(value = "/ImagePresent/2dImagePresent_06")
+    String get2dImagePresent_06(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/2dImagePresent_06";
+    }
+
     @GetMapping(value = "/ImagePresent/ImagePresent_00")
     String getImagePresent_00(Model model){
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
