@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>이미지 자료의 처리 - 서사 페이지</title>
+    <title>사진 자료 표현 - 흑백 토글 페이지</title>
     <link rel="stylesheet" href="/assets/stylesheets/courses/ImagePresent/ImagePresent_01.css">
     <link rel="stylesheet" href="/assets/stylesheets/common.css">
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
@@ -28,30 +28,24 @@
     <form action="/general/user/logout" method="POST">
         <button type="submit" style="width: 30%;">학생 로그아웃</button>
     </form>
-
-<!--    <input type="hidden" id="CurrPath" th:value="${CurrPath}">-->
     <br>
 
     <div class="big_section">
         <p>
-            수와 수학 기호로 표현된 이미지 자료를 처리하는 수학 원리를 이해한다.
+            수와 수학 기호를 이용하여 실생활의 이미지 자료를 목적에 알맞게 표현할 수 있다.
         </p>
     </div>
-
-    <div id="talkInterface">
-        <canvas id="imageCanvas" width="500" height="500" onclick="changeImage()"></canvas>
-        <div id="dialogueBox"></div>
-    </div>
-
     <br>
 
-    <form action="/courses/ImagePresent/ImageProcess_02" method="get">
+
+
+    <form action="/courses/ImagePresent/2dImagePresent_03" method="get">
         <!-- 전송 버튼 -->
         <input type="submit" value = "다음으로 이동하기" class = "custom-button">
     </form>
 
 
 </div>
-<script src="/assets/javascripts/courses/ImagePresent/ImageProcess_01.js"></script>
+<!--<script src="/assets/javascripts/courses/ImagePresent/2dImagePresent_01.js"></script>-->
 <script src="/assets/javascripts/student/register.js"></script>
 </html>

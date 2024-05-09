@@ -99,6 +99,42 @@ public class CoursesController {
         return "courses/TextMaterials/Visualization_04";
     }
 
+
+
+
+    //3단원
+    @GetMapping(value = "/ImagePresent/2dImagePresent_01")
+    String get2dImagePresent_01(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/2dImagePresent_01";
+    }
+    @GetMapping(value = "/ImagePresent/2dImagePresent_02")
+    String get2dImagePresent_02(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/2dImagePresent_02";
+    }
+    @GetMapping(value = "/ImagePresent/2dImagePresent_03")
+    String get2dImagePresent_03(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/2dImagePresent_03";
+    }
+
+    @GetMapping(value = "/ImagePresent/2dImagePresent_04")
+    String get2dImagePresent_04(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/2dImagePresent_04";
+    }
+    @GetMapping(value = "/ImagePresent/2dImagePresent_05")
+    String get2dImagePresent_05(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/2dImagePresent_05";
+    }
+    @GetMapping(value = "/ImagePresent/2dImagePresent_06")
+    String get2dImagePresent_06(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/2dImagePresent_06";
+    }
+
     @GetMapping(value = "/ImagePresent/ImagePresent_00")
     String getImagePresent_00(Model model){
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
@@ -125,6 +161,32 @@ public class CoursesController {
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
         return "courses/ImagePresent/ImageProcess_01";
     }
+    @GetMapping(value = "/ImagePresent/ImageProcess_02")
+    String getImageProcess_02(Model model){//밝고 어둡게 정수 합, 실수배
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/ImageProcess_02";
+    }
+    @GetMapping(value = "/ImagePresent/ImageProcess_03")
+    String getImageProcess_03(Model model){//두 사진 합성
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/ImageProcess_03";
+    }
+    @GetMapping(value = "/ImagePresent/ImageProcess_04")
+    String getImageProcess_04(Model model){//사진 확대 축소
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/ImageProcess_04";
+    }
+    @GetMapping(value = "/ImagePresent/ImageProcess_05")
+    String getImageProcess_05(Model model){//사진 회전
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/ImageProcess_05";
+    }
+    @GetMapping(value = "/ImagePresent/ImageProcess_06")
+    String getImageProcess_06(Model model){//종료 서사
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ImagePresent/ImageProcess_06";
+    }
+
 
 
 
