@@ -9,6 +9,40 @@
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
     <link rel="stylesheet" href="/assets/stylesheets/mypage.css">
+    <style>
+        .horizontal {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        img.pattern {
+            width: 100px;
+            height: 100px;
+        }
+        .magic-circle {
+            margin: 0;
+            border-radius: 50px;
+            width: 100px;
+            height: 100px;
+            background-color: #add8e6;
+            word-break: keep-all;
+        }
+        .pattern-caption {
+            margin: 0;
+            width: 100px;
+            height: 100px;
+            word-break: keep-all;
+        }
+        .middle-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .with-transition {
+            transition: filter 1s ease-out;
+        }
+    </style>
 </head>
 <div class="container">
 
@@ -47,76 +81,57 @@
         <p>
             분류할 문양은 아래의 세 가지 문양이에요.
         </p>
-        <div class ="outer-div">
+        <div class="horizontal">
             <div>
-                <img src="/assets/images/MagicUniv/rain.png" alt="물" style="width: 100px; height: 100px">
+                <img class="pattern" src="/assets/images/MagicUniv/rain.svg" alt="물" style="filter: drop-shadow(0 0 8px blue)">
                 <p>물의 문양</p>
             </div>
             <div>
-                <img src="/assets/images/MagicUniv/fire.png" alt="불" style="width: 100px; height: 100px">
+                <img class="pattern" src="/assets/images/MagicUniv/fire.svg" alt="불" style="filter: drop-shadow(0 0 8px red)">
                 <p>불의 문양</p>
             </div>
             <div>
-                <img src="/assets/images/MagicUniv/leaf.png" alt="풀" style="width: 100px; height: 100px">
+                <img class="pattern" src="/assets/images/MagicUniv/leaf.svg" alt="풀" style="filter: drop-shadow(0 0 8px green)">
                 <p>풀의 문양</p>
             </div>
         </div>
         <p>
             제가 만든 CNN 분류기는 아래와 같습니다.<br> selection button 을 클릭해서 사진을 바꿔가며 동작하는 모습을 간단히 확인해보세요!
         </p>
-        <div class = "outer-div">
+        <div class="horizontal">
+            <label>
+                <select id="image-select" style="width: 100px;">
+                    <option value="0">물의 문양</option>
+                    <option value="1">불의 문양</option>
+                    <option value="2">풀의 문양</option>
+                </select>
+                <img id="selected-image" class="pattern" src="/assets/images/MagicUniv/rain.svg">
+            </label>
+            <canvas id="feature-layer" width="150" height="300"></canvas>
             <div>
-                <label for="image-select">
-                    <select id="image-select" style="width: 100px;">
-                        <option value=0>물의 문양</option>
-                        <option value=1>불의 문양</option>
-                        <option value=2>풀의 문양</option>
-                    </select>
-                    <br>
-                    <img id="selected-image" src="/assets/images/MagicUniv/rain.png" alt="Selected Image" style="width: 100px; height: 100px">
-                </label>
-            </div>
-            <div>
-                <img id="feature-image" src="/assets/images/MagicUniv/featureArrow_1.jpg" alt="featrue 추출기" style="width: 150px; height: 300px">
-            </div>
-            <div>
-                <p class="box" style="width: 100px;">
-                    |대각선 성분이 있을 경우 반응하는 기계|
+                <p class="magic-circle middle-text">
+                    |대각선에 반응하는 마법진|
                 </p>
-                <p class="box" style="width: 100px;">
-                    |수직 직선 성분이 있을 경우 반응하는 기계|
+                <p class="magic-circle middle-text">
+                    |수직 직선에 반응하는 마법진|
                 </p>
-                <p class="box" style="width: 100px;">
-                    |곡선(풀잎) 성분이 있을 경우 반응하는 기계|
+                <p class="magic-circle middle-text">
+                    |곡선에 반응하는 마법진|
                 </p>
             </div>
+            <canvas id="dense-layer" width="150" height="300"></canvas>
             <div>
-                <img id="fullyConnected-image" src="/assets/images/MagicUniv/fullyConnected_1.JPG" alt="fullyConnected.jpg" style="width: 150px; height: 300px">
-            </div>
-            <div>
-                <div class = "outer-div">
-                    <div>
-                        <img src="/assets/images/MagicUniv/rain.png" alt="물" style="width: 100px; height: 100px">
-                    </div>
-                    <div>
-                        <p>물의 문양일 확률</p>
-                    </div>
+                <div class="horizontal">
+                    <img id="result1" class="pattern with-transition" src="/assets/images/MagicUniv/rain.svg" alt="물">
+                    <p class="pattern-caption middle-text">물의 문양일 확률</p>
                 </div>
-                <div class = "outer-div">
-                    <div>
-                        <img src="/assets/images/MagicUniv/fire.png" alt="불" style="width: 100px; height: 100px">
-                    </div>
-                    <div>
-                        <p>불의 문양일 확률</p>
-                    </div>
+                <div class="horizontal">
+                    <img id="result2" class="pattern with-transition" src="/assets/images/MagicUniv/fire.svg" alt="불">
+                    <p class="pattern-caption middle-text">불의 문양일 확률</p>
                 </div>
-                <div class = "outer-div">
-                    <div>
-                        <img src="/assets/images/MagicUniv/leaf.png" alt="풀" style="width: 100px; height: 100px">
-                    </div>
-                    <div>
-                        <p>풀의 문양일 확률</p>
-                    </div>
+                <div class="horizontal">
+                    <img id="result3" class="pattern with-transition" src="/assets/images/MagicUniv/leaf.svg" alt="풀">
+                    <p class="pattern-caption middle-text">풀의 문양일 확률</p>
                 </div>
             </div>
         </div>
@@ -125,10 +140,10 @@
         <p>
             위의 분류기를 클릭해보셨나요?<br>
             위 분류기의 요소들을 조금 더 자세히 설명 드릴게요.<br>
-            |대각선 성분이 있을 경우 반응하는 기계| <br>
-            |수직 직선 성분이 있을 경우 반응하는 기계| <br>
-            |곡선(풀잎) 성분이 있을 경우 반응하는 기계| <br>
-            위 세가지 기계는 특정 성분(feature)를 검출하는 기계입니다.
+            |대각선에 반응하는 마법진|<br>
+            |수직 직선에 반응하는 마법진|<br>
+            |곡선에 반응하는 마법진|<br>
+            위 세가지 마법진은 특정한 특징(feature)에 반응하는 마법진입니다.
         </p>
         <p>
             다양한 특징(feature)을 뽑아내고 오른쪽 레이어에서 활용합니다.
@@ -159,6 +174,6 @@
 
 
 </div>
-<script src="/assets/javascripts/courses/MagicUniv/supply_04.js"></script>
+<script src="/assets/javascripts/courses/MagicUniv/supply_04.js" type="module"></script>
 <script src="/assets/javascripts/student/register.js"></script>
 </html>

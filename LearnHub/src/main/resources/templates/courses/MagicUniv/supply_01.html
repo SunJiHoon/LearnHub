@@ -35,10 +35,7 @@
 
     <!--    <input type="hidden" id="CurrPath" th:value="${CurrPath}">-->
     <br>
-    <div id="talkInterface">
-        <canvas id="imageCanvas" width="500" height="500" onclick="changeImage()"></canvas>
-        <div id="dialogueBox"></div>
-    </div>
+    <div id="talkInterface"></div>
     <br>
     <form action="/courses/MagicUniv/supply_02" method="get">
         <!-- 전송 버튼 -->
@@ -47,6 +44,6 @@
 
 
 </div>
-<script src="/assets/javascripts/courses/MagicUniv/supply_01.js"></script>
+<script src="/assets/javascripts/courses/MagicUniv/supply_01.js" type="module"></script>
 <script src="/assets/javascripts/student/register.js"></script>
 </html>
