@@ -6,7 +6,7 @@
     align-items: flex-end; /* 수직 가운데 정렬 */
 
 }
-#imageCanvas {
+#image {
     position: relative;
     z-index: 1; /* 다른 요소보다 낮은 z-index 값 */
     /*flex: 1;*/
