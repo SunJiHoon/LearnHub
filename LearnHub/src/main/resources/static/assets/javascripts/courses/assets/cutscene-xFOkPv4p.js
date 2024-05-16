@@ -1,0 +1,1 @@
+function r(d,o,i){for(const t of o)new Image().src=t;let n=0;const s=o.length,c=new Image,e=document.createElement("div");function a(){c.src=o[n];const t=document.createElement("div");t.classList.add("message"),t.textContent=i[n],e.append(t),e.scrollTop=e.scrollHeight,n++}c.id="image",e.id="dialogueBox",d.addEventListener("click",()=>{n>=s||a()}),a(),d.append(c,e)}export{r as g};
