@@ -1,20 +1,4 @@
-function drawGraph(canvas, ctx, sines) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // 캔버스 지우기
-    ctx.beginPath();
-
-    for(let x = 0; x <= canvas.width; x++) {
-        let fx = 0;
-        for(const [frequency, amplitude] of sines)
-            fx += amplitude*Math.sin(x*frequency);
-        if(x == 0)
-            ctx.moveTo(x, canvas.height/2 - 4*fx);
-        else
-            ctx.lineTo(x, canvas.height/2 - 4*fx);
-    }
-
-    ctx.strokeStyle = 'blue';
-    ctx.stroke();
-}
+import { drawGraph, drawArrow } from "../../lib/draw";
 
 const
     canvL = document.getElementById('myCanvas1'),
@@ -28,34 +12,39 @@ const
 const controls = [
     {
         slider: document.getElementById('scaleSlider1'),
-        canv: canvL,
         ctx: ctxL,
-        frequency: 0.08,
+        frequency: 16,
     },
     {
         slider: document.getElementById('scaleSlider2'),
-        canv: canvM,
         ctx: ctxM,
-        frequency: 0.16,
+        frequency: 32,
     },
     {
         slider: document.getElementById('scaleSlider3'),
-        canv: canvH,
         ctx: ctxH,
-        frequency: 0.35,
+        frequency: 70,
     },
 ];
 function updateLeft(index) {
-    const { slider, canv, ctx, frequency } = controls[index];
-    drawGraph(canv, ctx, [
-        [frequency, slider.valueAsNumber],
-    ]);
+    const { slider, ctx, frequency } = controls[index];
+    ctx.strokeStyle = 'blue';
+    drawGraph(
+        ctx, x => slider.valueAsNumber*Math.sin(frequency*x),
+        0, 1,
+        -2.5, 2.5
+    );
 }
 function updateRight() {
-    drawGraph(canvSum, ctxSum, controls.map(({ slider, frequency }) => [
-        frequency,
-        slider.valueAsNumber,
-    ]));
+    ctxSum.strokeStyle = 'blue';
+    drawGraph(
+        ctxSum,
+        x => controls
+            .map(({ slider, frequency }) => slider.valueAsNumber*Math.sin(frequency*x))
+            .reduce((acc, x) => acc + x, 0),
+        0, 1,
+        -2.5, 2.5
+    );
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -64,9 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateLeft(i);
             updateRight();
         });
-        updateLeft(0);
-        updateLeft(1);
-        updateLeft(2);
+        updateLeft(i);
     }
     updateRight();
 });

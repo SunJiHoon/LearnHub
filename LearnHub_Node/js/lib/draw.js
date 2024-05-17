@@ -22,3 +22,18 @@ export function drawArrow(ctx, x1, y1, x2, y2, tipSize) {
 export function randomColor() {
 	return `rgb(${Math.floor(256*Math.random())}, ${Math.floor(256*Math.random())}, ${Math.floor(256*Math.random())})`;
 }
+
+export function drawGraph(ctx, f, xfrom, xto, yfrom, yto) {
+	const { width, height } = ctx.canvas;
+    ctx.clearRect(0, 0, width, height);
+
+    ctx.beginPath();
+    for(let x = 0; x <= width; x++) {
+        const fx = f(xfrom + (xto - xfrom)*x/width);
+        if(x == 0)
+            ctx.moveTo(x, (fx - yto)/(yfrom - yto)*height);
+        else
+            ctx.lineTo(x, (fx - yto)/(yfrom - yto)*height);
+    }
+    ctx.stroke();
+}

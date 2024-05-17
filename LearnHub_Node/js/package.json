@@ -11,5 +11,10 @@
   "devDependencies": {
     "glob": "^10.3.15",
     "vite": "^5.2.0"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.3",
+    "chartjs-chart-wordcloud": "^4.4.0",
+    "debounce": "^2.0.0"
   }
 }

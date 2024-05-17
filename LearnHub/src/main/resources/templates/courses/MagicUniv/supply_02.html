@@ -9,7 +9,17 @@
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
     <link rel="stylesheet" href="/assets/stylesheets/mypage.css">
-
+    <style>
+        .horizontal {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        canvas.plot {
+            border: 1px solid black;
+        }
+    </style>
 </head>
 <div class="container">
 
@@ -54,29 +64,25 @@
 <!--    </div>-->
     <br>
 
-    <div class ="outer-div">
+    <div class="horizontal">
         <div class="canvas-container">
-            <canvas id="myCanvas1" width="200" height="200" style="border:1px solid #000;"></canvas>
+            <canvas id="myCanvas1" class="plot" width="200" height="200"></canvas>
             <label for="scaleSlider1">
-                <input type="range" min="0" max="10" value="10" id="scaleSlider1"> <!-- 슬라이더 요소 -->
+                <input type="range" min="-1" max="1" value="1" step="0.1" id="scaleSlider1"> <!-- 슬라이더 요소 -->
             </label>
 
-            <canvas id="myCanvas2" width="200" height="200" style="border:1px solid #000;"></canvas>
+            <canvas id="myCanvas2" class="plot" width="200" height="200"></canvas>
             <label for="scaleSlider2">
-                <input type="range" min="0" max="10" value="0" id="scaleSlider2"> <!-- 슬라이더 요소 -->
+                <input type="range" min="-1" max="1" value="0" step="0.1" id="scaleSlider2"> <!-- 슬라이더 요소 -->
             </label>
 
-            <canvas id="myCanvas3" width="200" height="200" style="border:1px solid #000;"></canvas>
+            <canvas id="myCanvas3" class="plot" width="200" height="200"></canvas>
             <label for="scaleSlider3">
-                <input type="range" min="0" max="10" value="0" id="scaleSlider3"> <!-- 슬라이더 요소 -->
+                <input type="range" min="-1" max="1" value="0" step="0.1" id="scaleSlider3"> <!-- 슬라이더 요소 -->
             </label>
         </div>
-        <div>
-            <img src="/assets/images/MagicUniv/arrow.jpg" alt="세 개의 화살표">
-        </div>
-        <div>
-            <canvas id="myCanvas4" width="200" height="200" style="border:1px solid #000;"></canvas>
-        </div>
+        <img src="/assets/images/MagicUniv/arrow.png" alt="세 개의 그래프가 합쳐지는 화살표">
+        <canvas id="myCanvas4" class="plot" width="200" height="200"></canvas>
     </div>
 
     <div class="big_section">
