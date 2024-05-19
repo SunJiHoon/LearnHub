@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>사진 자료 표현 - 서사 페이지</title>
-<!--    <link rel="stylesheet" href="/assets/stylesheets/courses/dialogue.css">-->
+    <title>경사하강법 - 서사 페이지</title>
+    <link rel="stylesheet" href="/assets/stylesheets/courses/dialogue.css">
     <link rel="stylesheet" href="/assets/stylesheets/common.css">
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
+    <link rel="stylesheet" href="/assets/stylesheets/mypage.css">
 </head>
 <div class="container">
 
@@ -28,26 +29,26 @@
         <button type="submit" style="width: 30%;">학생 로그아웃</button>
     </form>
 
+<!--    <input type="hidden" id="CurrPath" th:value="${CurrPath}">-->
     <br>
 
+    <div class="big_section">
+        <p>
+            함수의 최솟값 또는 최댓값을 찾아 최적화된 의사 결정 방법을 이해한다.
+        </p>
+    </div>
 
-<!--    <div id="talkInterface">-->
-<!--        <canvas id="imageCanvas" width="500" height="500" onclick="changeImage()"></canvas>-->
-<!--        <div id="dialogueBox"></div>-->
-<!--    </div>-->
+    <div id="talkInterface"></div>
 
-    <iframe th:src="|${CurrPath}/assets/courses/ImagePresent/ImagePresent_02/index.html|" style="width:100%; height:500px;">
-        <p>죄송합니다. 이 브라우저는 iframe을 지원하지 않습니다.</p>
-    </iframe>
+    <br>
 
-
-    <form action="/courses/ImagePresent/ImagePresent_03" method="get">
+    <form action="/courses/Optimization/GradientDescent_02" method="get">
         <!-- 전송 버튼 -->
-        <input type="submit" value = "다음으로 이동하기">
+        <input type="submit" value = "다음으로 이동하기" class = "custom-button">
     </form>
 
 
 </div>
-<!--<script src="/assets/javascripts/courses/ImagePresent/ImagePresent_01.js" type="module"></script>-->
+<script src="/assets/javascripts/courses/Optimization/GradientDescent_01.js" type="module"></script>
 <script src="/assets/javascripts/student/register.js"></script>
 </html>

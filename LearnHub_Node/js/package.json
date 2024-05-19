@@ -13,8 +13,10 @@
     "vite": "^5.2.0"
   },
   "dependencies": {
+    "alea": "^1.0.1",
     "chart.js": "^4.4.3",
     "chartjs-chart-wordcloud": "^4.4.0",
-    "debounce": "^2.0.0"
+    "debounce": "^2.0.0",
+    "nanoid": "^5.0.7"
   }
 }
