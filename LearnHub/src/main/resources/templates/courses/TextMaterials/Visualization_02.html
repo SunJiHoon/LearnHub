@@ -4,15 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>텍스트 자료의 처리와 시각화 - 상대 도수 벡터</title>
-    <link rel="stylesheet" href="/assets/stylesheets/courses/ImagePresent/ImagePresent_01.css">
+    <link rel="stylesheet" href="/assets/stylesheets/courses/dialogue.css">
     <link rel="stylesheet" href="/assets/stylesheets/common.css">
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
     <link rel="stylesheet" href="/assets/stylesheets/mypage.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    <style>
+        @keyframes float-y {
+            from {
+                transform: translateY(-2px);
+                filter: drop-shadow(0 6px 3px #00000060);
+            }
+            to {
+                transform: translateY(2px);
+                filter: drop-shadow(0 2px 1px #000000a0);
+            }
+        }
+        @keyframes float-theta {
+            from {
+                transform: rotate(-8deg);
+            }
+            to {
+                transform: rotate(8deg);
+            }
+        }
+        .token-outer {
+            display: inline-block;
+        }
+        .token-inner {
+            margin: 5px;
+            border-radius: 0.25em;
+            padding: 5px 10px;
+            background-color: lightblue;
+        }
+        table {
+            text-align: center;
+        }
+        canvas.bordered {
+            border: 1px solid black;
+        }
+    </style>
 
     <link href="https://fonts.googleapis.com/css?family=Crete+Round" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
 
 </head>
@@ -78,17 +112,17 @@
             문장 b. The dog wants to go home , home is comfortable <br>
             위 문장은 아래처럼 토큰으로 다시 나타낼 수 있답니다.
         </p>
-        <div id="PreparedSentence1"></div>
-        <div id="PreparedSentence2"></div>
+        <div id="prepared-sentence-1"></div>
+        <div id="prepared-sentence-2"></div>
 
         <p>토큰이 된 문장의 합집합은 아래와 같아요.</p>
-        <div id="union"></div>
+        <div id="prepared-union"></div>
         <p>이제부터 합집합에 들어있는 모든 속성은 축(차원)이 됩니다. 그리고 각 문장 벡터들은 해당 속성에 단어의 수 만큼 크기를 갖습니다.</p>
         <br>
         <p class="rounded-skyblue">문장 a를 벡터 A로 바꾼 것</p>
-        <div id="VectorizedSentence1"></div>
+        <table id="prepared-vector-1"></table>
         <p class="rounded-skyblue">문장 b를 벡터 B로 바꾼 것</p>
-        <div id="VectorizedSentence2"></div>
+        <table id="prepared-vector-2"></table>
         <br><br><br>
 
         <p>
@@ -99,9 +133,9 @@
     <div class="big_section">
         <p>이제 이 빈도수 벡터를 상대도수로 나타내겠습니다.</p>
         <p class="rounded-skyblue">벡터 A를 상대도수 벡터 A'로 바꾼 것</p>
-        <div id="RelativeVectorizedSentence1"></div>
+        <table id="prepared-relative-vector-1"></table>
         <p class="rounded-skyblue">벡터 B를 상대도수 벡터 B'로 바꾼 것</p>
-        <div id="RelativeVectorizedSentence2"></div>
+        <table id="prepared-relative-vector-2"></table>
 
 <!--        <p class="rounded-skyblue">코사인 유사도</p>-->
 <!--        <div id="PreparedResult"></div>-->
@@ -111,82 +145,63 @@
     <div class="big_section">
         <p>어려우셨나요? 실습을 통해 더 쉽게 이해해봐요!</p>
         <p class="rounded-skyblue">상대도수 벡터로 나타내고 싶은 문장 2개를 입력해주세요!</p>
-        <div>
-            <label for="sentence1">Sentence 1:</label>
-            <input type="text" id="sentence1"
-                   oninput="tokenizeSentence(); vetorization();"
-            >
-        </div>
-        <div>
-            <label for="sentence2">Sentence 2:</label>
-            <input type="text" id="sentence2"
-                   oninput="tokenizeSentence(); vetorization();"
-            >
-        </div>
+        <label>
+            문장 1:
+            <input type="text" id="user-input-1">
+        </label>
+        <label>
+            문장 2:
+            <input type="text" id="user-input-2">
+        </label>
 
-        <p class="rounded-skyblue">토큰화 된 sentence1</p>
-        <div id="tokenized_sentence1"></div>
-        <p class="rounded-skyblue">토큰화 된 sentence2</p>
-        <div id="tokenized_sentence2"></div>
-        <p class="rounded-skyblue">토큰화 된 문장들의 합집합</p>
-        <div id="unioned_sentence"></div>
+        <p class="rounded-skyblue">토큰화된 문장 1</p>
+        <div id="sentence-1"></div>
+        <p class="rounded-skyblue">토큰화된 문장 2</p>
+        <div id="sentence-2"></div>
+        <p class="rounded-skyblue">토큰화된 문장들의 합집합</p>
+        <div id="union"></div>
 
         <p class="rounded-skyblue">
-            sentence1을 벡터 S1로 바꾼 것
+            문장 1을 벡터 S1로 바꾼 것
         </p>
-        <!--        {"The":1,"dog":1,"wants":1,"a":1,"walk":1,"cat":0,"to":0,"go":0,"home":0}-->
-        <div id="VectorizedUserSentence1"></div>
+        <table id="vector-1"></table>
 
         <p class="rounded-skyblue">
-            sentecne2를 벡터 S2로 바꾼 것
+            문장 2를 벡터 S2로 바꾼 것
         </p>
-        <!--        {"The":1,"dog":0,"wants":1,"a":0,"walk":0,"cat":1,"to":1,"go":1,"home":1}-->
-        <div id="VectorizedUserSentence2"></div>
+        <table id="vector-2"></table>
     </div>
 
     <div class="big_section">
         <p>이제 이 빈도수 벡터를 상대도수로 나타내겠습니다.</p>
         <p class="rounded-skyblue">벡터 S1를 상대도수 벡터 S1'로 바꾼 것</p>
-        <div id="RelativeVectorizedUserSentence1"></div>
+        <table id="relative-vector-1"></table>
         <p class="rounded-skyblue">벡터 S2를 상대도수 벡터 S2'로 바꾼 것</p>
-        <div id="RelativeVectorizedUserSentence2"></div>
+        <table id="relative-vector-2"></table>
         <br>
     </div>
     <div class="big_section">
-        <p>막대그래프</p>
-
-        <div class ="outer-div">
+        <p class="rounded-skyblue">막대 그래프</p>
         <div>
-            <canvas id="myChart1" width="200" height="200"></canvas>
-        </div>
-        <div>
-            <canvas id="myChart2" width="200" height="200"></canvas>
-        </div>
+            <canvas id="bar-chart"></canvas>
         </div>
     </div>
     <div class="big_section">
-        <p>원형 그래프</p>
-
-        <div class ="outer-div">
-            <div>
-                <canvas id="myDoughnutChart1" width="300" height="300"></canvas>
-            </div>
-            <div>
-                <canvas id="myDoughnutChart2" width="300" height="300"></canvas>
-            </div>
-        </div>
-    </div>
-<div class ="big_section">
-    <p>단어구름</p>
-    <div class ="outer-div">
+        <p class="rounded-skyblue">원형 그래프</p>
         <div>
-            <div id="wordCloud1"></div>
-            <div id="wordCloud2"></div>
+            <canvas id="doughnut-chart"></canvas>
         </div>
     </div>
-</div>
+    <div class ="big_section">
+        <p class="rounded-skyblue">단어 구름</p>
+        <div>
+            <canvas id="word-cloud-1" class="bordered"></canvas>
+        </div>
+        <div>
+            <canvas id="word-cloud-2" class="bordered"></canvas>
+        </div>
+    </div>
 
-    <!--    -->
     <br>
 
     <form action="/courses/TextMaterials/Visualization_03" method="get">
@@ -195,6 +210,6 @@
 
 
 </div>
-<script src="/assets/javascripts/courses/TextMaterials/Visualization_02.js"></script>
+<script src="/assets/javascripts/courses/TextMaterials/Visualization_02.js" type="module"></script>
 <script src="/assets/javascripts/student/register.js"></script>
 </html>

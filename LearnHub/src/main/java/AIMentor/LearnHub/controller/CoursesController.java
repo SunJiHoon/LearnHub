@@ -191,40 +191,55 @@ public class CoursesController {
 
 
     //4단원
-    @GetMapping(value = "/LossFunction/LossFunction_01")
-    String getLossFunction_01(Model model){
+    @GetMapping(value = "/Optimization/GradientDescent_01")
+    String getGradientDescent_01(Model model){
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
-        return "courses/LossFunction/LossFunction_01";
+        return "courses/Optimization/GradientDescent_01";
     }
-    @GetMapping(value = "/KNN/KNNFunction_01")
-    String getKNNFunction_01(Model model){
+    @GetMapping(value = "/Optimization/GradientDescent_02")
+    String getGradientDescent_02(Model model){
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
-        return "courses/KNN/KNNFunction_01";
+        return "courses/Optimization/GradientDescent_02";
     }
-    @GetMapping(value = "/KNN/KNNFunction_02")
-    String getKNNFunction_02(Model model){
+    @GetMapping(value = "/Optimization/GradientDescent_03")
+    String getGradientDescent_03(Model model){
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
-        return "courses/KNN/KNNFunction_02";
+        return "courses/Optimization/GradientDescent_03";
     }
-    @GetMapping(value = "/KNN/KNNFunction_03")
-    String getKNNFunction_03(Model model){
-        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
-        return "courses/KNN/KNNFunction_03";
-    }
-    @GetMapping(value = "/KNN/KNNFunction_04")
-    String getKNNFunction_04(Model model){
-        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
-        return "courses/KNN/KNNFunction_04";
-    }
+    // @GetMapping(value = "/LossFunction/LossFunction_01")
+    // String getLossFunction_01(Model model){
+    //     model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+    //     return "courses/LossFunction/LossFunction_01";
+    // }
+    // @GetMapping(value = "/KNN/KNNFunction_01")
+    // String getKNNFunction_01(Model model){
+    //     model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+    //     return "courses/KNN/KNNFunction_01";
+    // }
+    // @GetMapping(value = "/KNN/KNNFunction_02")
+    // String getKNNFunction_02(Model model){
+    //     model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+    //     return "courses/KNN/KNNFunction_02";
+    // }
+    // @GetMapping(value = "/KNN/KNNFunction_03")
+    // String getKNNFunction_03(Model model){
+    //     model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+    //     return "courses/KNN/KNNFunction_03";
+    // }
+    // @GetMapping(value = "/KNN/KNNFunction_04")
+    // String getKNNFunction_04(Model model){
+    //     model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+    //     return "courses/KNN/KNNFunction_04";
+    // }
 
-    @GetMapping(value = "/LossFunction/LossFunction_01_dev")
-    String getLossFunction_01_dev(){
-        return "courses/LossFunction/LossFunction_01_dev";
-    }
+    // @GetMapping(value = "/LossFunction/LossFunction_01_dev")
+    // String getLossFunction_01_dev(){
+    //     return "courses/LossFunction/LossFunction_01_dev";
+    // }
 
-    @GetMapping(value = "/ManaDescent/ManaDescent_01")
-    String getManaDescent(Model model){
-        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
-        return "courses/ManaDescent/ManaDescent_01";
-    }
+    // @GetMapping(value = "/ManaDescent/ManaDescent_01")
+    // String getManaDescent(Model model){
+    //     model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+    //     return "courses/ManaDescent/ManaDescent_01";
+    // }
 }

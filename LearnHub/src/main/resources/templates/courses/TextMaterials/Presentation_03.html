@@ -4,12 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>텍스트 자료의 표현 - 원 핫 인코딩</title>
-    <link rel="stylesheet" href="/assets/stylesheets/courses/ImagePresent/ImagePresent_01.css">
+    <link rel="stylesheet" href="/assets/stylesheets/courses/dialogue.css">
     <link rel="stylesheet" href="/assets/stylesheets/common.css">
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
     <link rel="stylesheet" href="/assets/stylesheets/mypage.css">
-
+    <style>
+        table {
+            text-align: center;
+        }
+        table td {
+            font-size: 2em;
+        }
+    </style>
 </head>
 <div class="container">
 
@@ -46,15 +53,13 @@
         </p>
     </div>
     <div class ="big_section">
-        <p>일종의 범주화 인데요. 직접 글자를 아래에 직접 단어들을 입력해주세요! 우선 제 원 핫 인코딩 결과물을 보여드릴게요.</p>
+        <p>일종의 범주화 인데요. 아래에 직접 단어들을 입력해주세요! 우선 제 원 핫 인코딩 결과물을 보여드릴게요.</p>
         <p class="rounded-skyblue">원 핫 인코딩 예시</p>
-        <div>
-            <label for="sentence1">Sentence 1:</label>
-            <input type="text" id="sentence1" value = "고양이 강아지 햄스터">
-<!--                   oninput="calculateSimilarity(); tokenizeSentence(); vetorization();"-->
-<!--            >-->
-        </div>
-        <div id="oneHotEncodingResult"></div>
+        <label>
+            문장:
+            <input type="text" id="sentence" value="고양이 강아지 햄스터">
+        </label>
+        <div id="result"></div>
 
         <p>
             혹시 감이 오시나요? 위의 input box에 추가적인 단어를 입력해보면서 원 핫 인코딩을 더 잘 이해해봐요!
@@ -89,6 +94,6 @@
 
 
 </div>
-<script src="/assets/javascripts/courses/TextMaterials/Presentation_03.js"></script>
+<script src="/assets/javascripts/courses/TextMaterials/Presentation_03.js" type="module"></script>
 <script src="/assets/javascripts/student/register.js"></script>
 </html>
