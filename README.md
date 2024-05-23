@@ -25,7 +25,7 @@
 * [Visual Studio Code](https://code.visualstudio.com/)
 	* [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack) 플러그인도 설치해 주세요.
 
-실행하기 전에 **[application.properties 설정](#applicationproperties)과 [Vite 빌드](LearnHub_Node/graphicFunction/README.md)를 반드시 마쳐 주세요**.
+실행하기 전에 **[application.properties 설정](#applicationproperties)과 [Vite 빌드](LearnHub_Node/js/README.md)를 반드시 마쳐 주세요**.
 
 ### application.properties
 `/LearnHub/src/main/resources/application.properties` 파일은 보안상의 이유로 Git으로 관리하고 있지 않습니다. 수동으로 파일을 만들고 아래 내용을 입력해 주세요.
