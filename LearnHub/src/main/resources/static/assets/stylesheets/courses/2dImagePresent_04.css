@@ -10,7 +10,7 @@ body {
 canvas {
     border: 2px solid #000; /* 테두리 추가 */
 }
-#matrix, #alphaMatrix {
+#matrix, #alphaMatrix, #redMatrix, #greenMatrix, #blueMatrix {
     display: grid;
     grid-template-columns: repeat(15, 20px);
     grid-template-rows: repeat(15, 20px);

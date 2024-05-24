@@ -55,10 +55,16 @@ function convertToMatrix() {
     const data = imageData.data;
     const matrix = [];
     const alphaMatrix = [];
+    const redMatrix = [];
+    const greenMatrix = [];
+    const blueMatrix = [];
 
     for (let y = 0; y < 15; y++) {
         const row = [];
         const alphaRow = [];
+        const redRow = [];
+        const greenRow = [];
+        const blueRow = [];
         for (let x = 0; x < 15; x++) {
             const index = (y * 15 + x) * 4;
             const r = data[index];
@@ -67,13 +73,22 @@ function convertToMatrix() {
             const a = data[index + 3];
             row.push([r, g, b, a]);
             alphaRow.push(a);
+            redRow.push(r);
+            greenRow.push(g);
+            blueRow.push(b);
         }
         matrix.push(row);
         alphaMatrix.push(alphaRow);
+        redMatrix.push(redRow);
+        greenMatrix.push(greenRow);
+        blueMatrix.push(blueRow);
     }
 
     displayMatrix(matrix);
-    displayAlphaMatrix(alphaMatrix);
+    // displayAlphaMatrix(alphaMatrix);
+    displayColorMatrix('redMatrix', redMatrix);
+    displayColorMatrix('greenMatrix', greenMatrix);
+    displayColorMatrix('blueMatrix', blueMatrix);
 }
 
 function displayMatrix(matrix) {
@@ -100,6 +115,20 @@ function displayAlphaMatrix(alphaMatrix) {
             cell.className = 'cell';
             cell.textContent = a;
             alphaMatrixDiv.appendChild(cell);
+        }
+    }
+}
+
+function displayColorMatrix(id, colorMatrix) {
+    const colorMatrixDiv = document.getElementById(id);
+    colorMatrixDiv.innerHTML = ''; // 이전 내용을 지움
+    for (let y = 0; y < 15; y++) {
+        for (let x = 0; x < 15; x++) {
+            const cell = document.createElement('div');
+            const value = colorMatrix[y][x];
+            cell.className = 'cell';
+            cell.textContent = value;
+            colorMatrixDiv.appendChild(cell);
         }
     }
 }
