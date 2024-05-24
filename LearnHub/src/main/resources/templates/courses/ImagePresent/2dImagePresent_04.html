@@ -40,28 +40,40 @@
     <br>
 
 
-    <div id="big_section">
-        <h1>Draw to Matrix Converter</h1>
-        <label for="colorPicker">
-        </label>
-        <input type="color" id="colorPicker" value="#000000"> <!-- 색상 선택기 추가 -->
-        <canvas id="canvas" width="400" height="400"></canvas>
-        <div id="controls">
-            <button id="clear">Clear</button>
-            <button id="convert">Convert to Matrix</button>
+    <div class = "big_section" id="big_section">
+        <div class ="matrix-container">
+            <h1>Draw to Matrix Converter</h1>
+            <label for="colorPicker">
+            </label>
+            <input type="color" id="colorPicker" value="#000000"> <!-- 색상 선택기 추가 -->
+            <canvas id="canvas" width="400" height="400"></canvas>
+            <div id="controls">
+                <button id="clear">Clear</button>
+                <button id="convert">Convert to Matrix</button>
+            </div>
+    <!--        <div>-->
         </div>
-        <div>
-            <h2>Color Matrix</h2>
-            <div id="matrix"></div>
-<!--            <h2>Alpha Value Matrix</h2>-->
-<!--            <div id="alphaMatrix"></div>-->
-            <h2>Red Matrix</h2>
-            <div id="redMatrix"></div>
-            <h2>Green Matrix</h2>
-            <div id="greenMatrix"></div>
-            <h2>Blue Matrix</h2>
-            <div id="blueMatrix"></div>
+        <div class = "big_section">
+            <div class="matrix-container">
+                <h2>Color Matrix</h2>
+                <div id="matrix" class="matrix-grid"></div>
+            </div>
+
+            <div class="matrix-container">
+                <h2>Red Matrix</h2>
+                <div id="redMatrix" class="matrix-grid"></div>
+            </div>
+            <div class="matrix-container">
+                <h2>Green Matrix</h2>
+                <div id="greenMatrix" class="matrix-grid"></div>
+            </div>
+            <div class="matrix-container">
+                <h2>Blue Matrix</h2>
+                <div id="blueMatrix" class="matrix-grid"></div>
+            </div>
+
         </div>
+<!--        </div>-->
     </div>
 
 
