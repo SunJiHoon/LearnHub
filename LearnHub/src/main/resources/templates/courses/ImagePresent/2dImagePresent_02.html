@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
     <link rel="stylesheet" href="/assets/stylesheets/mypage.css">
+    <link rel="stylesheet" href="/assets/stylesheets/courses/2dImagePresent_02.css">
+
 </head>
 <div class="container">
 
@@ -37,15 +39,51 @@
     </div>
     <br>
 
+    <div class = "big_section">
+
+        <p>
+            마법대학교의 신비한 마법책 저장소
+            </p>
+        <p>
+            마법대학교에는 오랜 전통을 자랑하는 특별한 수업이 있습니다. 이 수업은 '그림의 마법 변환'이라는 제목을 가지고 있으며, 학생들에게 사물이나 그림을 마법책에 저장하는 기술을 가르칩니다. 이 마법책은 단순한 종이책이 아니라, 신비한 마법이 깃들어 있어 다양한 형태의 이미지를 저장하고 불러올 수 있습니다.
+        </p>
+        <p>
+            첫 번째 수업: 마법의 도구와 사과
+            </p>
+        <p>
+            교수님은 첫 수업에서 학생들에게 각자 사과를 준비해오라고 했습니다. 사과를 가져온 학생들은 마법의 도구를 사용하여 사과를 마법책에 저장하는 법을 배우게 될 것이라고 들었습니다. 교수님은 말했습니다. "여러분, 사과를 마법책에 저장하기 위해서는 먼저 사과를 픽셀이라는 작은 단위로 변환해야 합니다. 이것이 바로 '행렬'입니다."
+            학생들은 모두 사과를 바라보며 궁금해했습니다. 교수님은 마법의 캔버스를 꺼내 들고, 학생들에게 사과를 그려보라고 했습니다. "이 캔버스는 단순한 도화지가 아닙니다. 여러분이 그린 그림을 픽셀 단위로 분해하여 행렬로 변환해줄 것입니다."
+        </p>
+    </div>
+
+    <div class="big_section" id="big_section">
+        <div class ="matrix-container">
+            <h1>(실습1) 사과 그림을 그려서 행렬로 변환해봐요!</h1>
+            <canvas id="canvas" width="400" height="400"></canvas>
+            <div id="controls">
+                <button id="clear">Clear</button>
+                <button id="convert">Convert to Matrix</button>
+            </div>
+        </div>
+        <div class ="matrix-container">
+            <div>
+                <h2>Color Matrix</h2>
+                <div id="matrix"></div>
+                <h2>Alpha Value Matrix</h2>
+                <div id="alphaMatrix"></div>
+            </div>
+        </div>
+    </div>
+
+<!--    <script src="script.js"></script>-->
 
 
-    <form action="/courses/ImagePresent/2dImagePresent_03" method="get">
+
+    <form action="/courses/ImagePresent/2dImagePresent_04" method="get">
         <!-- 전송 버튼 -->
         <input type="submit" value = "다음으로 이동하기" class = "custom-button">
     </form>
-
-
 </div>
-<!--<script src="/assets/javascripts/courses/ImagePresent/2dImagePresent_01.js" type="module"></script>-->
+<script src="/assets/javascripts/courses/ImagePresent/2dImagePresent_02.js" type="module"></script>
 <script src="/assets/javascripts/student/register.js"></script>
 </html>

@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
     <link rel="stylesheet" href="/assets/stylesheets/mypage.css">
+    <link rel="stylesheet" href="/assets/stylesheets/courses/2dImagePresent_05.css">
+
 </head>
 <div class="container">
 
@@ -36,6 +38,31 @@
         </p>
     </div>
     <br>
+    <div class = "big_section">
+        <p>
+            학생들은 사과 그림을 캔버스에 그리고 나서, 그것을 행렬로 변환하는 과정을 지켜보았습니다. "이제 여러분이 그린 사과를 마법책에 저장해봅시다. 이 행렬은 각 픽셀의 색상 값을 포함하고 있어, 마법책이 이를 읽어들이면 언제든지 사과를 다시 불러올 수 있습니다."
+        </p>
+    </div>
+
+    <div class = "big_section">
+        <table>
+            <thead>
+            <tr>
+                <!--                <th>(R, G, B)로 값을 채워주세요!</th>-->
+                <th colspan="4">(R, G, B)로 값을 채워주세요!</th>
+            </tr>
+            </thead>
+            <tbody id="rgb-input-table">
+            <!-- 5x5 RGB input cells will be generated here by JavaScript -->
+            </tbody>
+        </table>
+        <button onclick="convertToImage()">Convert</button>
+        <div class="matrix-container">
+            <div id="matrix-container"></div>
+        </div>
+
+    </div>
+
 
     <form action="/courses/ImagePresent/2dImagePresent_06" method="get">
         <!-- 전송 버튼 -->
@@ -44,6 +71,7 @@
 
 
 </div>
-<!--<script src="/assets/javascripts/courses/ImagePresent/2dImagePresent_01.js" type="module"></script>-->
+<script src="/assets/javascripts/courses/ImagePresent/2dImagePresent_05.js"></script>
+<!--<script src="/assets/javascripts/courses/ImagePresent/2dImagePresent_05.js" type="module"></script>-->
 <script src="/assets/javascripts/student/register.js"></script>
 </html>
