@@ -99,3 +99,5 @@ function displayAlphaMatrix(alphaMatrix) {
         }
     }
 }
+
+convertToMatrix();

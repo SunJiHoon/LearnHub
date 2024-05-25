@@ -132,3 +132,5 @@ function displayColorMatrix(id, colorMatrix) {
         }
     }
 }
+
+convertToMatrix();
