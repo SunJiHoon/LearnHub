@@ -8,3 +8,7 @@ export function normal_distribution() {
 export function sigmoid(x) {
 	return 1/(1 + Math.exp(-x));
 }
+
+export function lerp(zero, one, x) {
+	return zero + x*(one - zero);
+}

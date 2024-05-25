@@ -46,58 +46,67 @@
 
     <div class="big_section">
         <p>
-        "먼저, 우드로우 교수님께서 제시한 첫 번째 마법은 '음성 파형을 삼각함수의 합으로 나타내는 마법'입니다.
-        이 마법은 음성을 삼각함수의 합으로 분해하여 주파수 도메인에서 이해하는 것을 의미합니다.
-        이를 통해 우리는 음성 데이터를 더 깊이 이해하고 분석할 수 있습니다."
+            "자, 학생 여러분께서는 우리 학교에서 무엇을 배우는지 어느 정도는 이미 알 거라고 생각합니다. 우리 마법지능학과는 마법으로써 우리 인간의 지능을 모방하고자 하는 목표를 가지고 연구에 몰두하고 있죠.<br>
+            예를 들어 우리는 귀로 소리를 듣는데, 마법지능은 소리를 어떻게 듣고 마법으로 나타내는지 고민해본 적이 있으신가요?"
         </p>
         <p>
-            아래에 있는 사인 함수들로 새로운 사인 함수를 만들어낼 수 있어요!
-            슬라이드를 조작해서 사인 함수를 합성해 봐요!
+            "생각해본 적이 없어도 괜찮습니다. 이번 기회에 실습을 통해 한 번 알아보죠. 소리가 공기의 진동, 즉 파동이라는 것은 아마 들어서 알 거라고 생각합니다.<br>
+            마법으로 파형 하나를 만들어 볼 테니 자리에 배치해 둔 기본 파동 마법진 3개를 이용해 최대한 비슷하게 만들어 보세요."
         </p>
     </div>
 
-    <!--    <input type="hidden" id="CurrPath" th:value="${CurrPath}">-->
-    <br>
-<!--    <div id="talkInterface">-->
-<!--        <canvas id="imageCanvas" width="500" height="500" onclick="changeImage()"></canvas>-->
-<!--        <div id="dialogueBox"></div>-->
-<!--    </div>-->
-    <br>
+    <div class="big_section">
+        <p class="rounded-skyblue">실습하기</p>
+        <p>3개의 슬라이더를 조작해서 왼쪽 파동의 합을 오른쪽과 맞추어 보세요!</p>
+        <div class="horizontal">
+            <div class="canvas-container">
+                <canvas id="fourier-practice-1" class="plot" width="200" height="200"></canvas>
+                <input type="range" min="-1" max="1" value="1" step="0.05" id="slider-practice-1">
 
-    <div class="horizontal">
-        <div class="canvas-container">
-            <canvas id="myCanvas1" class="plot" width="200" height="200"></canvas>
-            <label for="scaleSlider1">
-                <input type="range" min="-1" max="1" value="1" step="0.1" id="scaleSlider1"> <!-- 슬라이더 요소 -->
-            </label>
+                <canvas id="fourier-practice-2" class="plot" width="200" height="200"></canvas>
+                <input type="range" min="-1" max="1" value="0" step="0.05" id="slider-practice-2">
 
-            <canvas id="myCanvas2" class="plot" width="200" height="200"></canvas>
-            <label for="scaleSlider2">
-                <input type="range" min="-1" max="1" value="0" step="0.1" id="scaleSlider2"> <!-- 슬라이더 요소 -->
-            </label>
-
-            <canvas id="myCanvas3" class="plot" width="200" height="200"></canvas>
-            <label for="scaleSlider3">
-                <input type="range" min="-1" max="1" value="0" step="0.1" id="scaleSlider3"> <!-- 슬라이더 요소 -->
-            </label>
+                <canvas id="fourier-practice-3" class="plot" width="200" height="200"></canvas>
+                <input type="range" min="-1" max="1" value="0" step="0.05" id="slider-practice-3">
+            </div>
+            <img src="/assets/images/MagicUniv/arrow.png" alt="세 개의 그래프가 합쳐지는 화살표">
+            <canvas id="fourier-practice-sum" class="plot" width="200" height="200"></canvas>
         </div>
-        <img src="/assets/images/MagicUniv/arrow.png" alt="세 개의 그래프가 합쳐지는 화살표">
-        <canvas id="myCanvas4" class="plot" width="200" height="200"></canvas>
+        <button id="retry-practice">다른 파형에 도전하기</button>
     </div>
 
     <div class="big_section">
         <p>
-            위에 있는 슬라이드를 움직여보며 사인함수들을 조작해보셨나요?
-            모든 주파수는 삼각함수의 합으로 나타낼 수 있답니다.
-        </p>
-        <p>
-            우리는 저장하고 싶은 소리를 삼각함수의 합으로 나타내어 마법서에 기록하는데,
-            인간세계에선 삼각함수의 합으로서 컴퓨터에 저장한다고 하네요!
+            "어떤가요? 파형을 맞추는 게 쉬웠나요, 어려웠나요? 어려웠다고 해도 걱정하지 않으셔도 됩니다. 대마법사 조제프 푸리에 경이 창시한, 어떤 파형이든 기본 파동으로 분해하는 마법을 보여드리겠습니다.<br>
+            마법에 사용할 파형을 그리고 싶은 학생들은 손을 들어 주세요."
         </p>
     </div>
-    <br>
-    <br>
-    <br>
+
+    <div class="big_section">
+        <p class="rounded-skyblue">실습하기</p>
+        <p>원하는 파형을 그려서 기본 파동으로 분해할 수 있는지 확인해 봅시다.</p>
+        <div class="horizontal">
+            <canvas id="fourier-demo-input" class="plot" width="256" height="128"></canvas>
+            <canvas id="fourier-demo-output" class="plot" width="256" height="512"></canvas>
+        </div>
+        <button id="run-demo">분해 마법 걸기</button>
+    </div>
+
+    <div class="big_section">
+        <p>
+            "푸리에 변환 마법은 고급 마법인 만큼 우리 과정에서 다루지는 않겠지만, 그동안 당연하게 생각했던 마법지능의 원리를 다른 관점에서 보는 계기가 되기를 바랍니다."
+        </p>
+    </div>
+
+    <div class="big_section">
+        <p class="rounded-skyblue">무엇을 배웠을까?</p>
+        <p>
+            우리가 눈으로 보고 귀로 듣는 것을 컴퓨터는 어떻게 인식할까요?<br>
+            마법학교에서 여러 가지 기본 파동을 합쳐서 복잡한 소리를 마법으로 나타내었듯, 우리가 사용하는 컴퓨터도 음성 데이터를 편리하게 사용하려면 여러 삼각함수의 합으로 나타내어야 합니다. 음성을 여러 주파수로 분해하면 이를 벡터로 나타낼 수 있고, 인공지능은 이 벡터를 이용해 음성 데이터를 이해하고 조작합니다.<br>
+            이처럼 인공지능은 여러 가지 방법을 이용해 실생활의 신호를 데이터로 나타냅니다.
+        </p>
+    </div>
+
     <form action="/courses/MagicUniv/supply_03" method="get">
         <!-- 전송 버튼 -->
         <input type="submit" value = "다음으로 이동하기" class = "custom-button">
