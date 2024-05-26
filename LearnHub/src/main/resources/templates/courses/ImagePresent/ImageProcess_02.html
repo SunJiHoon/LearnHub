@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
     <link rel="stylesheet" href="/assets/stylesheets/mypage.css">
+    <link rel="stylesheet" href="/assets/stylesheets/courses/ImageProcess_02.css">
 </head>
 <div class="container">
 
@@ -40,6 +41,18 @@
 
 
     <br>
+    <div class="big_section">
+        <div id="container">
+            <h1>밝기 조절</h1>
+            <div id="matrix-container">
+                <div id="matrix"></div>
+            </div>
+            <div id="slider-container">
+                <label for="brightness-slider">Adjust Brightness:</label>
+                <input type="range" id="brightness-slider" min="0" max="2" step="0.01" value="1">
+            </div>
+        </div>
+    </div>
 
     <form action="/courses/ImagePresent/ImageProcess_03" method="get">
         <!-- 전송 버튼 -->
@@ -49,5 +62,6 @@
 
 </div>
 <!--<script src="/assets/javascripts/courses/ImagePresent/ImageProcess_02.js" type="module"></script>-->
+<script src="/assets/javascripts/courses/ImagePresent/ImageProcess_02.js"></script>
 <script src="/assets/javascripts/student/register.js"></script>
 </html>
