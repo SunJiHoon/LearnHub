@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>이미지 자료의 처리 - 서사 페이지</title>
+    <title>이미지 자료의 처리 - 사진 크기 확대</title>
     <link rel="stylesheet" href="/assets/stylesheets/courses/dialogue.css">
     <link rel="stylesheet" href="/assets/stylesheets/common.css">
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
     <link rel="stylesheet" href="/assets/stylesheets/mypage.css">
+    <link rel="stylesheet" href="/assets/stylesheets/courses/ImageProcess_03.css">
+
 </head>
 <div class="container">
 
@@ -41,6 +43,31 @@
 
     <br>
 
+    <div class = "big_section">
+        <div id="container">
+            <h1>사진 크기 조정</h1>
+            <div id="matrix-container">
+                <div id="original-matrix" class="matrix"></div>
+                <div id="resized-matrix" class="matrix"></div>
+            </div>
+            <div id="controls">
+                <label for="rows">Rows:</label>
+                <input type="number" id="rows" min="1" value="4">
+                <label for="cols">Columns:</label>
+                <input type="number" id="cols" min="1" value="4">
+                <button id="resize">Resize Matrix</button>
+            </div>
+
+            <div id="formula-container">
+                <h2>4,4가 계산되는 공식</h2>
+                <div id="formula">
+                    <div>[&nbspW/4&nbsp0&nbsp]&nbsp&nbsp&nbsp[&nbsp4&nbsp]&nbsp=&nbsp[&nbsp col &nbsp]</div>
+                    <div>[&nbsp&nbsp&nbsp&nbsp] * [   ] = [     ]</div>
+                    <div>[   0    row/4 ]   [ 4 ]   [ row ]</div>
+                </div>
+            </div>
+        </div>
+    </div>
     <form action="/courses/ImagePresent/ImageProcess_04" method="get">
         <!-- 전송 버튼 -->
         <input type="submit" value = "다음으로 이동하기" class = "custom-button">
@@ -48,6 +75,6 @@
 
 
 </div>
-<!--<script src="/assets/javascripts/courses/ImagePresent/ImageProcess_03.js" type="module"></script>-->
+<script src="/assets/javascripts/courses/ImagePresent/ImageProcess_03.js"></script>
 <script src="/assets/javascripts/student/register.js"></script>
 </html>
