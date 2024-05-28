@@ -213,6 +213,12 @@ public class CoursesController {
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
         return "courses/Classification/TextClassification_04";
     }
+    @GetMapping(value = "/Classification/TextClassification_05")
+    String getTextClassification_05(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/Classification/TextClassification_05";
+    }
+
 
 
     //4단원
