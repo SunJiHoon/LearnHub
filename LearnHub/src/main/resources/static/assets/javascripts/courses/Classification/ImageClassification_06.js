@@ -1,0 +1,1 @@
+import{g as e}from"../assets/cutscene-xFOkPv4p.js";const s=["/assets/images/ImagePresent/summonMagic.jfif","/assets/images/ImagePresent/summonMagic.jfif","/assets/images/ImagePresent/summonMagic.jfif"],t=["image","수업","끝"];document.addEventListener("DOMContentLoaded",()=>{e(document.getElementById("talkInterface"),s,t)});

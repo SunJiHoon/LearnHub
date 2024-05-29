@@ -189,6 +189,7 @@ public class CoursesController {
 
 
     //3단원
+    //텍스트분류
     @GetMapping(value = "/Classification/TextClassification_01")
     String getTextClassification_01(Model model){
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
