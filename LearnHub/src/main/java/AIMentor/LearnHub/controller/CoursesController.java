@@ -220,6 +220,50 @@ public class CoursesController {
         return "courses/Classification/TextClassification_05";
     }
 
+    //3단원
+    //이미지분류
+    @GetMapping(value = "/Classification/ImageClassification_01")
+    String getImageClassification_01(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/Classification/ImageClassification_01";
+    }
+
+    //코드거리
+    @GetMapping(value = "/Classification/ImageClassification_02")
+    String getImageClassification_02(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/Classification/ImageClassification_02";
+    }
+
+    //이미지 간 해밍 거리
+    @GetMapping(value = "/Classification/ImageClassification_03")
+    String getImageClassification_03(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/Classification/ImageClassification_03";
+    }
+
+    //신경망 합과 원리
+    @GetMapping(value = "/Classification/ImageClassification_04")
+    String getImageClassification_04(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/Classification/ImageClassification_04";
+    }
+
+    //CNN 입력층 은닉층 출력층 정리
+    @GetMapping(value = "/Classification/ImageClassification_05")
+    String getImageClassification_05(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/Classification/ImageClassification_05";
+    }
+
+    @GetMapping(value = "/Classification/ImageClassification_06")
+    String getImageClassification_06(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/Classification/ImageClassification_06";
+    }
+
+
+
 
 
     //4단원
