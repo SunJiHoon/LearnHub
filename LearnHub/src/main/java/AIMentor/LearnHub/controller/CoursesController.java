@@ -188,6 +188,37 @@ public class CoursesController {
     }
 
 
+    //3단원
+    @GetMapping(value = "/Classification/TextClassification_01")
+    String getTextClassification_01(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/Classification/TextClassification_01";
+    }
+
+    //자카드 유사도
+    @GetMapping(value = "/Classification/TextClassification_02")
+    String getTextClassification_02(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/Classification/TextClassification_02";
+    }
+    //유클라디안 유사도
+    @GetMapping(value = "/Classification/TextClassification_03")
+    String getTextClassification_03(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/Classification/TextClassification_03";
+    }
+    //코사인 유사도
+    @GetMapping(value = "/Classification/TextClassification_04")
+    String getTextClassification_04(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/Classification/TextClassification_04";
+    }
+    @GetMapping(value = "/Classification/TextClassification_05")
+    String getTextClassification_05(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/Classification/TextClassification_05";
+    }
+
 
 
     //4단원

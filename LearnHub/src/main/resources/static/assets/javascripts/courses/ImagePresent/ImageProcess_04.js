@@ -33,4 +33,24 @@ function rotate() {
         item.style.gridColumnStart = Math.round(newX) + 1; // Adjusting for centering and converting to 1-indexed
         item.style.gridRowStart = Math.round(newY) + 1; // Adjusting for centering and flipping y-axis back to original orientation
     });
+
+    var x = 5; // Given x-coordinate
+    var y = 0; // Given y-coordinate
+
+    // Applying rotation matrix
+    var newX = cosTheta * x - sinTheta * y;
+    var newY = sinTheta * x + cosTheta * y;
+
+    // Display the new coordinates
+    const formulaContainer = document.getElementById('formulaContainer');
+    formulaContainer.innerHTML = `
+    <div>초기 좌표 : (x, y) = (${x}, ${y})</div>
+    <div>각도: - ${angle} degrees</div>
+    <div>회전 행렬:</div>
+    <div>[ <span class="highlight">${cosTheta.toFixed(2)}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight">${-sinTheta.toFixed(2)}</span> ]</div>
+    <div>[ <span class="highlight">${sinTheta.toFixed(2)}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight">${cosTheta.toFixed(2)}</span> ]</div>
+    <div>새 좌표: (newX, newY) = (${newX.toFixed(2)}, - ${newY.toFixed(2)})</div>
+  `;
 }
+
+rotate();
