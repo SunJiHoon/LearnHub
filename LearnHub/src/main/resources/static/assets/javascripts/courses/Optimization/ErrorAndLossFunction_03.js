@@ -1,1 +1,1 @@
-import{g as e}from"../assets/cutscene-xFOkPv4p.js";const t=["/assets/images/TextMaterials/magicBook.jfif","/assets/images/TextMaterials/magicBook.jfif"],a=["오차와 손실함수","시작"];document.addEventListener("DOMContentLoaded",()=>{e(document.getElementById("talkInterface"),t,a)});
+import{g as e}from"../assets/cutscene-xFOkPv4p.js";const t=["/assets/images/TextMaterials/magicBook.jfif","/assets/images/TextMaterials/magicBook.jfif"],a=["오차와 손실함수","끝"];document.addEventListener("DOMContentLoaded",()=>{e(document.getElementById("talkInterface"),t,a)});

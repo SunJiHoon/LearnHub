@@ -1,0 +1,1 @@
+import{g as e}from"../assets/cutscene-xFOkPv4p.js";const t=["/assets/images/TextMaterials/magicBook.jfif","/assets/images/TextMaterials/magicBook.jfif"],a=["인공지능 수학 탐구","끝"];document.addEventListener("DOMContentLoaded",()=>{e(document.getElementById("talkInterface"),t,a)});

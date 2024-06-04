@@ -1,0 +1,1 @@
+import{g as e}from"../assets/cutscene-xFOkPv4p.js";const t=["/assets/images/TextMaterials/magicBook.jfif","/assets/images/TextMaterials/magicBook.jfif"],a=["인공지능의 합리적 의사 결정 사례","끝"];document.addEventListener("DOMContentLoaded",()=>{e(document.getElementById("talkInterface"),t,a)});

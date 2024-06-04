@@ -331,6 +331,39 @@ public class CoursesController {
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
         return "courses/Optimization/GradientDescent_03";
     }
+
+    //4-2
+    @GetMapping(value = "/ReasonableDecision/Case_01")
+    String getCase_01(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ReasonableDecision/Case_01";
+    }
+    @GetMapping(value = "/ReasonableDecision/Case_02")
+    String getCase_02(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ReasonableDecision/Case_02";
+    }
+    @GetMapping(value = "/ReasonableDecision/Case_03")
+    String getCase_03(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ReasonableDecision/Case_03";
+    }
+
+    @GetMapping(value = "/ReasonableDecision/MathInquiry_01")
+    String getMathInquiry_01(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ReasonableDecision/MathInquiry_01";
+    }
+    @GetMapping(value = "/ReasonableDecision/MathInquiry_02")
+    String getMathInquiry_02(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ReasonableDecision/MathInquiry_02";
+    }
+    @GetMapping(value = "/ReasonableDecision/MathInquiry_03")
+    String getMathInquiry_03(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/ReasonableDecision/MathInquiry_03";
+    }
     // @GetMapping(value = "/LossFunction/LossFunction_01")
     // String getLossFunction_01(Model model){
     //     model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
