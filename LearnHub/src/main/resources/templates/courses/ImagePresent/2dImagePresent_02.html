@@ -9,8 +9,31 @@
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
     <link rel="stylesheet" href="/assets/stylesheets/mypage.css">
-    <link rel="stylesheet" href="/assets/stylesheets/courses/2dImagePresent_02.css">
-
+    <style>
+        canvas {
+            display: block;
+            margin: auto;
+            border: 1px solid black;
+        }
+        .matrix {
+            display: grid;
+            gap: 1px;
+            margin: auto;
+            width: fit-content;
+        }
+        .matrix > div {
+            box-sizing: border-box;
+            width: 2em;
+            height: 2em;
+            border: 1px solid #ddd;
+            font-size: 0.75em;
+            line-height: 2em;
+            text-align: center;
+        }
+        #controls {
+            margin: 10px;
+        }
+    </style>
 </head>
 <div class="container">
 
@@ -57,20 +80,21 @@
     </div>
 
     <div class="big_section" id="big_section">
-        <div class ="matrix-container">
+        <div class="matrix-container">
             <h1>(실습1) 사과 그림을 그려서 행렬로 변환해봐요!</h1>
-            <canvas id="canvas" width="400" height="400"></canvas>
+            <canvas id="canvas" width="374" height="374"></canvas>
             <div id="controls">
-                <button id="clear">Clear</button>
-                <button id="convert">Convert to Matrix</button>
+                <button id="clear">지우기</button>
+                <button id="convert">행렬로 변환</button>
             </div>
         </div>
-        <div class ="matrix-container">
+        <div class="matrix-container">
             <div>
-                <h2>Color Matrix</h2>
-                <div id="matrix"></div>
-                <h2>Alpha Value Matrix</h2>
-                <div id="alphaMatrix"></div>
+                <h2>색상 행렬</h2>
+                <div id="matrix" class="matrix"></div>
+                <div id="controls">
+                    <button id="toggle">값 보기</button>
+                </div>
             </div>
         </div>
     </div>
