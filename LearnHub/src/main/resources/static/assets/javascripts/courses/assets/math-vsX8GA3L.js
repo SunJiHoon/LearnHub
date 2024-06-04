@@ -1,0 +1,1 @@
+function o(){let t,n;do t=Math.random();while(t==0);do n=Math.random();while(n==0);return Math.sqrt(-2*Math.log(t))*Math.cos(2*Math.PI*n)}function r(t){return 1/(1+Math.exp(-t))}function i(t,n,a){return t+a*(n-t)}export{i as l,o as n,r as s};

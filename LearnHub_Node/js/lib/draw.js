@@ -25,7 +25,6 @@ export function randomColor() {
 
 export function drawGraph(ctx, f, xfrom, xto, yfrom, yto) {
 	const { width, height } = ctx.canvas;
-    ctx.clearRect(0, 0, width, height);
 
     ctx.beginPath();
     for(let x = 0; x <= width; x++) {
