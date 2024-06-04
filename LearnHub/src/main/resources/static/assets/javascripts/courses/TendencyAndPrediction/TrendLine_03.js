@@ -1,0 +1,1 @@
+import{g as e}from"../assets/cutscene-xFOkPv4p.js";const t=["/assets/images/TextMaterials/magicBook.jfif","/assets/images/TextMaterials/magicBook.jfif"],a=["추세선과 예측","끝"];document.addEventListener("DOMContentLoaded",()=>{e(document.getElementById("talkInterface"),t,a)});

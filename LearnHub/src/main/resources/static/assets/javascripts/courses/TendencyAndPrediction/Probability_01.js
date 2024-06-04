@@ -1,0 +1,1 @@
+import{g as e}from"../assets/cutscene-xFOkPv4p.js";const t=["/assets/images/TextMaterials/magicBook.jfif","/assets/images/TextMaterials/magicBook.jfif"],a=["확률을 이용한 예측 시작","시작"];document.addEventListener("DOMContentLoaded",()=>{e(document.getElementById("talkInterface"),t,a)});
