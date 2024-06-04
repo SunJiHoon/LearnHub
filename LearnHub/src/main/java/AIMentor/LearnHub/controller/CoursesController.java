@@ -300,6 +300,22 @@ public class CoursesController {
 
 
     //4단원
+    @GetMapping(value = "/Optimization/ErrorAndLossFunction_01")
+    String getErrorAndLossFunction_01(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/Optimization/ErrorAndLossFunction_01";
+    }
+    @GetMapping(value = "/Optimization/ErrorAndLossFunction_02")
+    String getErrorAndLossFunction_02(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/Optimization/ErrorAndLossFunction_02";
+    }
+    @GetMapping(value = "/Optimization/ErrorAndLossFunction_03")
+    String getErrorAndLossFunction_03(Model model){
+        model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
+        return "courses/Optimization/ErrorAndLossFunction_03";
+    }
+
     @GetMapping(value = "/Optimization/GradientDescent_01")
     String getGradientDescent_01(Model model){
         model.addAttribute("CurrPath", pathControllerApi.getCurrPath());
