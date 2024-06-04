@@ -9,7 +9,59 @@
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
     <link rel="stylesheet" href="/assets/stylesheets/mypage.css">
-    <link rel="stylesheet" href="/assets/stylesheets/courses/ImageProcess_04.css">
+    <style>
+        .matrix {
+            display: grid;
+            grid-template-columns: repeat(9, 3em);
+            grid-template-rows: repeat(9, 3em);
+            justify-content: center;
+            gap: 5px;
+        }
+        .matrix > div {
+            border: 1px solid #ddd;
+            width: 3em;
+            height: 3em;
+            color: black;
+            background-color: lightblue;
+            text-align: center;
+            line-height: 3em;
+        }
+        .matrix > div.highlighted {
+            outline: 2px solid black;
+        }
+
+        #angle {
+            margin-top: 10px;
+        }
+
+        #formula-container {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            margin: auto;
+            width: fit-content;
+            gap: 0.5em;
+        }
+        table.matrix-notation {
+            display: block;
+            border-image: linear-gradient(to right, black, black);
+            border-image: linear-gradient(to right,
+                black 0% 6px,
+                white 6px calc(100% - 6px),
+                black calc(100% - 6px) 100%
+            ) 2 6 / 6px / 2px;
+            white-space: nowrap;
+        }
+        table.matrix-notation tr {
+            background-color: white;
+        }
+        table.matrix-notation td:first-child {
+            padding-left: 0.5em;
+        }
+        table.matrix-notation td:last-child {
+            padding-right: 0.5em;
+        }
+    </style>
 </head>
 <div class="container">
 
@@ -44,25 +96,64 @@
 
 
     <div class = "big_section">
+        <input type="range" id="angle" value="0" min="0" max="360" step="1">
+        <label for="angle">Angle: <span id="angle-feedback">0</span>˚</label>
 
-<!--        <label for="angle">Enter angle (in degrees): </label>-->
-<!--        <input type="number" id="angle" value="0">-->
-        <input type="range" id="angle" value="0" min="0" max="90" step="1" onchange="rotate()">
-        <label for="angle">Angle: <span id="angleValue">0</span> degrees</label>
+        <div class="matrix" id="grid"></div>
 
-        <button onclick="rotate()">Rotate</button>
-
-        <div class="grid-container" id="grid">
-            <!-- Here you can insert your images -->
-            <div class="grid-item"><div class="rotated-cell">1</div></div>
-            <div class="grid-item"><div class="rotated-cell">2</div></div>
-            <div class="grid-item"><div class="rotated-cell">3</div></div>
-            <div class="grid-item"><div class="rotated-cell">4</div></div>
-            <div class="grid-item"><div class="rotated-cell highlighted-cell">5</div></div>
-            <!-- Repeat these divs to fill the grid -->
+        <div>
+            <h2>변환한 뒤 <span class="outlined">(3, 3)</span>의 좌표 계산</h2>
+            <div id="formula-container">
+                <table class="matrix-notation">
+                    <tr>
+                        <td>cos θ</td>
+                        <td>-sin θ</td>
+                    </tr>
+                    <tr>
+                        <td>sin θ</td>
+                        <td>cos θ</td>
+                    </tr>
+                </table>
+                ×
+                <table class="matrix-notation">
+                    <tr>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                    </tr>
+                </table>
+                =
+                <table class="matrix-notation">
+                    <tr>
+                        <td id="formula-lhs-11">1</td>
+                        <td id="formula-lhs-12">0</td>
+                    </tr>
+                    <tr>
+                        <td id="formula-lhs-21">0</td>
+                        <td id="formula-lhs-22">1</td>
+                    </tr>
+                </table>
+                ×
+                <table class="matrix-notation">
+                    <tr>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                    </tr>
+                </table>
+                =
+                <table class="matrix-notation">
+                    <tr>
+                        <td id="formula-rhs-1">3</td>
+                    </tr>
+                    <tr>
+                        <td id="formula-rhs-2">3</td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div id="formulaContainer"></div>
-
     </div>
 
 

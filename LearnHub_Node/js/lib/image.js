@@ -57,6 +57,19 @@ export function updateIntensityMatrix(grid, matrix) {
 		}
 	);
 }
+export function updateIntensityAndNumberMatrix(grid, matrix) {
+	updateMatrix(
+		grid, matrix,
+		cell => {
+			const div = document.createElement('div');
+			div.style.backgroundColor = `rgba(${cell} ${cell} ${cell})`;
+			if(cell < 128)
+				div.style.color = 'white';
+			div.textContent = cell;
+			return div;
+		}
+	);
+}
 export function updateColorMatrix(grid, matrix) {
 	updateMatrix(
 		grid, matrix,
