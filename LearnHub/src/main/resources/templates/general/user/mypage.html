@@ -92,16 +92,13 @@
 <!--                    사진을 R, G, B 채널의 합으로 나타낼 수 있다. 사진을 행렬로 나타낼 수 있다. -->
                     <span>이미지 자료의 표현</span>
                     <form action="/courses/ImagePresent/2dImagePresent_01" method="GET">
-                        <input type="submit" value="2d 들어가기" class="custom-button">
+                        <input type="submit" value="들어가기" class="custom-button">
+<!--                        <input type="submit" value="2d 들어가기" class="custom-button">-->
                     </form>
-                    <form action="/courses/ImagePresent/ImagePresent_01" method="GET">
-                        <input type="submit" value="3d 들어가기" class="custom-button">
-                    </form>
+<!--                    <form action="/courses/ImagePresent/ImagePresent_01" method="GET">-->
+<!--                        <input type="submit" value="3d 들어가기" class="custom-button">-->
+<!--                    </form>-->
                 </li>
-                <!--                    행렬로 나타낸 사진을 커널을 통해 밝거나 어둡게 만들 수 있다.-->
-                <!--                    교과서에서는 사진을 돌리거나 뒤집는 방법도 나오는데 굳이 해야하나?-->
-                <!--                    대학교 영상처리 시간에 배울 땐, 커널을 배워서 했는데 훨씬 도움이 되었던 것 같다.
-                교과서 내용을 빼고 커널 내용을 넣고 싶다.-->
                 <li>
                     <span>이미지 자료의 처리</span>
                     <form action="/courses/ImagePresent/ImageProcess_01" method="GET">
@@ -135,8 +132,18 @@
         <li>
             <h3>경향성과 예측</h3>
             <ol>
-                <li>확률을 이용한 예측</li>
-                <li>추세선과 예측</li>
+                <li>
+                    <span>확률을 이용한 예측</span>
+                    <form action="/courses/TendencyAndPrediction/Probability_01" method="GET">
+                        <input type="submit" value="들어가기" class="custom-button">
+                    </form>
+                </li>
+                <li>
+                    <span>추세선과 예측</span>
+                    <form action="/courses/TendencyAndPrediction/TrendLine_01" method="GET">
+                        <input type="submit" value="들어가기" class="custom-button">
+                    </form>
+                </li>
             </ol>
         </li>
     </ol>
@@ -149,9 +156,9 @@
             <ol>
                 <li>
                     <span>오차와 손실함수</span>
-                    <!-- <form action="/courses/LossFunction/LossFunction_01" method="GET">
-                        <input type="submit" value="LossFunction 학습" class="custom-button">
-                    </form> -->
+                    <form action="/courses/Optimization/ErrorAndLossFunction_01" method="GET">
+                        <input type="submit" value="들어가기" class="custom-button">
+                    </form>
                 </li>
                 <li>
                     <span>경사하강법</span>
@@ -164,16 +171,26 @@
         <li>
             <h3>합리적 의사 결정과 수학 탐구</h3>
             <ol>
-                <li>인공지능의 합리적 의사 결정 사례</li>
-                <li>인공지능 수학 탐구</li>
+                <li>
+                    <span>인공지능의 합리적 의사 결정 사례</span>
+                    <form action="/courses/ReasonableDecision/Case_01" method="GET">
+                        <input type="submit" value="들어가기" class="custom-button">
+                    </form>
+                </li>
+                <li>
+                    <span>인공지능 수학 탐구</span>
+                    <form action="/courses/ReasonableDecision/MathInquiry_01" method="GET">
+                        <input type="submit" value="들어가기" class="custom-button">
+                    </form>
+                </li>
             </ol>
         </li>
     </ol>
     </div>
     </div>
-    <form action="/courses/KNN/KNNFunction_02" method="GET">
-        <input type="submit" value="KNN 학습" class="custom-button">
-    </form>
+<!--    <form action="/courses/KNN/KNNFunction_02" method="GET">-->
+<!--        <input type="submit" value="KNN 학습" class="custom-button">-->
+<!--    </form>-->
 </div>
 <script src="/assets/javascripts/student/register.js"></script>
 
