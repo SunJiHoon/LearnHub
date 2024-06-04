@@ -10,6 +10,35 @@
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
     <link rel="stylesheet" href="/assets/stylesheets/mypage.css">
     <link rel="stylesheet" href="/assets/stylesheets/dnd.css">
+    <style>
+        .horizontal {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            text-align: center;
+        }
+        .base, .derive {
+            width: 100px;
+            height: 50px;
+            color: white;
+            text-align: center;
+            line-height: 50px;
+            cursor: move;
+        }
+        .base {
+            background-color: #3d70ff;
+        }
+        .derive {
+            background-color: #ff761c;
+        }
+        #visualizer {
+            display: block;
+            margin: auto;
+        }
+        #visualizer.dragenter {
+            outline: 5px dashed #037f66;
+        }
+    </style>
 </head>
 <div class="container">
 
@@ -64,18 +93,24 @@
         </details>
     </div>
     <div class="big_section">
+        <p class="rounded-skyblue">실습하기</p>
         <p>닭, 돼지, 소에 더하고 싶은 벡터 성분을 끌어다 놓아 주세요.</p>
-        <div id="drag-container">
-            <div id="draggable1" draggable="true" class="draggable">새끼 벡터</div>
-            <div id="draggable2" draggable="true" class="draggable">음식 벡터</div>
-
-            <div id="dropzone1" class="dropzone">벡터 주머니</div>
-            <div id="dropzone2" class="dropzone">(여기로 드래그 & 드롭 해주세요!)적용할 것</div>
+        <div class="horizontal">
+            <div>
+                <div id="base-chicken" class="base" draggable="true">닭</div>
+                <div id="base-pig" class="base" draggable="true">돼지</div>
+                <div id="base-cow" class="base" draggable="true">소</div>
+            </div>
+            <div>
+                <div id="derive-meat" class="derive" draggable="true">+고기</div>
+                <div id="derive-young" class="derive" draggable="true">+새끼</div>
+                <div id="derive-male" class="derive" draggable="true">+수컷</div>
+                <div id="derive-female" class="derive" draggable="true">+암컷</div>
+            </div>
         </div>
-        <img id="chickenImg" src="/assets/images/TextMaterials/chicken.jpg" alt="닭 벡터" >
-
+        <canvas id="visualizer" width="400" height="400"></canvas>
+        <!-- <img id="chickenImg" src="/assets/images/TextMaterials/chicken.jpg" alt="닭 벡터" > -->
     </div>
-    <!--    <input type="hidden" id="CurrPath" th:value="${CurrPath}">-->
     <br>
 
     <form action="/courses/TextMaterials/Visualization_04" method="get">
