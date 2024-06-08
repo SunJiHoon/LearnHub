@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
     <link rel="stylesheet" href="/assets/stylesheets/mypage.css">
-<!--    <link rel="stylesheet" href="/assets/stylesheets/courses/ImageClassification_02.css">-->
+    <link rel="stylesheet" href="/assets/stylesheets/courses/Probability_02.css">
 </head>
 <div class="container">
 
@@ -39,7 +39,39 @@
     <br>
 
     <div class = "big_section">
+        <h1>확률과 베이지안 정리</h1>
 
+        <section id="probability">
+            <h2>확률이란?</h2>
+            <p>확률은 어떤 사건이 발생할 가능성을 나타내는 수치입니다. 확률은 0에서 1 사이의 값으로 표현되며, 0은 사건이 절대 발생하지 않음을, 1은 사건이 반드시 발생함을 의미합니다.</p>
+            <p>예시: 동전을 던졌을 때 앞면이 나올 확률은 0.5입니다.</p>
+        </section>
+
+        <section id="bayesian">
+            <h2>베이지안 정리</h2>
+            <p>베이지안 정리는 새로운 정보가 주어졌을 때 사건의 확률을 갱신하는 방법을 설명합니다. 베이지안 정리를 사용하여 스팸 메일인지 아닌지 판단할 수 있습니다.</p>
+            <button onclick="showExample()">베이지안 정리 예제 보기</button>
+            <div id="example" style="display: none;">
+                <h3>베이지안 정리를 이용한 스팸 메일 판단 예제</h3>
+                <p>베이지안 정리 공식: <code>P(A|B) = (P(B|A) * P(A)) / P(B)</code></p>
+                <p>여기서,</p>
+                <ul>
+                    <li>P(A): 메일이 스팸일 확률</li>
+                    <li>P(B): 특정 단어가 메일에 포함될 확률</li>
+                    <li>P(B|A): 스팸 메일에서 특정 단어가 포함될 확률</li>
+                    <li>P(A|B): 특정 단어가 포함된 메일이 스팸일 확률</li>
+                </ul>
+                <p>예시:</p>
+                <ul>
+                    <li>P(A) = 0.2 (전체 메일 중 스팸 메일의 비율)</li>
+                    <li>P(B) = 0.1 (특정 단어가 전체 메일에 포함될 확률)</li>
+                    <li>P(B|A) = 0.6 (특정 단어가 스팸 메일에 포함될 확률)</li>
+                </ul>
+                <p>베이지안 정리에 따라,</p>
+                <p>P(A|B) = (0.6 * 0.2) / 0.1 = 1.2</p>
+                <p>따라서, 특정 단어가 포함된 메일이 스팸일 확률은 1.2입니다.</p>
+            </div>
+        </section>
     </div>
 
 
@@ -48,6 +80,6 @@
         <input type="submit" value = "다음으로 이동하기" class = "custom-button">
     </form>
 </div>
-<!--<script src="/assets/javascripts/courses/Classification/ImageClassification_02.js"></script>-->
+<script src="/assets/javascripts/courses/TendencyAndPrediction/Probability_02.js"></script>
 <script src="/assets/javascripts/student/register.js"></script>
 </html>
