@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
     <link rel="stylesheet" href="/assets/stylesheets/mypage.css">
-<!--    <link rel="stylesheet" href="/assets/stylesheets/courses/ImageClassification_02.css">-->
+    <link rel="stylesheet" href="/assets/stylesheets/courses/ErrorAndLossFunction_02.css">
 </head>
 <div class="container">
 
@@ -39,6 +39,61 @@
     <br>
 
     <div class = "big_section">
+
+        <h1>머신 러닝 개념</h1>
+
+        <div class="section">
+            <h2>1. 지도 학습 (Supervised Learning)</h2>
+            <p>
+                지도 학습은 입력 데이터와 이에 상응하는 정답(레이블)을 가지고 학습하는 방식입니다. 주로 분류(Classification)와 회귀(Regression) 문제에 사용됩니다.
+                예를 들어, 이메일을 스팸과 정상 메일로 분류하는 문제는 지도 학습의 예입니다.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>2. 비지도 학습 (Unsupervised Learning)</h2>
+            <p>
+                비지도 학습은 정답(레이블) 없이 입력 데이터만을 가지고 학습하는 방식입니다. 주로 데이터의 군집(Clustering)이나 차원 축소(Dimensionality Reduction)에 사용됩니다.
+                예를 들어, 고객의 구매 패턴을 분석하여 비슷한 고객 군집을 찾는 문제는 비지도 학습의 예입니다.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>3. 강화 학습 (Reinforcement Learning)</h2>
+            <p>
+                강화 학습은 에이전트가 환경과 상호작용하며 보상을 최대화하는 행동을 학습하는 방식입니다. 주로 게임이나 로봇 제어와 같은 분야에서 사용됩니다.
+                예를 들어, 체스 게임에서 승리하기 위해 최적의 수를 두는 방법을 학습하는 것은 강화 학습의 예입니다.
+            </p>
+        </div>
+    </div>
+    <div class = "big_section">
+        <div class="section">
+            <h2>4. 예측 모델의 오차 구하기</h2>
+            <p>
+                예측 모델의 오차는 모델의 예측값과 실제값 사이의 차이를 측정한 것입니다. 일반적으로 평균 제곱 오차(Mean Squared Error, MSE)나 평균 절대 오차(Mean Absolute Error, MAE)를 사용합니다.
+            </p>
+            <p>
+                예를 들어, MSE는 다음과 같이 계산됩니다:
+            </p>
+            <pre>
+MSE = (1/n) * Σ(actual - prediction)²
+        </pre>
+        </div>
+
+        <div class="section">
+            <h2>5. 손실 함수의 뜻</h2>
+            <p>
+                손실 함수는 모델의 예측값과 실제값의 차이를 측정하는 함수입니다. 손실 함수의 값이 작을수록 모델의 성능이 좋다고 할 수 있습니다. 주로 사용되는 손실 함수로는 평균 제곱 오차(MSE), 크로스 엔트로피 손실(Cross-Entropy Loss) 등이 있습니다.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>6. 손실 함수의 최솟값</h2>
+            <p>
+                손실 함수의 최솟값은 모델이 예측을 잘하게 되면 손실 함수의 값이 최소화됩니다. 이는 모델이 학습을 통해 최적의 파라미터를 찾아가는 과정에서 달성됩니다. 최적화 알고리즘(Optimization Algorithm)인 경사 하강법(Gradient Descent)을 사용하여 손실 함수를 최소화할 수 있습니다.
+            </p>
+        </div>
+
 
     </div>
 
