@@ -3,15 +3,15 @@ import { generateCutscene } from "../../lib/cutscene";
 const images = [
     "/assets/images/TextMaterials/magicBook.jfif",
     "/assets/images/TextMaterials/magicBook.jfif",
-    // "/assets/images/TextMaterials/magicBook.jfif",
-    // "/assets/images/TextMaterials/magicBook.jfif",
+    "/assets/images/TextMaterials/magicBook.jfif",
+    "/assets/images/TextMaterials/magicBook.jfif",
 ]; // 전환할 이미지들의 경로
 
 const texts = [
-    "오차와 손실함수",
-    "시작",
-    // "\"이 책은 그저 읽는 것이 아니라, 그 내용을 마법으로 저장할 수 있는 마법력을 지니고 있지.\"\n",
-    // "\"지금부터 단어 의미나 이미지들을 마법서에 저장하고, 그것들을 마법처럼 활용하는 법을 배워보자.\"\n",
+    "우드루이 교수는 마법대학교에서 마법과 머신 러닝을 융합한 강의를 펼쳤다.",
+    "학생들은 지도, 비지도, 강화 학습에 대한 신비로운 개념을 알아가며 신이 난 듯이 감탄했다.", 
+    "손실 함수는 마법사의 주문과 같아, 모델의 효과를 측정하여 최적의 전략을 찾는 데 도움을 준다.",
+    "우드루이 교수의 강의는 마법적인 지식과 현실 세계를 결합해 새로운 시대를 열어간다.",
 ]; // 이미지에 대응하는 텍스트
 
 document.addEventListener('DOMContentLoaded', () => {
