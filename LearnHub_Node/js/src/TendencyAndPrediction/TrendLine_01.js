@@ -5,15 +5,13 @@ const images = [
     "/assets/images/TextMaterials/magicBook.jfif",
     "/assets/images/TextMaterials/magicBook.jfif",
     "/assets/images/TextMaterials/magicBook.jfif",
-    "/assets/images/TextMaterials/magicBook.jfif",
 ]; // 전환할 이미지들의 경로
 
 const texts = [
-    "오늘 수업을 잘 마무리했습니다, 마법사 여러분.",
-    "확률과 베이지안 정리는 마법뿐만 아니라 일상에서도 매우 유용한 도구입니다.",
-    "복습을 통해 오늘 배운 내용을 확실히 다지시길 바랍니다.",
-    "다음 시간에는 더 흥미로운 마법 이론을 다룰 예정이니 기대해 주세요.",
-    "질문이나 도움이 필요하면 언제든지 찾아오세요.",
+    "여러분, 오늘은 마법과 인공지능이 만나는 흥미로운 주제를 다루겠습니다.",
+    "우리는 데이터의 경향성을 직선과 곡선으로 예측하는 방법을 배울 것입니다.",
+    "마치 미래를 예측하는 마법처럼, 우리는 수학과 코드를 사용해 예측을 할 것입니다. ",
+    "준비되셨나요? 자, 이제 데이터 속에 숨겨진 마법을 찾아 떠나봅시다!",
 ]; // 이미지에 대응하는 텍스트
 
 document.addEventListener('DOMContentLoaded', () => {

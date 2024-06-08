@@ -9,7 +9,11 @@
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
     <link rel="stylesheet" href="/assets/stylesheets/mypage.css">
-<!--    <link rel="stylesheet" href="/assets/stylesheets/courses/ImageClassification_02.css">-->
+    <link rel="stylesheet" href="/assets/stylesheets/courses/TrendLine_02.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js 라이브러리 추가 -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script> <!-- numeric.js 추가 -->
+
 </head>
 <div class="container">
 
@@ -39,6 +43,73 @@
     <br>
 
     <div class = "big_section">
+        <h1>인공지능과 자료의 경향성</h1>
+
+        <section id="linear">
+            <h2>직선으로 경향성 나타내기 (y = ax + b)</h2>
+            <p>인공지능은 주어진 데이터를 분석하여 자료의 경향성을 나타낼 수 있습니다. 가장 기본적인 방법은 데이터를 직선으로 나타내는 것입니다.</p>
+            <p>예를 들어, 다음과 같은 데이터를 고려해보겠습니다:</p>
+            <table id="data-table">
+                <tr>
+                    <th>x</th>
+                    <th>y</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>7</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>11</td>
+                </tr>
+            </table>
+            <canvas id="linear-chart" width="400" height="200"></canvas>
+        </section>
+
+        <section id="quadratic">
+            <h2>곡선으로 경향성 나타내기 (y = ax^2 + bx + c)</h2>
+            <p>때로는 데이터가 직선보다 곡선에 더 잘 맞을 수 있습니다. 이 경우, y = ax<sup>2</sup> + bx + c 형태의 이차 방정식을 사용할 수 있습니다.</p>
+            <p>예를 들어, 다음과 같은 데이터를 고려해보겠습니다:</p>
+            <table id="data-table-quad">
+                <tr>
+                    <th>x</th>
+                    <th>y</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>11</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>18</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>27</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>38</td>
+                </tr>
+            </table>
+            <canvas id="quadratic-chart" width="400" height="200"></canvas>
+        </section>
 
     </div>
 
@@ -48,6 +119,6 @@
         <input type="submit" value = "다음으로 이동하기" class = "custom-button">
     </form>
 </div>
-<!--<script src="/assets/javascripts/courses/Classification/ImageClassification_02.js"></script>-->
+<script src="/assets/javascripts/courses/TendencyAndPrediction/TrendLine_02.js"></script>
 <script src="/assets/javascripts/student/register.js"></script>
 </html>
