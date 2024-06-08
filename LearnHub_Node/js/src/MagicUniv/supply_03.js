@@ -118,5 +118,5 @@ function generatePlayground() {
 document.addEventListener('DOMContentLoaded', () => {
     drawVec1d();
     drawVec2d(WORD2VEC, document.getElementById('myCanvas2'));
-    generatePlayground();
+    // generatePlayground();
 });
