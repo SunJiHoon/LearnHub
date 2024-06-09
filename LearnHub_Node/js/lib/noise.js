@@ -12,8 +12,7 @@ function lerp(zero, one, x)  {
 	);
 }
 
-export function noise2d() {
-	const seed = nanoid();
+export function noise2d(seed) {
 	return (x, y) => {
 		const
 			gridX = Math.floor(x()),
@@ -22,7 +21,7 @@ export function noise2d() {
 			lerpY = smoothstep(add(y, constant(-gridY)));
 		function contribution(gridX, gridY) {
 			const
-				rng = new Alea([seed, gridX, gridY]),
+				rng = new Alea([...seed, gridX, gridY]),
 				theta = 2*Math.PI*rng();
 			return add(
 				scale(Math.cos(theta), add(x, constant(-gridX))),
@@ -44,9 +43,9 @@ export function noise2d() {
 		);
 	};
 }
-export function noise2dOctave(octave = 2, multiplier = 1.5) {
+export function noise2dOctave(seed, octave = 2, multiplier = 1.5) {
 	const noises = [...Array(octave)].map((_, i) => {
-		const noise = noise2d();
+		const noise = noise2d([seed, i]);
 		return (x, y) => {
 			const mp = multiplier**i;
 			return scale(

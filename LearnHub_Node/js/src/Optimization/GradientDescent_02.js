@@ -1,54 +1,21 @@
-import { add, constant, scale, variable } from "../../lib/derivative";
-import { sigmoid, normal_distribution } from "../../lib/math";
-import { noise2dOctave } from "../../lib/noise";
+import { nanoid } from "nanoid";
+import { normal_distribution } from "../../lib/math";
 import { drawArrow } from "../../lib/draw";
+import { newNoise, wrap, SCALE } from "./GradientDescent_noise_adapter";
 
-const SCALE = 1;
+import Worker from './GradientDescent_02.worker?worker';
 
 function newGame(width, height) {
 	const noise = newNoise();
 	return {
 		noise,
-		map: plot(width, height, noise),
+		map: undefined,
 		attempts: [],
 		x: Math.random(),
 		y: Math.random(),
 		result: null,
 		particles: [],
 	};
-}
-function newNoise() {
-	function f(x) {
-		return scale(2*SCALE, add(x, constant(-0.5)));
-	}
-	const noise = noise2dOctave();
-	return (xRaw, yRaw) => {
-		const sample = noise(f(variable('x', xRaw)), f(variable('y', yRaw)));
-		return (dx, dy) => dx !== undefined
-			? sample({ x: dx, y: dy })
-			: sample();
-	};
-}
-function plot(width, height, noise) {
-	const
-		canvas = document.createElement('canvas'),
-		ctx = canvas.getContext('2d'),
-		data = ctx.createImageData(width, height);
-	canvas.width = width;
-	canvas.height = height;
-	for(let y = 0; y < height; y++)
-		for(let x = 0; x < width; x++) {
-			const z = Math.floor(256*wrap(noise(x/width, y/height)()));
-			data.data[4*(width*y + x)] = z;
-			data.data[4*(width*y + x) + 1] = 0;
-			data.data[4*(width*y + x) + 2] = 255 - z;
-			data.data[4*(width*y + x) + 3] = 255;
-		}
-	ctx.putImageData(data, 0, 0);
-	return canvas;
-}
-function wrap(x) {
-	return sigmoid(5*x);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -59,9 +26,36 @@ document.addEventListener('DOMContentLoaded', () => {
 		restart = document.getElementById('restart');
 
 	let
+		worker = new Worker(),
+		cancelPreviousPlot = () => {},
 		minigame = null,
 		rerun = false,
 		t = null;
+	function plot(width, height, seed) {
+		let cancelled = false;
+		cancelPreviousPlot();
+		cancelPreviousPlot = () => cancelled = false;
+
+		worker.postMessage({ width, height, seed });
+		return new Promise(resolve =>
+			worker.addEventListener('message', function f(e) {
+				try {
+					if(cancelled)
+						return;
+
+					const
+						canv = document.createElement('canvas'),
+						ctx = canv.getContext('2d');
+					canv.width = width;
+					canv.height = height;
+					ctx.putImageData(e.data, 0, 0);
+					resolve(canv);
+				} finally {
+					worker.removeEventListener('message', f);
+				}
+			})
+		);
+	}
 	function aim(cx, cy) {
 		if(minigame.result)
 			return;
@@ -70,10 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		queueRedraw();
 	}
 	function turn() {
-		if(minigame.result)
-			return;
 		if(minigame.attempts.length == 10) {
 			minigame.result = [minigame.x, minigame.y, minigame.noise(minigame.x, minigame.y)()];
+			confirm.disabled = true;
 			return;
 		}
 
@@ -104,7 +97,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 	function init() {
 		minigame = newGame(canvas.width, canvas.height);
+		plot(canvas.width, canvas.height, nanoid()).then(x => {
+			minigame.map = x;
+			queueRedraw();
+		});
 		confirm.textContent = '1개째 터뜨리기';
+		confirm.disabled = false;
 		queueRedraw();
 	}
 	function queueRedraw() {
@@ -123,7 +121,18 @@ document.addEventListener('DOMContentLoaded', () => {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			if(minigame.result) {
 				ctx.globalAlpha = 0.3;
-				ctx.drawImage(minigame.map, 0, 0);
+				if(minigame.map)
+					ctx.drawImage(minigame.map, 0, 0);
+				else {
+					ctx.fillStyle = 'black';
+					ctx.font = '24px Arial';
+					ctx.textAlign = 'center';
+					ctx.textBaseline = 'bottom';
+					ctx.textBaseline = 'top';
+					ctx.fillText('그래프 그리는 중', canvas.width/2, canvas.height/2 - 16);
+					ctx.font = '16px Arial';
+					ctx.fillText('잠시만 기다려 주세요.', canvas.width/2, canvas.height/2 + 16);
+				}
 				ctx.globalAlpha = 1;
 			}
 
@@ -184,5 +193,5 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 	confirm.addEventListener('click', turn);
 	restart.addEventListener('click', init);
-	setTimeout(init, 0);
+	init();
 });
