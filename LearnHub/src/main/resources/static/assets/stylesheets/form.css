@@ -39,13 +39,18 @@ button {
     color: white;
     border: none;
     border-radius: 0.3125em;
-    cursor: pointer;
     transition: background-color 0.3s;
+}
+button:not(:disabled) {
+    cursor: pointer;
+}
+button:disabled {
+    background-color: gray;
 }
 button:not(.logout) {
     width: 100%;
     padding: 0.625rem;
 }
-button:hover {
+button:hover:not(:disabled) {
     background-color: var(--main-color);
 }
