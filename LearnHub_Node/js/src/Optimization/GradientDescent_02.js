@@ -5,8 +5,8 @@ import { newNoise, wrap, SCALE } from "./GradientDescent_noise_adapter";
 
 import Worker from './GradientDescent_02.worker?worker';
 
-function newGame(width, height) {
-	const noise = newNoise();
+function newGame(width, height, seed) {
+	const noise = newNoise(seed);
 	return {
 		noise,
 		map: undefined,
@@ -96,8 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		queueRedraw();
 	}
 	function init() {
-		minigame = newGame(canvas.width, canvas.height);
-		plot(canvas.width, canvas.height, nanoid()).then(x => {
+		const seed = nanoid();
+		minigame = newGame(canvas.width, canvas.height, seed);
+		plot(canvas.width, canvas.height, seed).then(x => {
 			minigame.map = x;
 			queueRedraw();
 		});
