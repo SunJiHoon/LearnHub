@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
             w = cols/matrix[0].length,
             h = rows/matrix.length;
         formulaLhs1.textContent = w.toFixed(2);
-        formulaRhs1.textContent = h.toFixed(2);
-        formulaLhs2.textContent = cols;
+        formulaLhs2.textContent = h.toFixed(2);
+        formulaRhs1.textContent = cols;
         formulaRhs2.textContent = rows;
     }
 
