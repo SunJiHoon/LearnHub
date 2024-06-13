@@ -10,7 +10,53 @@
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
     <link rel="stylesheet" href="/assets/stylesheets/mypage.css">
     <link rel="stylesheet" href="/assets/stylesheets/courses/2dImagePresent_05.css">
-
+    <style>
+        #rgb-input-table {
+            display: grid;
+            grid-template-rows: repeat(4, 1fr);
+            grid-template-columns: repeat(4, 1fr);
+            justify-items: center;
+            margin: auto;
+            width: fit-content;
+        }
+        #rgb-input-table > div {
+            display: grid;
+            grid-template-rows: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.2em;
+            border: 1px solid black;
+            padding: 0.25em;
+        }
+        button.intensity {
+            border-radius: 1em;
+            width: 2em;
+            height: 2em;
+            font-family: inherit;
+        }
+        button.dark.red {
+            --outline: red;
+        }
+        button.dark.green {
+            --outline: green;
+        }
+        button.dark.blue {
+            --outline: blue;
+        }
+        button.intensity.selected, button.intensity:hover {
+            outline: 2px solid var(--outline, black);
+        }
+        .matrix {
+            display: grid;
+            gap: 1px;
+            margin: auto;
+            width: fit-content;
+        }
+        .matrix > div {
+            box-sizing: border-box;
+            width: 2em;
+            height: 2em;
+        }
+    </style>
 </head>
 <div class="container">
 
@@ -44,21 +90,11 @@
         </p>
     </div>
 
-    <div class = "big_section">
-        <table>
-            <thead>
-            <tr>
-                <!--                <th>(R, G, B)로 값을 채워주세요!</th>-->
-                <th colspan="4">(R, G, B)로 값을 채워주세요!</th>
-            </tr>
-            </thead>
-            <tbody id="rgb-input-table">
-            <!-- 5x5 RGB input cells will be generated here by JavaScript -->
-            </tbody>
-        </table>
-        <button onclick="convertToImage()">Convert</button>
+    <div class="big_section">
+        <p class="rounded-skyblue">빨강, 초록, 파랑 값을 채워주세요!</p>
+        <div id="rgb-input-table"></div>
         <div class="matrix-container">
-            <div id="matrix-container"></div>
+            <div id="output-matrix" class="matrix"></div>
         </div>
 
     </div>
@@ -71,7 +107,7 @@
 
 
 </div>
-<script src="/assets/javascripts/courses/ImagePresent/2dImagePresent_05.js"></script>
+<script src="/assets/javascripts/courses/ImagePresent/2dImagePresent_05.js" type="module"></script>
 <!--<script src="/assets/javascripts/courses/ImagePresent/2dImagePresent_05.js" type="module"></script>-->
 <script src="/assets/javascripts/student/register.js"></script>
 </html>

@@ -9,8 +9,78 @@
     <link rel="stylesheet" href="/assets/stylesheets/table.css">
     <link rel="stylesheet" href="/assets/stylesheets/form.css">
     <link rel="stylesheet" href="/assets/stylesheets/mypage.css">
-    <link rel="stylesheet" href="/assets/stylesheets/courses/ImageProcess_03.css">
+    <style>
+        #container {
+            text-align: center;
+        }
 
+        #matrix-container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .matrix {
+            display: grid;
+            gap: 5px;
+            height: fit-content;
+        }
+
+        .matrix > div {
+            border: 1px solid #ddd;
+            width: 3em;
+            height: 3em;
+        }
+        .matrix > div:last-child {
+            outline: 2px solid black;
+        }
+        .outlined {
+            margin: 0 0.1em;
+            padding: 0.05em;
+            outline: 2px solid black;
+        }
+
+        #controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            background-color: red;
+            color: white;
+            padding: 0 5px;
+        }
+
+        #formula-container {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            margin: auto;
+            width: fit-content;
+            gap: 0.5em;
+        }
+        table.matrix-notation {
+            display: block;
+            border-image: linear-gradient(to right, black, black);
+            border-image: linear-gradient(to right,
+                black 0% 6px,
+                white 6px calc(100% - 6px),
+                black calc(100% - 6px) 100%
+            ) 2 6 / 6px / 2px;
+        }
+        table.matrix-notation tr {
+            background-color: white;
+        }
+        table.matrix-notation td:first-child {
+            padding-left: 0.5em;
+        }
+        table.matrix-notation td:last-child {
+            padding-right: 0.5em;
+        }
+    </style>
 </head>
 <div class="container">
 
@@ -58,12 +128,37 @@
                 <button id="resize">Resize Matrix</button>
             </div>
 
-            <div id="formula-container">
-                <h2>4,4가 계산되는 공식</h2>
-                <div id="formula">
-                    <div>[&nbspW/4&nbsp0&nbsp]&nbsp&nbsp&nbsp[&nbsp4&nbsp]&nbsp=&nbsp[&nbsp col &nbsp]</div>
-                    <div>[&nbsp&nbsp&nbsp&nbsp] * [   ] = [     ]</div>
-                    <div>[   0    row/4 ]   [ 4 ]   [ row ]</div>
+            <div>
+                <h2>변환한 뒤 <span class="outlined">(4, 4)</span>의 좌표 계산</h2>
+                <div id="formula-container">
+                    <table class="matrix-notation">
+                        <tr>
+                            <td id="formula-lhs-1">1</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td id="formula-lhs-2">1</td>
+                        </tr>
+                    </table>
+                    ×
+                    <table class="matrix-notation">
+                        <tr>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                        </tr>
+                    </table>
+                    =
+                    <table class="matrix-notation">
+                        <tr>
+                            <td id="formula-rhs-1">4</td>
+                        </tr>
+                        <tr>
+                            <td id="formula-rhs-2">4</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
@@ -75,6 +170,6 @@
 
 
 </div>
-<script src="/assets/javascripts/courses/ImagePresent/ImageProcess_03.js"></script>
+<script src="/assets/javascripts/courses/ImagePresent/ImageProcess_03.js" type="module"></script>
 <script src="/assets/javascripts/student/register.js"></script>
 </html>
