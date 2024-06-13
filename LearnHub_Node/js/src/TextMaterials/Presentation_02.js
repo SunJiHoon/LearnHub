@@ -1,9 +1,5 @@
 import { cosineSimilarity, toFrequencyVector, tokenSet, tokenize, updateVectorTable, updateTokens } from "../../lib/text";
 
-const
-    EXAMPLE_TEXT_1 = 'The dog wants a walk',
-    EXAMPLE_TEXT_2 = 'The cat wants to go home';
-
 function updateFields(
     text1, text2,
     eTok1, eTok2, eUnion,
@@ -51,16 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
             result
         );
     }
-
-    updateFields(
-        EXAMPLE_TEXT_1, EXAMPLE_TEXT_2,
-        document.getElementById('prepared-sentence-1'),
-        document.getElementById('prepared-sentence-2'),
-        document.getElementById('prepared-union'),
-        document.getElementById('prepared-vector-1'),
-        document.getElementById('prepared-vector-2'),
-        document.getElementById('prepared-result')
-    );
 
     userInput1.addEventListener('input', updatePlayground);
     userInput2.addEventListener('input', updatePlayground);
