@@ -3,18 +3,14 @@
 ## 개요
 초등학교, 중학교 학생을 대상으로 인공지능과 머신러닝에 대해 학습을 도와주는 웹페이지를 제작합니다. 최급 하강법, CNN 등의 기초 원리를 생생한 그래픽을 통해 학습할 수 있도록 돕겠습니다.
 
-도메인은 aihub.putiez.com을 활용하고 있습니다. 이 도메인은 추후 변경될 예정입니다.
+도메인은 aihub.putiez.com을 활용하고 있습니다.
 
 ## 현재 기술 스택
 * [JDK](https://www.oracle.com/java/technologies/java-se-glance.html) 혹은 [OpenJDK](https://openjdk.org/) 20 이상
 	* [Spring Boot](https://spring.io/projects/spring-boot)
-* [Python](https://www.python.org/)
-	* [Flask](https://palletsprojects.com/p/flask/) (예정)
-	* [TensorFlow](https://www.tensorflow.org/) (예정)
 * [MySQL](https://www.mysql.com/)
 * [Node.js](https://nodejs.org/) 18 이상
 	* [Vite](https://vitejs.dev/)
-	* [Three.js](https://threejs.org/)
 
 ## 개발 환경 구축
 아래 에디터 중 원하는 것을 선택해서 개발할 수 있습니다.
