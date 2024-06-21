@@ -196,7 +196,6 @@ npm run build 명령어를 통해 vite로 빌드를 실시합니다. 이후 Java
 
  ![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/0d2d5412-082a-4cb9-930a-ce02bb5d5ac3)
 
-(움직이는 GIF 이미지)
 
   ![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/f1594c6b-143b-41ad-a49a-bca0a39a7380)
   
@@ -229,7 +228,6 @@ npm run build 명령어를 통해 vite로 빌드를 실시합니다. 이후 Java
 
  ![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/8899163b-f634-41b0-8450-9ace447a818c)
 
-(움직이는 GIF 이미지)
 
   ![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/a2dbb6fc-5aca-44a5-8be0-ccc6c90af82e)
   
@@ -245,7 +243,6 @@ npm run build 명령어를 통해 vite로 빌드를 실시합니다. 이후 Java
 
  ![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/ea7d2759-b1b5-4f57-a2d6-ebd35e0ad7f7)
 
-(움직이는 GIF 이미지)
   ![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/4ef476b1-a7b2-491d-a42b-79e82785e061)
   
 ![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/297025f0-e167-4c3b-935f-fd60df8600fb)
