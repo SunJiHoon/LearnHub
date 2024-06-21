@@ -63,6 +63,7 @@
 
 1. Visual Studio Code에서 `(프로젝트 루트)/` 폴더를 엽니다.
 2. 좌측의 플러그인 메뉴에서 'Extension Pack for Java' 플러그인을 검색 후, 'Install' 버튼을 클릭하여 플러그인을 설치합니다.
+   ![Visual Studio Code의 플러그인 화면에서 Extension Pack for Java를 검색한 결과](https://github.com/SunJiHoon/LearnHub/assets/25813580/29f142cf-1a22-472f-8ece-a8db12e8e368)
 3. `(프로젝트 루트)/LearnHub/src/main/java/AIMentor/LearnHub/LearnHubApplication.java`를 열고 플러그인이 Java 프로젝트를 불러올 때까지 기다립니다.
 4. [`application.properties` 설정을 마친 뒤](#223-applicationproperties-설정) F5 키를 눌러서 실행합니다.
 
