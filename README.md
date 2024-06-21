@@ -178,6 +178,7 @@ JavaScript를 관리하기 위한 Vite 프로젝트 환경을 구성합니다.
 			![학습 콘텐츠의 인터랙티브 요소](https://github.com/SunJiHoon/LearnHub/assets/46434398/f1594c6b-143b-41ad-a49a-bca0a39a7380)
 			
 			![학습 콘텐츠의 인터랙티브 요소](https://github.com/SunJiHoon/LearnHub/assets/46434398/eaeafab8-004b-4c8b-b65b-9c6af42c7582)
+			
 			*기존의 파형(검정색)은 기본 주파수 파동(파란색) 으로 분해됩니다.*
 		5. 실습을 진행한 후, 관련 개념을 학습하고 이론적 배경을 이해합니다.
 			
@@ -197,7 +198,7 @@ JavaScript를 관리하기 위한 Vite 프로젝트 환경을 구성합니다.
 			![학습 콘텐츠의 인터랙티브 요소](https://github.com/SunJiHoon/LearnHub/assets/46434398/a2dbb6fc-5aca-44a5-8be0-ccc6c90af82e)
 			
 			![학습 콘텐츠의 인터랙티브 요소](https://github.com/SunJiHoon/LearnHub/assets/46434398/2cef3735-f2bf-47a3-85ac-ba60e51905d3)
-	* **학습 예제 <Convolutional Neural Network>**
+	* **학습 예제 \<Convolutional Neural Network\>**
 		1. 학습 목표를 제시한 후 학습할 내용을 소개합니다.
 			
 			![학습 콘텐츠 중 일부](https://github.com/SunJiHoon/LearnHub/assets/46434398/295719fc-7366-41b6-b7bf-afc618c26540)
@@ -226,7 +227,7 @@ JavaScript를 관리하기 위한 Vite 프로젝트 환경을 구성합니다.
 		![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/1cb514c1-b17d-4b27-8dd9-c9621505f73a)
 
 		![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/c8b22482-4fd8-4397-8e24-9fbfb9c32606)
-	* **학습 예제 <3단원 - 1 자료의 분류 - 2. 이미지 자료의 분류>*
+	* **학습 예제 <3단원 - 1 자료의 분류 - 2. 이미지 자료의 분류>**
 
 		![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/e1191ce4-8828-436d-9179-283eb1ace280)
 	* **학습 예제 <4단원 - 1 최적화와 의사 결정 - 2. 경사하강법>**
