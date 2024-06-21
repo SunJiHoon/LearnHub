@@ -211,6 +211,29 @@ JavaScript를 관리하기 위한 Vite 프로젝트 환경을 구성합니다.
 		3. 실습을 진행한 후, 관련 개념을 학습하고 CNN의 이론적 배경을 이해합니다.
 			
 			![학습 콘텐츠 중 일부](https://github.com/SunJiHoon/LearnHub/assets/46434398/4f292914-ccf0-4eb8-8d31-1ab9c9c90903)
+	* **학습 예제 <2단원 - 1 텍스트 자료의 표현과 처리 - 2. 텍스트 자료의 처리와 시각화>**
+
+		![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/b9e55e10-9374-47f7-ace1-7c4cd5f30846)
+
+		![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/763e9914-217b-474e-8d72-7ea8229e1611)
+	* **학습 예제 <2단원 - 2 이미지 자료의 표현과 처리 - 1. 이미지 자료의 표현>**
+		
+		![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/50a09db1-da91-41f2-a66c-269c43569295)
+
+		![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/e49e1e0c-97cf-4498-979c-459672b8cfa5)
+	* **학습 예제 <2단원 - 2 이미지 자료의 표현과 처리 - 2. 이미지 자료의 처리>**
+
+		![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/1cb514c1-b17d-4b27-8dd9-c9621505f73a)
+
+		![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/c8b22482-4fd8-4397-8e24-9fbfb9c32606)
+	* **학습 예제 <3단원 - 1 자료의 분류 - 2. 이미지 자료의 분류>*
+
+		![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/e1191ce4-8828-436d-9179-283eb1ace280)
+	* **학습 예제 <4단원 - 1 최적화와 의사 결정 - 2. 경사하강법>**
+
+		![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/f31ec071-5974-40d9-81a2-c8ce56a23359)
+
+		![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/82e61190-0add-4725-803d-e0818b85f52a)
 
 각 강의는 생생한 그래픽과 인터랙티브 요소를 포함하고 있어, 기초 원리를 쉽게 이해할 수 있습니다.
 
