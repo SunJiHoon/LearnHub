@@ -135,9 +135,9 @@ npm run build 명령어를 통해 vite로 빌드를 실시합니다. 이후 Java
 
 
 ## 사용 메뉴얼
-1.	회원가입 및 로그인
+### 1.	회원가입 및 로그인
 
-1.1 회원가입 
+#### 1.1 회원가입 
    1.초기 화면에서 ‘회원가입’ 버튼을 클릭합니다.
    
  `![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/be4e0b3f-f8e2-4592-9667-94e7a332e539)
@@ -149,29 +149,29 @@ npm run build 명령어를 통해 vite로 빌드를 실시합니다. 이후 Java
 
 
 
-1.2 로그인 
+#### 1.2 로그인 
    로그인 화면에서 이메일과 비밀번호를 입력하여 로그인합니다.
    
  ![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/0f2fc4f1-cc07-4257-9bce-cf3568251b5b)
 
 
 
-2.	학습 자료 접근
+### 2.	학습 자료 접근
 
-2.1 대시보드
+#### 2.1 대시보드
 로그인 후, 대시보드에서 다양한 학습 자료와 강의를 선택하여 접근할 수 있습니다.
 
  ![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/de906fbc-eaa3-490e-9bad-99ec2564ae9a)
 
 
-2.2 학습
+#### 2.2 학습
 1.	각 학습자료에 접근하면 AI 마법학교의 수업이 진행됩니다.
 2.	
  ![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/f46ba645-8304-4e10-b946-e04e53ade828)
 
 
 3.	사용자는 마법학교 수업을 수강하며 다음과 같이 학습을 진행합니다.
-학습 예제 <인공지능의 발전과정 - 인공지능과 관련된 수학>
+##### 학습 예제 <1단원 - 2 인공지능과 관련된 수학 - 1. 앞으로 배울 것들, 삼각함수의 합과 푸리에 변환>
 (i) 학습 목표를 제시한 후 학습 할 내용을 소개합니다.
 
  ![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/24c98f1c-405f-4c3d-ad5b-d7ae236f571a)
@@ -208,7 +208,8 @@ npm run build 명령어를 통해 vite로 빌드를 실시합니다. 이후 Java
  ![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/b81fcbd4-7ade-41ff-9d25-ab620fcbc2f4)
 
 
-학습 예제 <텍스트 자료의 표현과 처리>
+##### 학습 예제 <2단원 - 1 텍스트 자료의 표현과 처리 - 1. 텍스트 자료의 표현, 빈도수 벡터>
+
 (i) 학습 목표를 제시한 후 학습 할 내용 [빈도수 벡터]를 소개합니다.
 
  ![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/75f8d46d-22d2-45ad-8600-e52f30263211)
@@ -233,7 +234,8 @@ npm run build 명령어를 통해 vite로 빌드를 실시합니다. 이후 Java
   
 ![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/2cef3735-f2bf-47a3-85ac-ba60e51905d3)
 
-학습 예제 <Convolutional Neural Network>
+##### 학습 예제 <1단원 - 2 인공지능과 관련된 수학 - 1. 앞으로 배울 것들, CNN>
+
 (i) 학습 목표를 제시한 후 학습할 내용을 소개합니다.
 
  ![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/295719fc-7366-41b6-b7bf-afc618c26540)
@@ -253,6 +255,40 @@ npm run build 명령어를 통해 vite로 빌드를 실시합니다. 이후 Java
 (iii)실습을 진행한 후, 관련 개념을 학습하고 CNN의 이론적 배경을 이해합니다.
 
  ![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/4f292914-ccf0-4eb8-8d31-1ab9c9c90903)
+
+##### 학습 예제 <2단원 - 1 텍스트 자료의 표현과 처리 - 2. 텍스트 자료의 처리와 시각화>
+
+![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/b9e55e10-9374-47f7-ace1-7c4cd5f30846)
+
+![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/763e9914-217b-474e-8d72-7ea8229e1611)
+
+
+
+##### 학습 예제 <2단원 - 2 이미지 자료의 표현과 처리 - 1. 이미지 자료의 표현>
+
+![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/50a09db1-da91-41f2-a66c-269c43569295)
+
+![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/e49e1e0c-97cf-4498-979c-459672b8cfa5)
+
+
+##### 학습 예제 <2단원 - 2 이미지 자료의 표현과 처리 - 2. 이미지 자료의 처리>
+
+![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/1cb514c1-b17d-4b27-8dd9-c9621505f73a)
+
+![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/c8b22482-4fd8-4397-8e24-9fbfb9c32606)
+
+
+##### 학습 예제 <3단원 - 1 자료의 분류 - 2. 이미지 자료의 분류>
+
+![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/e1191ce4-8828-436d-9179-283eb1ace280)
+
+
+##### 학습 예제 <4단원 - 1 최적화와 의사 결정 - 2. 경사하강법>
+
+![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/f31ec071-5974-40d9-81a2-c8ce56a23359)
+
+![image](https://github.com/SunJiHoon/LearnHub/assets/46434398/82e61190-0add-4725-803d-e0818b85f52a)
+
 
 
 각 강의는 생생한 그래픽과 인터랙티브 요소를 포함하고 있어, 기초 원리를 쉽게 이해할 수 있습니다.
