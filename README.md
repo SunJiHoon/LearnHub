@@ -50,12 +50,16 @@
 
 1. IntelliJ IDEA에서 스프링 프로젝트로서 `(프로젝트 루트)/LearnHub`를 엽니다. 
 2. 상단 메뉴에서 ‘File’ 을 클릭하고 ‘Settings’ 를 선택합니다.
+	
 	![IntelliJ IDEA의 File 메뉴에서 Settings...가 강조되어 있다.](https://github.com/SunJiHoon/LearnHub/assets/46434398/d6601f73-7847-427b-a8de-38faf98f525b)
 3. 설정 창이 열리면 왼쪽 메뉴에서 ‘Plugins’ 를 선택합니다.
+	
 	![설정 화면에서 Plugins가 강조되어 있다.](https://github.com/SunJiHoon/LearnHub/assets/46434398/f7daad1f-5a78-4def-be8b-9195bccd15bc)
 4. 검색창에 ‘Lombok’ 플러그인을 검색 후, ‘Install’ 버튼을 클릭하여 플러그인을 설치합니다.
+	
 	![플러그인 관리 화면에서 Lombok을 검색한 결과](https://github.com/SunJiHoon/LearnHub/assets/46434398/c0b399a6-8764-4448-95b0-91693b1485e7)
 5. 프로젝트 내에서 `build.gradle`에 쓰인 의존성을 `gradlew`를 통해 설치합니다.
+	
 	![프로젝트의 의존성을 설치하는 화면](https://github.com/SunJiHoon/LearnHub/assets/46434398/decce378-ddc3-49fc-be37-1149380eb8d0)
 6. [`application.properties` 설정을 마친 뒤](#223-applicationproperties-설정) 실행합니다.
 
@@ -63,6 +67,7 @@
 
 1. Visual Studio Code에서 `(프로젝트 루트)/` 폴더를 엽니다.
 2. 좌측의 플러그인 메뉴에서 'Extension Pack for Java' 플러그인을 검색 후, 'Install' 버튼을 클릭하여 플러그인을 설치합니다.
+   
    ![Visual Studio Code의 플러그인 화면에서 Extension Pack for Java를 검색한 결과](https://github.com/SunJiHoon/LearnHub/assets/25813580/29f142cf-1a22-472f-8ece-a8db12e8e368)
 3. `(프로젝트 루트)/LearnHub/src/main/java/AIMentor/LearnHub/LearnHubApplication.java`를 열고 플러그인이 Java 프로젝트를 불러올 때까지 기다립니다.
 4. [`application.properties` 설정을 마친 뒤](#223-applicationproperties-설정) F5 키를 눌러서 실행합니다.
@@ -110,10 +115,13 @@ JavaScript를 관리하기 위한 Vite 프로젝트 환경을 구성합니다.
 
 1. 터미널에서 `(프로젝트 루트)/LearnHub_Node/js` 폴더를 엽니다.
 2. `npm i` 명령어를 통해 종속성을 설치합니다.
+	
 	![터미널에서 npm i를 입력한 모습](https://github.com/SunJiHoon/LearnHub/assets/46434398/4c71d84d-7377-4e61-a3b8-c5ad233de949)
 3. `npm run build` 명령어를 통해 vite로 빌드를 실시합니다. 이후 JavaScript를 수정할 때마다 같은 방법으로 빌드를 실시합니다.
+	
 	![터미널에서 npm run build를 입력한 모습](https://github.com/SunJiHoon/LearnHub/assets/46434398/3070ce31-07f9-4275-83d5-3a73e4b9e955)
 	* 빌드 결과:
+		
 		![위 명령어를 실행한 결과 JavaScript 파일이 생성되었다.](https://github.com/SunJiHoon/LearnHub/assets/46434398/ab18ff05-82e0-481c-81f3-b582ce0f570a)
 
 ##### 2.2.5. 실행
@@ -127,12 +135,16 @@ JavaScript를 관리하기 위한 Vite 프로젝트 환경을 구성합니다.
 
 #### 회원가입
 1. 초기 화면에서 ‘회원가입’ 버튼을 클릭합니다.
+	
 	![서비스의 홈페이지에서 회원가입 버튼이 강조되어 있다.](https://github.com/SunJiHoon/LearnHub/assets/46434398/be4e0b3f-f8e2-4592-9667-94e7a332e539)
 2. 필요한 정보를 입력하여 회원가입을 합니다.
+	
 	![서비스의 학생 회원가입 화면](https://github.com/SunJiHoon/LearnHub/assets/46434398/038201ce-f396-4841-971a-dded89a286f5)
 
 #### 로그인 
+
 로그인 화면에서 이메일과 비밀번호를 입력하여 로그인합니다.
+
 ![서비스의 일반 학생 로그인 화면](https://github.com/SunJiHoon/LearnHub/assets/46434398/0f2fc4f1-cc07-4257-9bce-cf3568251b5b)
 
 ### 학습 자료 접근
@@ -146,40 +158,58 @@ JavaScript를 관리하기 위한 Vite 프로젝트 환경을 구성합니다.
 #### 학습
 
 1. 각 학습자료에 접근하면 AI 마법학교의 수업이 진행됩니다.
+	
 	![서비스의 학습 콘텐츠](https://github.com/SunJiHoon/LearnHub/assets/46434398/f46ba645-8304-4e10-b946-e04e53ade828)
 2. 사용자는 마법학교 수업을 수강하며 다음과 같이 학습을 진행합니다.
 	* **학습 예제 <인공지능의 발전과정 - 인공지능과 관련된 수학>**
 		1. 학습 목표를 제시한 후 학습 할 내용을 소개합니다.
+			
 			![학습 콘텐츠 중 일부](https://github.com/SunJiHoon/LearnHub/assets/46434398/24c98f1c-405f-4c3d-ad5b-d7ae236f571a)
 		2. 사용자는 인터랙티브 요소를 직접 조작하며 실습을 진행합니다.
+			
 			![학습 콘텐츠의 인터랙티브 요소](https://github.com/SunJiHoon/LearnHub/assets/46434398/dd866b84-a9df-4c4f-b369-e3b78371551d)
+			
 			![학습 콘텐츠의 인터랙티브 요소](https://github.com/SunJiHoon/LearnHub/assets/46434398/c002ceb0-0312-4635-9c50-691a36d6ae00)
 		3. 이후 연계되는 수학적 개념인 "푸리에 변환"을 제시합니다.
+			
 			![학습 콘텐츠 중 일부](https://github.com/SunJiHoon/LearnHub/assets/46434398/7c342ce3-b9b5-44cc-ad33-21726c91a63e)
 		4. 사용자는 파형을 조작하며 “푸리에 변환”을 실습합니다.
+			
 			![학습 콘텐츠의 인터랙티브 요소](https://github.com/SunJiHoon/LearnHub/assets/46434398/f1594c6b-143b-41ad-a49a-bca0a39a7380)
+			
 			![학습 콘텐츠의 인터랙티브 요소](https://github.com/SunJiHoon/LearnHub/assets/46434398/eaeafab8-004b-4c8b-b65b-9c6af42c7582)
 			*기존의 파형(검정색)은 기본 주파수 파동(파란색) 으로 분해됩니다.*
 		5. 실습을 진행한 후, 관련 개념을 학습하고 이론적 배경을 이해합니다.
+			
 			![학습 콘텐츠 중 일부](https://github.com/SunJiHoon/LearnHub/assets/46434398/b81fcbd4-7ade-41ff-9d25-ab620fcbc2f4)
 	* **학습 예제 <텍스트 자료의 표현과 처리>**
 		1. 학습 목표를 제시한 후 학습할 내용 "빈도수 벡터"를 소개합니다.
- 			![학습 콘텐츠 중 일부](https://github.com/SunJiHoon/LearnHub/assets/46434398/75f8d46d-22d2-45ad-8600-e52f30263211)
+ 			
+			![학습 콘텐츠 중 일부](https://github.com/SunJiHoon/LearnHub/assets/46434398/75f8d46d-22d2-45ad-8600-e52f30263211)
 		2. 실습에 적용될 개념과 공식을 설명합니다.
+			
 			![학습 콘텐츠 중 일부](https://github.com/SunJiHoon/LearnHub/assets/46434398/fcbbd755-ae4c-47f2-ba0f-98f03924e2bb)
 		3. 실습과 관련된 예시를 제시합니다.
- 			![학습 콘텐츠 중 일부](https://github.com/SunJiHoon/LearnHub/assets/46434398/58ccf852-b93e-4e36-ae84-c4e7ae22593f)
+ 			
+			![학습 콘텐츠 중 일부](https://github.com/SunJiHoon/LearnHub/assets/46434398/58ccf852-b93e-4e36-ae84-c4e7ae22593f)
 		4. 사용자가 직접 입력값을 입력하며 실습을 진행한 후, 코사인 유사도 결과를 확인합니다.
+			
 			![학습 콘텐츠의 인터랙티브 요소](https://github.com/SunJiHoon/LearnHub/assets/46434398/a2dbb6fc-5aca-44a5-8be0-ccc6c90af82e)
+			
 			![학습 콘텐츠의 인터랙티브 요소](https://github.com/SunJiHoon/LearnHub/assets/46434398/2cef3735-f2bf-47a3-85ac-ba60e51905d3)
 	* **학습 예제 <Convolutional Neural Network>**
 		1. 학습 목표를 제시한 후 학습할 내용을 소개합니다.
+			
 			![학습 콘텐츠 중 일부](https://github.com/SunJiHoon/LearnHub/assets/46434398/295719fc-7366-41b6-b7bf-afc618c26540)
 		2. 사용자가 직접 원소 문양을 바꿔가며 마법신경망을 확인합니다.
+			
 			![학습 콘텐츠의 인터랙티브 요소](https://github.com/SunJiHoon/LearnHub/assets/46434398/4ef476b1-a7b2-491d-a42b-79e82785e061)
+			
 			![학습 콘텐츠의 인터랙티브 요소](https://github.com/SunJiHoon/LearnHub/assets/46434398/297025f0-e167-4c3b-935f-fd60df8600fb)
+			
 			![학습 콘텐츠의 인터랙티브 요소](https://github.com/SunJiHoon/LearnHub/assets/46434398/57fe0d74-e941-4046-bb9f-d1641ad9626b)
 		3. 실습을 진행한 후, 관련 개념을 학습하고 CNN의 이론적 배경을 이해합니다.
+			
 			![학습 콘텐츠 중 일부](https://github.com/SunJiHoon/LearnHub/assets/46434398/4f292914-ccf0-4eb8-8d31-1ab9c9c90903)
 
 각 강의는 생생한 그래픽과 인터랙티브 요소를 포함하고 있어, 기초 원리를 쉽게 이해할 수 있습니다.
